@@ -19,6 +19,14 @@ class Restaurant extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(Restaurant::class);
+    }
+
     public static function generateSlug($string)
     {
         $slug = Str::slug($string, '-');

@@ -247,7 +247,7 @@ return [
         // MANUEL
         [ // 25
             "name" => "Panini di Mare",
-            "email" => "paninidimare@gmail.com",
+            "email" => "paninidimare1@gmail.com",
             "password" => "12345678",
             "telephone" => "0123456789",
             "iva" => "11111111112",
@@ -257,7 +257,7 @@ return [
         ],
         [ // 26
             "name" => "Borger",
-            "email" => "paninidimare@gmail.com",
+            "email" => "paninidimare2@gmail.com",
             "password" => "12345678",
             "telephone" => "0123456789",
             "iva" => "11111111113",
@@ -267,7 +267,7 @@ return [
         ],
         [ // 27
             "name" => "Trapizzino",
-            "email" => "paninidimare@gmail.com",
+            "email" => "paninidimare3@gmail.com",
             "password" => "12345678",
             "telephone" => "0123456789",
             "iva" => "11111111114",
@@ -277,7 +277,7 @@ return [
         ],
         [ // 28
             "name" => "La Grande Muraglia",
-            "email" => "paninidimare@gmail.com",
+            "email" => "paninidimare4@gmail.com",
             "password" => "12345678",
             "telephone" => "0123456789",
             "iva" => "11111111115",
@@ -287,7 +287,7 @@ return [
         ],
         [ // 29
             "name" => "Little Beijing",
-            "email" => "paninidimare@gmail.com",
+            "email" => "paninidimare5@gmail.com",
             "password" => "12345678",
             "telephone" => "0123456789",
             "iva" => "11111111116",
@@ -297,7 +297,7 @@ return [
         ],
         [ // 30
             "name" => "Mora Cinese",
-            "email" => "paninidimare@gmail.com",
+            "email" => "paninidimare6@gmail.com",
             "password" => "12345678",
             "telephone" => "0123456789",
             "iva" => "11111111117",

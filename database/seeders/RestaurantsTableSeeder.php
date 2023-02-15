@@ -17,8 +17,10 @@ class RestaurantsTableSeeder extends Seeder
     {
         $arr_restaurants = config('restaurants.restaurants');
 
+        $c = 1;
         foreach ($arr_restaurants as $restaurant) {
             $new_restaurant = new Restaurant();
+            $new_restaurant->user_id = $c;
             $new_restaurant->name = $restaurant['name'];
             $new_restaurant->slug = Restaurant::generateSlug($new_restaurant->name);
             $new_restaurant->address = $restaurant['address'];
@@ -29,7 +31,7 @@ class RestaurantsTableSeeder extends Seeder
 
             $new_restaurant->save();
 
-            //$new_restaurant->categories()->sync($restaurant['categories']);
+            $c++;
         }
     }
 }

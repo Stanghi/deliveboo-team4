@@ -6,17 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Restaurant extends Model
+class Product extends Model
 {
     use HasFactory;
-
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class);
-    }
-
-    public function products() {
-        return $this->hasMany(Product::class);
+    public function restaurant() {
+        return $this->belongsTo(Restaurant::class);
     }
 
     public static function generateSlug($string)
@@ -24,11 +18,11 @@ class Restaurant extends Model
         $slug = Str::slug($string, '-');
         $original_slug = $slug;
         $c = 1;
-        $exist = Restaurant::where('slug', $slug)->first();
+        $exist = Product::where('slug', $slug)->first();
 
         while ($exist) {
             $slug = $original_slug . '-' . $c;
-            $exist = Restaurant::where('slug', $slug)->first();
+            $exist = Product::where('slug', $slug)->first();
             $c++;
         }
         return $slug;

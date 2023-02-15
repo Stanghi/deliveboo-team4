@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 class Product extends Model
 {
     use HasFactory;
+    public function restaurant() {
+        return $this->belongsTo(Restaurant::class);
+    }
 
     public static function generateSlug($string)
     {

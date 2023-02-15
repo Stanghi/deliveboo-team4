@@ -10,6 +10,11 @@ class Restaurant extends Model
 {
     use HasFactory;
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public static function generateSlug($string)
     {
         $slug = Str::slug($string, '-');

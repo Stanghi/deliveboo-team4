@@ -14,5 +14,8 @@ class Order extends Model
             ->withPivot('quantity')->withTimestamps();
     }
 
+    public function restaurant() {
+        return $this->belongsTo(Restaurant::class);
+    }
 
 }

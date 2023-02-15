@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug', 180)->unique();
             $table->boolean('is_visible')->default(true);
             $table->text('description');
-            $table->float('price', 4,2);
+            $table->float('price', 5,2);
             $table->string('img')->nullable();
             $table->string('img_original_name')->nullable();
             $table->timestamps();

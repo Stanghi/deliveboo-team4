@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             CategoriesRestaurantsSeeder::class,
             ProductsTableSeeder::class,
             OrdersTableSeeder::class,
-            OrdersProductsSeeder::class
+            OrdersProductsSeeder::class,
+            AddAmountOrdersSeeder::class
         ]);
     }
 }

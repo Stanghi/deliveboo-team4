@@ -20,8 +20,8 @@ class OrdersProductsSeeder extends Seeder
             $order_id = $order->id;
             $restaurant_products = $order->restaurant->products;
             $products = [];
-
-            for ($i = 0; $i < 10; $i++) {
+            $random_limit = rand(3, 10);
+            for ($i = 0; $i < $random_limit; $i++) {
                 $product_id = $restaurant_products[rand(0, count($restaurant_products) - 1)]->id;
 
                 if(key_exists($product_id, $products)) {

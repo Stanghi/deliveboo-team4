@@ -1,7 +1,7 @@
 <nav>
     <ul>
-        <li class="{{ request()->segment(2) == '' ? 'active' : '' }}">
-            <a href="{{ route('admin.dashboard') }}">
+        <li class="{{ request()->segment(2) == 'statistics' ? 'active' : '' }}">
+            <a href="{{ route('admin.statistics') }}">
                 <i class="fa-solid fa-chart-pie"></i>Statistics
             </a>
         </li>

@@ -6,16 +6,53 @@
 
 @section('content')
     <div class="container">
-        <h1>Lista piatti</h1>
 
-        @foreach ($products as $product)
-            <div>
-                <h3>{{ $product->name }}</h3>
-                <button class="btn btn-outline-dark"><a href="{{ route('admin.products.show', $product) }}">show</a></button>
-                <button class="btn btn-outline-dark"><a href="{{ route('admin.products.edit', $product) }}">edit</a></button>
-                <button class="btn btn-outline-dark"><a href="#">delete</a></button>
-            </div>
-            <img class="mb-5" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
-        @endforeach
+        <div class="d-flex align-items-center justify-content-between">
+            <h1 class="my-5">Prodotti</h1>
+            <a href="{{ route('admin.products.create') }}" title="Crea" class="btn btn-outline-dark"><i
+                    class="fa-solid fa-plus"></i>
+            </a>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Prezzo</th>
+                    <th scope="col">Visibilità</th>
+                    <th scope="col">Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($products as $product)
+                    <tr>
+                        <td>{{ $product->name }}</td>
+                        <td>&euro; {{ number_format($product->price, 2, ',') }}</td>
+                        <td>
+                            @if ($product->is_visible)
+                                <i class="fa-solid fa-circle-check"></i>
+                            @else
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="actions-index d-flex">
+                                <a class="btn btn-outline-dark me-2" title="Mostra"
+                                    href="{{ route('admin.products.show', $product) }}"><i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a class="btn btn-outline-dark me-2" title="Modifica"
+                                    href="{{ route('admin.products.edit', $product) }}"><i class="fa-solid fa-pen"></i>
+                                </a>
+                                @include('admin.partials.form-delete', [
+                                    'route' => 'products',
+                                    'message' => "Confermi l'eliminatione di $product->title ?",
+                                    'entity' => $product,
+                                ])
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection

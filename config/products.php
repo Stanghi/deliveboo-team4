@@ -59,14 +59,6 @@ return [
             "description" => "Tartare di battuta di manzo ai fiocchi di sale rosa, granella di pistacchi e capperi servita con insalata croccante di puntarelle. Piatto Gluten Free.",
             "price" => 19.00,
         ],
-        [
-            "name" => "Tortino al cioccolato",
-            "restaurant_id" => 1,
-            "img" => "uploads/metropolitan-tortino.jpg",
-            "isVisible" => true,
-            "description" => "Tortino con cuore morbido al cioccolato fondente ed accompagnamento di fragole di Maletto IGP e gelato alla vaniglia del Madagascar.",
-            "price" => 7.00,
-        ],
         // 2 ---------------------------------------------------------------------------------------------------------------
         [
             "name" => "Pizza Cleto",

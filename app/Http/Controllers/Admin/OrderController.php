@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Restaurant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -16,7 +20,29 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $restaurant = Restaurant::where('user_id', Auth::id())->first();
+        $orders = Order::where('restaurant_id', $restaurant->id)->get()->sortBy('id');
+
+        //$products = Product::where('restaurant_id', $restaurant->id)->get()->sortBy('id');
+        /*
+        foreach($orders as $order){
+            dump($order->id . ' ' . 'id ordine');
+            $total_quantity = 0;
+            foreach($order->products as $product){
+
+                $total_quantity += $product->pivot->quantity;
+                dump($product->name);
+                dump($product->pivot->quantity . ' ' . 'quantita individuale');
+
+            }
+
+            dump($total_quantity . ' ' . 'totale');
+        } */
+        // foreach($orders->products()->quantity as $item){
+
+        // }
+
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -44,9 +70,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(string $id)
+    public function show(Order $order)
     {
-        //
+        return view('admin.orders.show', compact('order'));
     }
 
     /**

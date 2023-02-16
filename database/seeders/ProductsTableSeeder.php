@@ -14,7 +14,7 @@ class ProductsTableSeeder extends Seeder
     public function run(): void
     {
         $products = config('products.products');
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $new_product = new Product();
             $new_product->restaurant_id = $product['restaurant_id'];
             $new_product->name = $product['name'];

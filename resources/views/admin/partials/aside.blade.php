@@ -2,7 +2,7 @@
     <ul>
         <li class="{{ request()->segment(2) == 'statistics' ? 'active' : '' }}">
             <a href="{{ route('admin.statistics') }}">
-                <i class="fa-solid fa-chart-pie"></i>Statistics
+                <i class="fa-solid fa-chart-pie"></i>Statistiche
             </a>
         </li>
 

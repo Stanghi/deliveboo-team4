@@ -112,12 +112,6 @@ class ProductController extends Controller
 
         $product->update($form_data);
 
-        // if (array_key_exists('technologies', $form_data)) {
-        //     $product->technologies()->sync($form_data['technologies']);
-        // } else {
-        //     $product->technologies()->detach();
-        // }
-
         return redirect()->route('admin.products.show', $product);
     }
 

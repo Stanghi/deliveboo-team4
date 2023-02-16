@@ -3,27 +3,27 @@
 namespace Database\Seeders;
 
 use App\Models\Order;
+use App\Models\Restaurant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Generator as Faker;
 
 class OrdersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(Faker $faker): void
     {
-        $arr_orders = config('orders.orders');
-        foreach ($arr_orders as $order) {
+        for($i = 0; $i < 200; $i++) {
             $new_order = new Order();
-            $new_order->name = $order['name'];
-            $new_order->surname = $order['surname'];
-            $new_order->restaurant_id = $order['restaurant_id'];
-            $new_order->email = $order['email'];
-            $new_order->telephone = $order['telephone'];
-            $new_order->address = $order['address'];
-            $new_order->amount = $order['amount'];
-
+            $new_order->name = $faker->firstName();
+            $new_order->surname = $faker->lastName();
+            $new_order->email = $faker->email();
+            $new_order->telephone = $faker->e164PhoneNumber();
+            $new_order->restaurant_id = Restaurant::inRandomOrder()->first()->id;
+            $new_order->address = $faker->address();
+            $new_order->amount = 0;
             $new_order->save();
         }
     }

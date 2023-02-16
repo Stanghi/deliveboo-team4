@@ -17,6 +17,8 @@ class Restaurant extends Model
         'address',
         'iva',
         'telephone',
+        'img',
+        'img_original_name',
     ];
 
     public function categories()

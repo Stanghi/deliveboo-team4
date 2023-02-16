@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -40,7 +41,8 @@ class RegisteredUserController extends Controller
                 'restaurant_name' => ['required', 'string', 'min:2', 'max:100'],
                 'address' => ['required', 'string', 'min:8', 'max:100'],
                 'iva' => ['required','digits:11'],
-                'telephone' => ['required','min:5', 'max:20']
+                'telephone' => ['required','min:5', 'max:20'],
+                'img' => ['nullable', 'image', 'max:3100']
             ],
             [
                 //User name
@@ -77,17 +79,27 @@ class RegisteredUserController extends Controller
                 'telephone.required' => 'Il numero di telefono è un campo obbligatorio',
                 'telephone.min' => 'Il numero di telefono richiede almeno :min caratteri',
                 'telephone.max' => 'Il numero di telefono consente al massimo :max caratteri',
+
+                //Restaurant image
+                'img'=>'Il file caricato non è corretto',
+                'img.max'=>'Il campo immagine consente il caricamento di un file al massimo di 3 Mb'
             ]
     );
-
-        $request['slug'] = Str::slug($request['name'], '-');
-
+        //User table
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+
+        //Restaurant table
+        $request['slug'] = Restaurant::generateSlug($request['restaurant_name']);
+
+        if(array_key_exists('img', $request->all())) {
+            $request['img_original_name'] = $request->file('img')->getClientOriginalName();
+            $request['img'] = Storage::put('uploads', $request['img']);
+        }
 
         $restaurant = Restaurant::create([
             'user_id' => $user->id,
@@ -96,6 +108,8 @@ class RegisteredUserController extends Controller
             'address' => $request->address,
             'iva' => $request->iva,
             'telephone' => $request->telephone,
+            'img' => $request->img,
+            'img_original_name' => $request->img_original_name
         ]);
 
         event(new Registered($user));

@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Registazione') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-4 row">
@@ -117,13 +117,17 @@
                             <label for="img" class="col-md-4 col-form-label text-md-right"><i class="fa-solid fa-utensils"></i> {{ __('Immagine') }} </label>
 
                             <div class="col-md-6">
-                                <input id="img" type="text" class="form-control @error('img') is-invalid @enderror" name="img" value="{{ old('img')}}" autocomplete="img" autofocus>
+                                <input id="img" type="file" onchange="showImage(event)" class="form-control @error('img') is-invalid @enderror" name="img" autocomplete="img" autofocus>
 
                                 @error('img')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
+
+                                <div class="thumb mt-2">
+                                    <img id="thumb_upload" style="max-height: 150px" src="" alt="">
+                                </div>
                             </div>
                         </div>
 
@@ -141,4 +145,19 @@
         </div>
     </div>
 </div>
+
+{{-- Image thumb function --}}
+<script>
+    ClassicEditor
+        .create(document.querySelector('#summary'))
+        .catch(error => {
+            console.error(error);
+        });
+
+    function showImage(event) {
+        const tagImage = document.getElementById('thumb_upload');
+        tagImage.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+
 @endsection

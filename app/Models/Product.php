@@ -10,11 +10,24 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function restaurant() {
+    protected $fillable = [
+        'name',
+        'price',
+        'slug',
+        'img',
+        'description',
+        'img_original_name',
+        'restaurant_id',
+        'category_id'
+    ];
+
+    public function restaurant()
+    {
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function orders() {
+    public function orders()
+    {
         return $this->belongsToMany(Order::class)
             ->withPivot('quantity')->withTimestamps();
     }

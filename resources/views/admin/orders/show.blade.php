@@ -8,7 +8,8 @@
 
 
 
-    <div class="container">
+    <div class="container mt-5">
+        <a href="{{route('admin.orders.index')}}" class="btn btn-primary mb-3"><i class="fa-solid fa-arrow-left"></i></a>
         <div class="card w-50">
             <div class="card-header">
                 <h4>Show order {{$order->id}}</h4>

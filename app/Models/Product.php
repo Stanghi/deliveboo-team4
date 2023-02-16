@@ -32,6 +32,10 @@ class Product extends Model
             ->withPivot('quantity')->withTimestamps();
     }
 
+    // public function categories()
+    // {
+    //     return $this->belongsToMany(Category::class);
+    // }
 
     public static function generateSlug($string)
     {

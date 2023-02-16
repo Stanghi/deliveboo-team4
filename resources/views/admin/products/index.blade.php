@@ -37,11 +37,11 @@
                         </td>
                         <td>
                             <div class="actions-index d-flex">
-                                <a class="btn btn-outline-dark me-2" href="{{ route('admin.products.show', $product) }}"><i
-                                        class="fa-solid fa-eye"></i>
+                                <a class="btn btn-outline-dark me-2" title="Show"
+                                    href="{{ route('admin.products.show', $product) }}"><i class="fa-solid fa-eye"></i>
                                 </a>
-                                <a class="btn btn-outline-dark me-2" href="{{ route('admin.products.edit', $product) }}"><i
-                                        class="fa-solid fa-pen"></i>
+                                <a class="btn btn-outline-dark me-2" title="Edit"
+                                    href="{{ route('admin.products.edit', $product) }}"><i class="fa-solid fa-pen"></i>
                                 </a>
                                 @include('admin.partials.form-delete', [
                                     'route' => 'products',

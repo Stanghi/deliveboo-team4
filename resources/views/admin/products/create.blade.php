@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    | Crea piatto
+    | Crea prodotto
 @endsection
 
 @section('content')

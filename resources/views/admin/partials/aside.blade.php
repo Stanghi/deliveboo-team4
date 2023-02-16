@@ -1,14 +1,14 @@
 <nav>
     <ul>
-        <li class="{{ request()->segment(2) == 'statistics' ? 'active' : '' }}">
-            <a href="{{ route('admin.statistics') }}">
+        <li class="{{ request()->segment(2) == '' ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}">
                 <i class="fa-solid fa-chart-pie"></i>Statistiche
             </a>
         </li>
 
-        <li class="{{ request()->segment(2) == 'restaurants' ? 'active' : '' }}">
-            <a href="#">
-                <i class="fa-solid fa-utensils"></i>Ristorante
+        <li class="{{ request()->segment(2) == 'orders' ? 'active' : '' }}">
+            <a href="{{ route('admin.orders.index') }}">
+                <i class="fa-solid fa-cart-shopping"></i>Ordini
             </a>
         </li>
 
@@ -18,9 +18,9 @@
             </a>
         </li>
 
-        <li class="{{ request()->segment(2) == 'orders' ? 'active' : '' }}">
-            <a href="{{ route('admin.orders.index') }}">
-                <i class="fa-solid fa-cart-shopping"></i>Ordini
+        <li class="{{ request()->segment(2) == 'restaurants' ? 'active' : '' }}">
+            <a href="#">
+                <i class="fa-solid fa-utensils"></i>Ristorante
             </a>
         </li>
     </ul>

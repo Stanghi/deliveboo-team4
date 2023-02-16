@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('name')
-    | Modifica piatto
+@section('title')
+    | Modifica prodotto {{ $product->name }}
 @endsection
 
 @section('content')

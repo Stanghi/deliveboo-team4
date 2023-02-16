@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    | Ristoranti
+    | Ristorante
 @endsection
 
 @section('content')

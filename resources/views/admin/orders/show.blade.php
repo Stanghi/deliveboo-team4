@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    | show order {{ $order->id }}
+    | show order #{{ $order->id }}
 @endsection
 
 @section('content')
@@ -47,7 +47,7 @@
                     @endif
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">ID Prodotto</th>

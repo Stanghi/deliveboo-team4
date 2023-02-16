@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    | Ordinis
+    | Ordini
 @endsection
 
 @section('content')
     <div class="container mt-5">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">ID Ordine</th>
@@ -43,7 +43,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <th colspan="6">Nessun ordine presente</th>
+                        <td colspan="6">Nessun ordine presente</td>
                     </tr>
                 @endforelse
             </tbody>

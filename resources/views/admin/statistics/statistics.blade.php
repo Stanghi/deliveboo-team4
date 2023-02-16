@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    | Statistiche Ristorante
+    | Statistiche
 @endsection
 
 @section('content')

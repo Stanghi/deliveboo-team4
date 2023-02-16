@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    | Lista piatti
+    | Prodotti
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Nome</th>
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
+                @forelse ($products as $product)
                     <tr>
                         <td>{{ $product->name }}</td>
                         <td>&euro; {{ number_format($product->price, 2, ',') }}</td>
@@ -51,7 +51,11 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="6">Nessun prodotto presente</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

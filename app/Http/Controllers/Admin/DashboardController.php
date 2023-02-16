@@ -11,6 +11,6 @@ class DashboardController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('admin.home', compact('categories'));
+        return view('admin.statistics.statistics', compact('categories'));
     }
 }

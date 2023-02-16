@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    | Mosta piatto
+    | Prodotto {{ $product->name }}
 @endsection
 
 @section('content')

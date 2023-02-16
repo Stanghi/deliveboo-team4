@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +27,10 @@ Route::middleware(['auth', 'verified'])
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('products', ProductController::class);
+        Route::resource('restaurants', RestaurantController::class);
+        Route::resource('orders', OrderController::class)->except('create', 'edit');
+        Route::resource('statistics', StatisticController::class)->except('create', 'edit');
     });
 
 // Route::get('{any?}', function () {

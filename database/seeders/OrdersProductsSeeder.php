@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Order;
-use App\Models\Restaurant;
+use Illuminate\Database\Console\DumpCommand;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,9 +18,7 @@ class OrdersProductsSeeder extends Seeder
 
         foreach ($orders as $order) {
             $order_id = $order->id;
-            $restaurant_id = $order->restaurant_id;
-            $restaurant = Restaurant::where('id', $restaurant_id)->first();
-            $restaurant_products = $restaurant->products;
+            $restaurant_products = $order->restaurant->products;
             $products = [];
 
             for ($i = 0; $i < 10; $i++) {

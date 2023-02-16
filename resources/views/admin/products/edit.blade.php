@@ -24,7 +24,7 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label">Nome *</label>
                 <input category="text" class="form-control @error('name') is-invalid @enderror" id="name"
                     name="name" value="{{ old('name', $product->name) }}" placeholder="Add name...">
                 @error('name')
@@ -35,7 +35,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="price" class="form-label">Price *</label>
+                <label for="price" class="form-label">Prezzo *</label>
                 <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
                     name="price" value="{{ old('price', $product->price) }}" placeholder="Add price...">
                 @error('price')
@@ -46,7 +46,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="img" class="form-label">Cover image</label>
+                <label for="img" class="form-label">Immagine</label>
                 <input type="file" class="form-control @error('img') is-invalid @enderror" id="img" name="img"
                     value="{{ old('img', $product->img) }}" placeholder="Add URL for image..." onchange="showImage(event)">
                 @error('img')
@@ -63,8 +63,9 @@
             </div>
 
             <div class="mb-3">
-                <label for="description" class="form-label">description</label><br>
-                <textarea id="description" name="description" rows="5" placeholder="Add description...">{{ old('description', $product->description) }}</textarea>
+                <label for="description" class="form-label">Descrizione *</label><br>
+                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                    rows="5" placeholder="Add description...">{{ old('description', $product->description) }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -72,7 +73,7 @@
                 @enderror
             </div>
 
-            <button category="submit" class="btn btn-dark">Submit
+            <button category="submit" class="btn btn-dark">Invia
                 <i class="fa-solid fa-file-import ms-1"></i>
             </button>
         </form>

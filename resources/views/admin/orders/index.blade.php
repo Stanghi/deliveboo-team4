@@ -11,7 +11,7 @@
                 <tr>
                     <th scope="col">ID Ordine</th>
                     <th scope="col">Cognome e Nome</th>
-                    <th scope="col">Quantita</th>
+                    <th scope="col">Numero prodotti</th>
                     <th scope="col">Totale</th>
                     <th scope="col">Data e Ora</th>
                     <th scope="col">Vedi</th>
@@ -20,8 +20,8 @@
             <tbody>
                 @forelse ($orders as $order)
                     <tr>
-                        <th scope="row">{{$order->id}}</th>
-                        <td>{{$order->name}} {{$order->surname}}</td>
+                        <th scope="row">{{ $order->id }}</th>
+                        <td>{{ $order->name }} {{ $order->surname }}</td>
                         <td>
                             @php
                                 $total_quantity = 0;
@@ -31,12 +31,14 @@
                                     $total_quantity += $product->pivot->quantity;
                                 @endphp
                             @endforeach
-                            {{$total_quantity}}
+                            {{ $total_quantity }}
                         </td>
-                        <td>{{$order->amount}}</td>
-                        <td>{{$order->created_at}}</td>
+                        <td>&euro; {{ number_format($order->amount, 2, ',') }}</td>
+                        <td>{{ date_format($order->created_at, 'd/m/Y') }} - {{ date_format($order->created_at, 'H:i') }}
+                        </td>
                         <td>
-                            <a class="btn btn-outline-primary" href="{{route('admin.orders.show', $order)}}"><i class="fa-regular fa-eye"></i></a>
+                            <a class="btn btn-outline-dark" href="{{ route('admin.orders.show', $order) }}"><i
+                                    class="fa-solid fa-eye"></i></a>
                         </td>
                     </tr>
                 @empty

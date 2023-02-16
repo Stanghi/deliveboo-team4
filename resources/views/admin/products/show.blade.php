@@ -10,7 +10,7 @@
 
         @include('admin.partials.action-in-page')
 
-        <h3>€ {{ $product->price }}</h3>
+        <h3>&euro; {{ number_format($product->price, 2, ',') }}</h3>
 
         @if ($product->img)
             <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->img_original_name }}">

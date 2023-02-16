@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Restaurant;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -30,16 +32,70 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $request->validate(
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'restaurant_name' => ['required', 'string', 'min:2', 'max:100'],
+                'address' => ['required', 'string', 'min:8', 'max:100'],
+                'iva' => ['required','digits:11'],
+                'telephone' => ['required','min:5', 'max:20']
+            ],
+            [
+                //User name
+                'name.required' => 'Il nome utente è un campo obbligatorio',
+                'name.string' => 'Il nome utente deve essere una stringa',
+                'name.max' => 'Il nome utente è consente al massimo :max caratteri',
+
+                //User e-mail
+                'email.required' => 'L\'indirizzo e-mail è un campo obbligatorio',
+                'email.string' => 'L\'indirizzo e-mail deve essere una stringa',
+                'email.email' => 'L\'indirizzo e-mail inserito non è valido',
+                'email.max' => 'L\'indirizzo e-mail consente al massimo :max caratteri',
+                'email.unique' => 'L\'indirizzo e-mail inserito è già esistente',
+
+                //User password
+                'password.required' => 'La password è un campo obbligatorio',
+                'password.confirmed' => 'L\'indirizzo e-mail non corrisponde a quello inserito',
+
+                //Restaurant name
+                'restaurant_name.required' => 'Il nome del ristorante è un campo obbligatorio',
+                'restaurant_name.min' => 'Il nome del ristorante richiede almeno :min caratteri',
+                'restaurant_name.max' => 'Il nome del ristorante consente al massimo :max caratteri',
+
+                //Restaurant address
+                'address.required' => 'L\'indirizzo del ristorante è un campo obbligatorio',
+                'address.min' => 'L\'indirizzo del ristorante richiede almeno :min caratteri',
+                'address.max' => 'L\'indirizzo del ristorante consente al massimo :max caratteri',
+
+                //Restaurant iva
+                'iva.required' => 'La partita iva del ristorante è un campo obbligatorio',
+                'iva.digits' => 'La partita iva del ristorante deve essere composta da 11 cifre',
+
+                //Restaunra telephone
+                'telephone.required' => 'Il numero di telefono è un campo obbligatorio',
+                'telephone.min' => 'Il numero di telefono richiede almeno :min caratteri',
+                'telephone.max' => 'Il numero di telefono consente al massimo :max caratteri',
+            ]
+    );
+
+        $request['slug'] = Str::slug($request['name'], '-');
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+
+
+        $restaurant = Restaurant::create([
+            'user_id' => $user->id,
+            'name' => $request->restaurant_name,
+            'slug' => $request->slug,
+            'address' => $request->address,
+            'iva' => $request->iva,
+            'telephone' => $request->telephone,
         ]);
 
         event(new Registered($user));

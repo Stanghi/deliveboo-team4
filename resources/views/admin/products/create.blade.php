@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('title')
-    | Admin Dashboard
+    | Crea piatto
 @endsection
 
 @section('content')
-    <h2>Dashboard</h2>
 @endsection

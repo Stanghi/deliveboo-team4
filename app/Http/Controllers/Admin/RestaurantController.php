@@ -3,24 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Restaurant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RestaurantController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        //
+        $restaurants = Restaurant::where('user_id', Auth::id())->get();
+
+        return view('admin.restaurants.index', compact('restaurants'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
+    public function create()
     {
         //
     }
@@ -28,7 +32,7 @@ class RestaurantController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         //
     }
@@ -36,7 +40,7 @@ class RestaurantController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(string $id)
     {
         //
     }
@@ -44,7 +48,7 @@ class RestaurantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit(string $id)
     {
         //
     }
@@ -52,7 +56,7 @@ class RestaurantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -60,7 +64,7 @@ class RestaurantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id)
     {
         //
     }

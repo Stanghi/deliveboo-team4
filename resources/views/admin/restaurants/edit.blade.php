@@ -30,7 +30,7 @@
                 <div class="mb-3">
                     <label for="name" class="form-label">Nome *</label>
                     <input category="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                        name="name" value="{{ old('name', $restaurant->name) }}" placeholder="Add name...">
+                        name="name" value="{{ old('name', $restaurant->name) }}" placeholder="Add name..." required>
                     @error('name')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -41,7 +41,7 @@
                 <div class="mb-3">
                     <label for="address" class="form-label">Indirizzo *</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
-                        name="address" value="{{ old('address', $restaurant->address) }}" placeholder="Add address...">
+                        name="address" value="{{ old('address', $restaurant->address) }}" placeholder="Add address..." required>
                     @error('address')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -69,7 +69,7 @@
                 <div class="mb-3">
                     <label for="telephone" class="form-label">Telefono *</label>
                     <input type="text" class="form-control @error('telephone') is-invalid @enderror" id="telephone"
-                        name="telephone" value="{{ old('telephone', $restaurant->telephone) }}" placeholder="Add telephone...">
+                        name="telephone" value="{{ old('telephone', $restaurant->telephone) }}" placeholder="Add telephone..." required>
                     @error('telephone')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -78,9 +78,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="iva" class="form-label">IVA *</label>
+                    <label for="iva" class="form-label">Partita IVA *</label>
                     <input type="text" class="form-control @error('iva') is-invalid @enderror" id="iva"
-                        name="iva" value="{{ old('iva', $restaurant->iva) }}" placeholder="Add IVA...">
+                        name="iva" value="{{ old('iva', $restaurant->iva) }}" placeholder="Add IVA..." required>
                     @error('iva')
                         <div class="invalid-feedback">
                             {{ $message }}

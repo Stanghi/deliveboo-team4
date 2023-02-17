@@ -30,9 +30,9 @@
                         <td>&euro; {{ number_format($product->price, 2, ',') }}</td>
                         <td>
                             @if ($product->is_visible)
-                                <i class="fa-solid fa-circle-check"></i>
+                                <i class="fa-solid fa-circle-check"></i> Visibile
                             @else
-                                <i class="fa-solid fa-circle-xmark"></i>
+                                <i class="fa-solid fa-circle-xmark"></i> Non visibile
                             @endif
                         </td>
                         <td>

@@ -9,20 +9,30 @@
     <div class="container">
 
         @include('admin.partials.action-in-page')
+        <div class="d-flex">
 
-        <h3>&euro; {{ number_format($product->price, 2, ',') }}</h3>
+            <div class="img-box me-5">
+                @if ($product->img)
+                    <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->img_original_name }}">
+                    <p>{{ $product->img_original }}</p>
+                @endif
+            </div>
 
-        @if ($product->img)
-            <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->img_original_name }}">
-            <p>{{ $product->img_original }}</p>
-        @endif
+            <div class="info">
+                <h3>Prezzo</h3>
+                <p>&euro; {{ number_format($product->price, 2, ',') }}</p>
 
-        @if ($product->is_visible)
-            <p>Prodotto visibile</p>
-        @else
-            <p>Prodotto non visibile</p>
-        @endif
+                @if ($product->is_visible)
+                    <h3>Visibilità</h3>
+                    <p>Prodotto visibile</p>
+                @else
+                    <h3>Visibilità</h3>
+                    <p>Prodotto non visibile</p>
+                @endif
 
-        <p>{!! $product->description !!}</p>
+                <h3>Descrizione</h3>
+                <p>{!! $product->description !!}</p>
+            </div>
+        </div>
     </div>
 @endsection

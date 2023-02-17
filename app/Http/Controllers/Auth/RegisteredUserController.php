@@ -36,12 +36,12 @@ class RegisteredUserController extends Controller
         $request->validate(
             [
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'restaurant_name' => ['required', 'string', 'min:2', 'max:100'],
                 'address' => ['required', 'string', 'min:8', 'max:100'],
-                'iva' => ['required','digits:11'],
-                'telephone' => ['required','min:5', 'max:20'],
+                'iva' => ['required', 'digits:11'],
+                'telephone' => ['required', 'min:5', 'max:20'],
                 'img' => ['nullable', 'image', 'max:3100']
             ],
             [
@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
 
                 //User password
                 'password.required' => 'La password è un campo obbligatorio',
-                'password.confirmed' => 'L\'indirizzo e-mail non corrisponde a quello inserito',
+                'password.confirmed' => 'La password non corrisponde a quella inserito',
 
                 //Restaurant name
                 'restaurant_name.required' => 'Il nome del ristorante è un campo obbligatorio',
@@ -81,10 +81,10 @@ class RegisteredUserController extends Controller
                 'telephone.max' => 'Il numero di telefono consente al massimo :max caratteri',
 
                 //Restaurant image
-                'img'=>'Il file caricato non è corretto',
-                'img.max'=>'Il campo immagine consente il caricamento di un file al massimo di 3 Mb'
+                'img' => 'Il file caricato non è corretto',
+                'img.max' => 'Il campo immagine consente il caricamento di un file al massimo di 3 Mb'
             ]
-    );
+        );
         //User table
         $user = User::create([
             'name' => $request->name,
@@ -96,7 +96,7 @@ class RegisteredUserController extends Controller
         //Restaurant table
         $request['slug'] = Restaurant::generateSlug($request['restaurant_name']);
 
-        if(array_key_exists('img', $request->all())) {
+        if (array_key_exists('img', $request->all())) {
             $request['img_original_name'] = $request->file('img')->getClientOriginalName();
             $request['img'] = Storage::put('uploads', $request['img']);
         }

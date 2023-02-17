@@ -15,13 +15,14 @@ class AddAmountOrdersSeeder extends Seeder
     {
         $orders = Order::all();
 
-        foreach($orders as $order) {
+        foreach ($orders as $order) {
             $amount = 0;
-            foreach($order->products as $product) {
+            foreach ($order->products as $product) {
                 $amount  += $product->price * $product->pivot->quantity;
             }
-        $order->amount = $amount;
-        $order->update();
+
+            $order->amount = $amount;
+            $order->update();
         }
     }
 }

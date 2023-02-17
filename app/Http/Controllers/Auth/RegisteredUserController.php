@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'restaurant_name' => ['required', 'string', 'min:2', 'max:100'],
                 'address' => ['required', 'string', 'min:8', 'max:100'],
-                'iva' => ['required', 'digits:11'],
+                'iva' => ['required', 'digits:11', 'unique:restaurants,iva'],
                 'telephone' => ['required', 'min:5', 'max:20'],
                 'img' => ['nullable', 'image', 'max:3100']
             ],
@@ -59,7 +59,9 @@ class RegisteredUserController extends Controller
 
                 //User password
                 'password.required' => 'La password è un campo obbligatorio',
+                'password.min' => 'La password richiede almeno 8 caratteri',
                 'password.confirmed' => 'La password non corrisponde a quella inserito',
+
 
                 //Restaurant name
                 'restaurant_name.required' => 'Il nome del ristorante è un campo obbligatorio',
@@ -73,9 +75,10 @@ class RegisteredUserController extends Controller
 
                 //Restaurant iva
                 'iva.required' => 'La partita iva del ristorante è un campo obbligatorio',
+                'iva.unique' => 'La partita iva inserita è già esistente',
                 'iva.digits' => 'La partita iva del ristorante deve essere composta da 11 cifre',
 
-                //Restaunra telephone
+                //Restaurant telephone
                 'telephone.required' => 'Il numero di telefono è un campo obbligatorio',
                 'telephone.min' => 'Il numero di telefono richiede almeno :min caratteri',
                 'telephone.max' => 'Il numero di telefono consente al massimo :max caratteri',

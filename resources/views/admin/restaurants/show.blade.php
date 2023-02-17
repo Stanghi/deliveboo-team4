@@ -21,7 +21,7 @@
                 <p>{{ $restaurant->address}}</p>
                 <h3>Telefono</h3>
                 <p>{{ $restaurant->telephone}}</p>
-                <h3>IVA</h3>
+                <h3>Partita IVA</h3>
                 <p>{{ $restaurant->iva}}</p>
             </div>
         </div>

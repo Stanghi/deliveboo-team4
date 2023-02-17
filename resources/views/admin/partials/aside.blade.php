@@ -19,7 +19,7 @@
         </li>
 
         <li class="{{ request()->segment(2) == 'restaurants' ? 'active' : '' }}">
-            <a href="#">
+            <a href="{{route('admin.restaurants.index')}}">
                 <i class="fa-solid fa-utensils"></i>Ristorante
             </a>
         </li>

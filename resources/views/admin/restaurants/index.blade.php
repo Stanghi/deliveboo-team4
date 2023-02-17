@@ -24,7 +24,7 @@
             </div>
         @endforeach
             <div class="col-4 p-5 d-flex align-items-center justify-content-center">
-                <a  class="card h-75 w-75 text-decoration-none" href="#">
+                <a  class="my-card card h-75 w-75 text-decoration-none" href="#">
 
                     <div class="card-body d-flex align-items-center justify-content-center">
                         <i class="fs-1 text-secondary fa-solid fa-circle-plus"></i>

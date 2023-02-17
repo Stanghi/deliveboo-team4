@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $restaurant->name }}</h5>
                         <p class="card-text">{{$restaurant->address}}</p>
-                        <a href="#" class="btn btn-outline-dark"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{{route('admin.restaurants.show', $restaurant)}}" class="btn btn-outline-dark"><i class="fa-solid fa-eye"></i></a>
                         <a href="#" class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></a>
                     </div>
                 </div>

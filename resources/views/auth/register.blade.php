@@ -169,8 +169,8 @@
                                         value="{{ old('telephone') }}"
                                         placeholder="Scrivi qui il numero di telefono del ristorante" required
                                         autocomplete="telephone" autofocus
-                                        title="Campo obbligatorio, inserire un numero di telefono valido" minlength="5"
-                                        maxlength="20"
+                                        title="Campo obbligatorio, inserire un numero di telefono valido"
+                                        pattern="[0-9-+\s()]{5,20}"
                                         oninvalid="this.setCustomValidity('Il campo è obbligatorio, inserire un numero di telefono valido.')"
                                         onchange="this.setCustomValidity('')">
 

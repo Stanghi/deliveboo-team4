@@ -4,6 +4,10 @@ body {
     background-color: #ececec;
 }
 
+.nav-header-custom {
+    visibility: hidden;
+}
+
 .debug {
     background-color: rgba(255, 0, 0, 0.5);
     border-radius: 1px solid black;
@@ -19,14 +23,6 @@ body {
 .navbar {
     height: 54px;
     background-color: #141212;
-
-    #navbarDropdown,
-    .home {
-        color: white;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
 }
 
 .aside {
@@ -47,7 +43,7 @@ body {
 
                 &:hover {
                     //border-radius: 5px;
-                    background-color: #e0e0e0;
+                    background-color: #c7c5c5;
                 }
                 &:hover a,
                 &:hover i {
@@ -92,6 +88,10 @@ body {
     color: white;
 }
 
+.dropdown-menu {
+    background-color: #ececec;
+}
+
 .fa-home:hover {
     color: #f15a25;
 }
@@ -118,4 +118,36 @@ body {
 
 .ck-editor__editable[role="textbox"] {
     min-height: 150px;
+}
+
+.collapse-background {
+    background-color: #141212;
+    z-index: 999;
+}
+
+.navbar-toggler i {
+    color: rgb(255, 255, 255);
+}
+
+.product-smartphone-cards {
+    display: none;
+}
+
+@media all and (max-width: 480px) {
+    .aside,
+    .product-table-pc {
+        display: none;
+    }
+
+    .nav-header-custom {
+        visibility: visible;
+    }
+
+    .product-smartphone-cards {
+        display: block;
+    }
+
+    .content {
+        width: 100%;
+    }
 }

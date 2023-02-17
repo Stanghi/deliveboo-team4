@@ -30,19 +30,52 @@
     <div id="app">
         {{-- header --}}
         <nav class="navbar navbar-expand-md shadow-sm">
-            <div class="container-fluid">
+            <div class="container-fluid collapse-background">
+
+                <a class="navbar-brand d-flex align-items-center" href="{{ url('/admin') }}">
+                    <div class="logo_laravel text-white">
+                        DeliveBoo
+                    </div>
+                </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                    {{-- <span class="navbar-toggler-icon"></span> --}}
+                    <i class="fa-solid fa-bars"></i>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto nav-header-custom">
                         <li class="nav-item">
-                            <a class="nav-link home" href="{{ url('/') }}"><i class="fa-solid fa-home"></i></a>
+                            <a class="nav-link " href="{{ url('/') }}"><i class="fa-solid fa-home me-2"></i>Torna
+                                al
+                                sito</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link me-3" href="{{ route('admin.dashboard') }}">
+                                <i class="fa-solid fa-chart-pie me-2"></i>Statistiche
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link me-3" href="{{ route('admin.orders.index') }}">
+                                <i class="fa-solid fa-cart-shopping me-2"></i>Ordini
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link me-3" href="{{ route('admin.products.index') }}">
+                                <i class="fa-solid fa-pizza-slice me-2"></i>Prodotti
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link me-3" href="{{ route('admin.restaurants.index') }}">
+                                <i class="fa-solid fa-utensils me-2"></i>Ristorante
+                            </a>
                         </li>
                     </ul>
 
@@ -60,7 +93,7 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown mb-2">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -68,11 +101,11 @@
 
                                 <div class="dropdown-menu" style="right: 5px; left: auto;" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ url('admin') }}">{{ __('Dashboard') }}</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i>Profilo</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="fa-solid fa-right-from-bracket me-2 text-danger"></i>Esci
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

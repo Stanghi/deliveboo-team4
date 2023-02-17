@@ -19,10 +19,9 @@ class RestaurantController extends Controller
     public function index()
     {
         $restaurants = Restaurant::where('user_id', Auth::id())->get();
+        $restaurant = $restaurants[0];
 
-        // dd($restaurant);
-
-        return view('admin.restaurants.index', compact('restaurants'));
+        return view('admin.restaurants.index', compact('restaurant'));
     }
 
     /**
@@ -46,7 +45,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        return view('admin.restaurants.show', compact('restaurant'));
+        //
     }
 
     /**
@@ -66,7 +65,7 @@ class RestaurantController extends Controller
             [
                 'name' => ['required', 'string', 'min:2', 'max:100'],
                 'address' => ['required', 'string', 'min:8', 'max:100'],
-                'iva' => ['required', 'digits:11', 'unique:restaurants,iva,'. $restaurant->id],
+                'iva' => ['required', 'digits:11', 'unique:restaurants,iva,' . $restaurant->id],
                 'telephone' => ['required', 'min:5', 'max:20'],
                 'img' => ['nullable', 'image', 'max:3100']
             ],

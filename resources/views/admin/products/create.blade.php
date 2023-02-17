@@ -25,7 +25,7 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Nome *</label>
                 <input required type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" placeholder="Add name..." value="{{ old('name') }}"
+                    name="name" placeholder="Aggiungi nome..." value="{{ old('name') }}"
                     oninvalid="this.setCustomValidity('Campo obbligatorio')" oninput="this.setCustomValidity('')">
                 @error('name')
                     <div class="invalid-feedback">
@@ -38,7 +38,7 @@
                 <label for="price" class="form-label">Prezzo *</label>
                 <input required type="number" min="0.01" max="999.99" step=0.01
                     class="form-control @error('price') is-invalid @enderror" id="price" name="price"
-                    placeholder="Add price..." value="{{ old('price') }}" oninvalid="InvalidMsg(this);"
+                    placeholder="Aggiungi prezzo..." value="{{ old('price') }}" oninvalid="InvalidMsg(this);"
                     oninput="InvalidMsg(this);">
                 @error('price')
                     <div class="invalid-feedback">
@@ -50,7 +50,7 @@
             <div class="mb-3">
                 <label for="img" class="form-label">Immagine</label>
                 <input type="file" class="form-control @error('img') is-invalid @enderror" id="img" name="img"
-                    placeholder="Add image..." onchange="showImage(event)" value="{{ old('img') }}">
+                    placeholder="Aggiungi immagine..." onchange="showImage(event)" value="{{ old('img') }}">
 
                 <div class="cover-image mt-3">
                     <img class="w-25" id="output-image" src="" alt="">
@@ -81,7 +81,7 @@
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione *</label>
                 <textarea required class="form-control" id="description" name="description" value="{{ old('description') }}"
-                    rows="5" placeholder="Add description..." oninvalid="this.setCustomValidity('Campo obbligatorio')"
+                    rows="5" placeholder="Aggiungi descrizione..." oninvalid="this.setCustomValidity('Campo obbligatorio')"
                     oninput="this.setCustomValidity('')"></textarea>
                 @error('description')
                     <div class="invalid-feedback">
@@ -90,8 +90,8 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-dark">Invia
-                <i class="fa-solid fa-file-import ms-1"></i>
+            <button type="submit" class="btn btn-dark mb-5">Invia
+                <i class="fa-solid fa-file-import"></i>
             </button>
         </form>
 

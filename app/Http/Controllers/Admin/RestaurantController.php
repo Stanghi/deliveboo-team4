@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RestaurantRequest;
 use App\Models\Restaurant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
@@ -48,17 +50,36 @@ class RestaurantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Restaurant $restaurant)
     {
-        //
+        return view('admin.restaurants.edit', compact('restaurant'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(RestaurantRequest $request, Restaurant $restaurant)
     {
-        //
+        $form_data = $request->all();
+
+        if ($form_data['name'] != $restaurant->name) {
+            $form_data['slug'] = Restaurant::generateSlug(($form_data['name']));
+        } else {
+            $form_data['slug'] = $restaurant->slug;
+        }
+
+        if (array_key_exists('img', $form_data)) {
+            if ($restaurant->img) {
+                Storage::disk('public')->delete($restaurant->img);
+            }
+
+            $form_data['img_original_name'] = $request->file('img')->getClientOriginalName();
+            $form_data['img'] = Storage::put('uploads', $form_data['img']);
+        }
+
+        $restaurant->update($form_data);
+
+        return redirect()->route('admin.restaurants.show', $restaurant);
     }
 
     /**

@@ -95,3 +95,23 @@ body {
 .fa-home:hover {
     color: #f15a25;
 }
+
+.fa-circle-xmark {
+    color: #dc3545;
+}
+
+.img-box {
+    max-width: 60%;
+    height: 600px;
+    img {
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        align-items: self-start;
+        width: 100%;
+        object-fit: contain;
+    }
+}
+.info {
+    width: 40%;
+}

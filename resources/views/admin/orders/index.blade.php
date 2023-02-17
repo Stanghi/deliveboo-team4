@@ -6,6 +6,7 @@
 
 @section('content')
     <div class="container mt-5">
+        <h1 class="my-5">Ordini</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -14,7 +15,7 @@
                     <th scope="col">Numero prodotti</th>
                     <th scope="col">Totale</th>
                     <th scope="col">Data e Ora</th>
-                    <th scope="col">Vedi</th>
+                    <th scope="col">Mostra</th>
                 </tr>
             </thead>
             <tbody>

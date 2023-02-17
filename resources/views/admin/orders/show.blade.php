@@ -14,35 +14,31 @@
             </div>
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Nome e Cognome:</span>
-                    <span class="ms-3"><b>{{ $order->name }} {{ $order->surname }}</b></span>
+                    <span><b>Nome e Cognome:</b></span>
+                    <span class="ms-3">{{ $order->name }} {{ $order->surname }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Indirizzo:</span>
-                    <span class="ms-3"><b>{{ $order->address }}</b></span>
+                    <span><b>Indirizzo:</b></span>
+                    <span class="ms-3">{{ $order->address }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Telefono:</span>
-                    <span class="ms-3"><b>{{ $order->telephone }}</b></span>
+                    <span><b>Telefono:</b></span>
+                    <span class="ms-3">{{ $order->telephone }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Data e ora:</span>
-                    <span><b>{{ date_format($order->created_at, 'd/m/Y') }} -
-                            {{ date_format($order->created_at, 'H:i') }}</b></span>
+                    <span><b>Data e ora:</b></span>
+                    <span>{{ date_format($order->created_at, 'd/m/Y') }} -
+                        {{ date_format($order->created_at, 'H:i') }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Note:</span>
+                    <span><b>Note:</b></span>
                     @if ($order->note)
                         <span class="ms-3">
-                            <b>
-                                {{ $order->note }}
-                            </b>
+                            {{ $order->note }}
                         </span>
                     @else
                         <span class="ms-3">
-                            <b>
-                                Non sono presenti note...
-                            </b>
+                            Non sono presenti note...
                         </span>
                     @endif
                 </li>
@@ -52,6 +48,7 @@
                             <tr>
                                 <th scope="col">ID Prodotto</th>
                                 <th scope="col">Nome Prodotto</th>
+                                <th scope="col">Prezzo Unitario</th>
                                 <th scope="col" class="text-end">Quantità</th>
                             </tr>
                         </thead>
@@ -60,6 +57,7 @@
                                 <tr>
                                     <td>{{ $product->pivot->product_id }}</td>
                                     <td>{{ $product->name }}</td>
+                                    <td>&euro; {{ number_format($product->price, 2, ',') }}</td>
                                     <td class="text-end">{{ $product->pivot->quantity }}</td>
                                 </tr>
                             @endforeach
@@ -67,8 +65,8 @@
                     </table>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Totale:</span>
-                    <span><b>{{ number_format($order->amount, 2, ',') }} &euro;</b></span>
+                    <h3><b>Totale:</b></h3>
+                    <h3><b>&euro; {{ number_format($order->amount, 2, ',') }}</b></h3>
                 </li>
 
             </ul>

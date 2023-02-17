@@ -50,10 +50,24 @@
                     placeholder="Add image..." onchange="showImage(event)" value="{{ old('img') }}">
 
                 <div class="cover-image mt-3">
-                    <img id="output-image" src="" alt="">
+                    <img class="w-25" id="output-image" src="" alt="">
                 </div>
 
                 @error('img')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="is_visible" class="form-label">Visibilità *</label>
+                <select class="form-select" name="is_visible" class="@error('is_visible') is-invalid @enderror"
+                    id="is_visible">
+                    <option value="1" default>Il prodotto sarà visibile sul sito</option>
+                    <option value="0">Il prodotto NON sarà visibile sul sito</option>
+                </select>
+                @error('is_visible')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

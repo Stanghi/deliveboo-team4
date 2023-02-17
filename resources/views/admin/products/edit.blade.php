@@ -55,11 +55,23 @@
                     </div>
                 @enderror
                 @if ($product->img)
-                    <div class="cover-image">
-                        <img id="output-image" src="{{ asset('storage/' . $product->img) }}"
+                    <div class="cover-image mt-3">
+                        <img class="w-25" id="output-image" src="{{ asset('storage/' . $product->img) }}"
                             alt="{{ $product->img_original_name }}">
                     </div>
                 @endif
+            </div>
+
+            <div class="mb-3">
+                <p for="date" class="form-label">Visibilità *</p>
+                <select class="form-select" name="is_visible" class="@error('is_visible') is-invalid @enderror"
+                    id="is_visible">
+                    <option value="1" default>Il prodotto sarà visibile sul sito</option>
+                    <option value="0">Il prodotto NON sarà visibile sul sito</option>
+                </select>
+                @error('is_visible')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="mb-3">

@@ -18,7 +18,8 @@ class Product extends Model
         'description',
         'img_original_name',
         'restaurant_id',
-        'category_id'
+        'category_id',
+        'is_visible'
     ];
 
     public function restaurant()

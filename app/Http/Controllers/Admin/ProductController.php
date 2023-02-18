@@ -22,8 +22,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $restaurant = Restaurant::where('user_id', Auth::id())->first();
-        $products = Product::orderBy('name')->where('restaurant_id', $restaurant->id)->get();
+        $user = Auth::user();
+        $restaurant = $user->restaurants[0];
+        $products = $restaurant->products;
         return view('admin.products.index', compact('products'));
     }
 
@@ -34,8 +35,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.products.create', compact('categories'));
+        return view('admin.products.create');
     }
 
     /**
@@ -46,7 +46,9 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $form_data = $request->all();
-        $form_data['restaurant_id'] = Auth::id();
+        $user = Auth::user();
+        $restaurant_id = $user->restaurants[0]->id;
+        $form_data['restaurant_id'] = $restaurant_id;
         $form_data['slug'] = Product::generateSlug($form_data['name']);
 
         if (array_key_exists('img', $form_data)) {
@@ -56,10 +58,6 @@ class ProductController extends Controller
 
         $new_product = Product::Create($form_data);
 
-        // if (array_key_exists('technologies', $form_data)) {
-        //     $new_product->technologies()->attach($form_data['technologies']);
-        // }
-
         return redirect()->route('admin.products.show', $new_product);
     }
 
@@ -68,10 +66,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::findOrFail($id);
-        return view('admin.products.show', compact('product'));
+        $user = Auth::user();
+        $restaurant_id = $user->restaurants[0]->id;
+        if ($product->restaurant_id !== $restaurant_id) {
+            return (abort(404));
+        } else {
+            return view('admin.products.show', compact('product'));
+        }
     }
 
     /**
@@ -81,8 +84,14 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::all();
-        return view('admin.products.edit', compact('product', 'categories'));
+        $user = Auth::user();
+        $restaurant_id = $user->restaurants[0]->id;
+        if ($product->restaurant_id !== $restaurant_id) {
+            return (abort(404));
+        } else {
+            $categories = Category::all();
+            return view('admin.products.edit', compact('product', 'categories'));
+        }
     }
 
     /**

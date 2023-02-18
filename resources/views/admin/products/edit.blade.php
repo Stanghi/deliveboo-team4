@@ -80,7 +80,7 @@
 
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione *</label><br>
-                <textarea required class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                     rows="5" placeholder="Modifica descrizione..." oninvalid="this.setCustomValidity('Campo obbligatorio')"
                     oninput="this.setCustomValidity('')">{{ old('description', $product->description) }}</textarea>
                 @error('description')

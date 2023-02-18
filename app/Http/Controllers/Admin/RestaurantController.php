@@ -120,7 +120,7 @@ class RestaurantController extends Controller
                     'telephone.max' => 'Il numero di telefono consente al massimo :max caratteri',
 
                     //Restaurant image
-                    'img' => 'Il file caricato non è corretto',
+                    'img.image' => 'Il file caricato non è corretto',
                     'img.max' => 'Il campo immagine consente il caricamento di un file al massimo di 3 Mb',
 
                     //Restaurant category

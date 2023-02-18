@@ -80,9 +80,9 @@
 
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione *</label>
-                <textarea required class="form-control" id="description" name="description" value="{{ old('description') }}"
+                <textarea class="form-control" id="description" name="description"
                     rows="5" placeholder="Aggiungi descrizione..." oninvalid="this.setCustomValidity('Campo obbligatorio')"
-                    oninput="this.setCustomValidity('')"></textarea>
+                    oninput="this.setCustomValidity('')">{{ old('description') }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">
                         {{ $message }}

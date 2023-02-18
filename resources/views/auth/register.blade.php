@@ -185,14 +185,15 @@
 
                             {{-- Restaurant categories --}}
                             <div class="mb-4 row">
-                                <label for="categories" class="col-md-4 col-form-label text-md-right"><i
+                                <label for="categories" class="col-md-4 col-form-label text-md-right mb-1"><i
                                         class="fa-solid fa-utensils"></i> Categorie *</label>
-                                <p class="text-danger" style="visibility:hidden; font-size:0.9rem;" id="checkbox-error">
+                                <p class="text-danger mb-1" style="visibility:hidden; font-size:0.9rem;"
+                                    id="checkbox-error">
                                     Selezionare almeno un'opzione.
                                 </p>
-                                <div>
+                                <div class="row px-4">
                                     @foreach ($categories as $category)
-                                        <div class="form-check form-check-inline">
+                                        <div class="col-4  col-sm-3 col-xl-2 form-check">
                                             <input class="form-check-input" type="checkbox" id="{{ $category->slug }}"
                                                 value="{{ $category->id }}" name="categories[]"
                                                 oninvalid="this.setCustomValidity('Selezionare almeno una categoria.')"

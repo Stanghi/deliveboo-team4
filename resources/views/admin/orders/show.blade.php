@@ -27,8 +27,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span><b>Data e ora:</b></span>
-                    <span>{{ date_format($order->created_at, 'd/m/Y') }} -
-                        {{ date_format($order->created_at, 'H:i') }}</span>
+                    <span>{{ date_format($order->created_at, 'd/m/Y - H:i') }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span><b>Note:</b></span>

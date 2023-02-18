@@ -22,7 +22,6 @@ return new class extends Migration
             $table->float('amount', 7,2);
             $table->string('telephone', 20);
             $table->text('note')->nullable();
-            $table->dateTime('date_time');
             $table->timestamps();
         });
     }

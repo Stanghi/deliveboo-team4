@@ -24,7 +24,7 @@ class OrdersTableSeeder extends Seeder
             $new_order->restaurant_id = Restaurant::inRandomOrder()->first()->id;
             $new_order->address = $faker->address();
             $new_order->amount = 0;
-            $new_order->date_time = $faker->dateTimeInInterval('-1 year');
+            $new_order->created_at = $faker->dateTimeBetween('-1 year');
             $new_order->save();
         }
     }

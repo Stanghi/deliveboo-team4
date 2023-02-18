@@ -8,7 +8,8 @@
                     <div class="card-header">{{ __('Registazione') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('register') }}" onsubmit="return handleData()"
+                            enctype="multipart/form-data">
                             @csrf
 
                             {{-- User name --}}
@@ -182,6 +183,28 @@
                                 </div>
                             </div>
 
+                            {{-- Restaurant categories --}}
+                            <div class="mb-4 row">
+                                <label for="categories" class="col-md-4 col-form-label text-md-right"><i
+                                        class="fa-solid fa-utensils"></i> Categorie *</label>
+                                <p class="text-danger" style="visibility:hidden; font-size:0.9rem;" id="checkbox-error">
+                                    Selezionare almeno un'opzione.
+                                </p>
+                                <div>
+                                    @foreach ($categories as $category)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="{{ $category->slug }}"
+                                                value="{{ $category->id }}" name="categories[]"
+                                                oninvalid="this.setCustomValidity('Selezionare almeno una categoria.')"
+                                                onchange="this.setCustomValidity('')"
+                                                @if (in_array($category->id, old('categories', []))) checked @endif>
+                                            <label class="form-check-label"
+                                                for="{{ $category->slug }}">{{ $category->name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
 
                             {{-- Registration button --}}
                             <div class="mb-4 row mb-0">
@@ -198,4 +221,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function handleData() {
+            const form_data = new FormData(document.querySelector("form"));
+            const errorCheckbox = document.getElementById("checkbox-error");
+
+            if (!form_data.has("categories[]")) {
+                errorCheckbox.style.visibility = "visible";
+                return false;
+            } else {
+                errorCheckbox.style.visibility = "hidden";
+                return true;
+            }
+        }
+    </script>
 @endsection

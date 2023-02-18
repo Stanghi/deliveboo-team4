@@ -101,7 +101,7 @@
 
                                 <div class="dropdown-menu" style="right: 5px; left: auto;" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i>Profilo</a>
+                                    <a class="dropdown-item" href="{{ route('admin.restaurants.index') }}"><i class="fa-solid fa-user me-2"></i>Profilo</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

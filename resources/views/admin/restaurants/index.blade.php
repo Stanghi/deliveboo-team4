@@ -34,7 +34,7 @@
                         <h3>Partita IVA</h3>
                         <p>{{ $restaurant->iva }}</p>
 
-                        <h3>Categorie ristorante</h3>
+                        <h3>Categorie</h3>
                         @foreach ($restaurant->categories as $category)
                             <span class="badge text-bg-secondary fs-6">{{ $category->name }}</span>
                         @endforeach

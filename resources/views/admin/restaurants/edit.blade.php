@@ -11,8 +11,6 @@
         </h1>
         <div class="container">
 
-            {{-- @include('admin.partials.action-in-page') --}}
-
             @if ($errors->any())
                 <div class="alert alert-danger m-5" role="alert">
                     <h2><i class="fa-solid fa-triangle-exclamation"></i>Error</h2>
@@ -24,7 +22,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.restaurants.update', $restaurant) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.restaurants.update', $restaurant) }}" method="POST" enctype="multipart/form-data" id="restaurant-edit" onsubmit="return handleData()">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -105,6 +103,29 @@
                     @enderror
                 </div>
 
+                <div class="mb-3 row">
+                    <label for="categories" class="col-md-4 col-form-label text-md-right mb-1">Categorie *</label>
+                    <p class="text-danger mb-1" style="visibility:hidden; font-size:0.9rem;" id="checkbox-error">
+                        Selezionare almeno una categoria.
+                    </p>
+                    <div class="row px-4">
+                        @foreach ($categories as $category)
+                            <div class="col-4  col-sm-3 col-xl-2 form-check">
+                                <input class="form-check-input" type="checkbox" id="{{ $category->slug }}"
+                                    value="{{ $category->id }}" name="categories[]"
+                                    oninvalid="this.setCustomValidity('Selezionare almeno una categoria.')"
+                                    onchange="this.setCustomValidity('')"
+                                    @if (!$errors->all() && $restaurant->categories->contains($category)) checked @elseif($errors->all() && in_array($category->id, old('categories', []))) checked @endif>
+                                <label class="form-check-label"
+                                    for="{{ $category->slug }}">{{ $category->name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+
+
+
                 <button category="submit" class="btn btn-dark mb-5">Invia
                     <i class="fa-solid fa-file-import"></i>
                 </button>
@@ -112,9 +133,24 @@
         </div>
 
         <script>
+            //Show thumbnail uploaded image
             function showImage(event) {
                 const tagImage = document.getElementById('output-image');
                 tagImage.src = URL.createObjectURL(event.target.files[0]);
+            }
+
+            //Checkbox validation with error message
+            function handleData() {
+                const form_data = new FormData(document.getElementById("restaurant-edit"));
+                const errorCheckbox = document.getElementById("checkbox-error");
+                console.log(form_data);
+                if (!form_data.has("categories[]")) {
+                    errorCheckbox.style.visibility = "visible";
+                    return false;
+                } else {
+                    errorCheckbox.style.visibility = "hidden";
+                    return true;
+                }
             }
         </script>
     </div>

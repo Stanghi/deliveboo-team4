@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Registazione') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}" onsubmit="return handleData()"
+                        <form method="POST" action="{{ route('register') }}" id="restaurant-form" onsubmit="return handleData()"
                             enctype="multipart/form-data">
                             @csrf
 
@@ -224,10 +224,10 @@
     </div>
 
     <script>
+        //Checkbox validation with error message
         function handleData() {
-            const form_data = new FormData(document.querySelector("form"));
+            const form_data = new FormData(document.getElementById("restaurant-form"));
             const errorCheckbox = document.getElementById("checkbox-error");
-
             if (!form_data.has("categories[]")) {
                 errorCheckbox.style.visibility = "visible";
                 return false;

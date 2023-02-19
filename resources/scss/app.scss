@@ -56,9 +56,9 @@ body {
                     display: block;
                     width: 100%;
                     // height: 100%;
-
                     text-overflow: ellipsis;
                     overflow: hidden;
+
                     i {
                         padding-right: 10px;
                         color: #e0e0e0;
@@ -90,6 +90,9 @@ body {
 
 .dropdown-menu {
     background-color: #ececec;
+    .dropdown-item:hover {
+        background-color: #c7c5c5;
+    }
 }
 
 .fa-home:hover {
@@ -101,17 +104,28 @@ body {
 }
 
 .img-box {
-    max-width: 60%;
-    height: 600px;
+    width: 60%;
+    height: 500px;
     img {
         border-radius: 5px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
             0 6px 20px 0 rgba(0, 0, 0, 0.19);
         align-items: self-start;
         width: 100%;
-        object-fit: contain;
+        height: 100%;
+        object-fit: cover;
     }
 }
+
+.cover-image img {
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    align-items: self-start;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .info {
     width: 40%;
 }
@@ -129,13 +143,46 @@ body {
     color: rgb(255, 255, 255);
 }
 
-.product-smartphone-cards {
+.smartphone-cards {
     display: none;
 }
 
-@media all and (max-width: 480px) {
+.show-element {
+    display: flex;
+}
+.name-mobile {
+    display: none;
+}
+
+.chart-box {
+    width: 100%;
+}
+
+.nav-header-custom,
+.navbar-toggler {
+    visibility: hidden;
+}
+
+@media all and (min-width: 768px) and (max-width: 1280px) {
+    .aside {
+        text-align: center;
+        nav ul li a i {
+            padding: 0px;
+        }
+
+        span {
+            display: none;
+        }
+    }
+}
+
+@media all and (max-width: 767px) {
+    .nav-header-custom,
+    .navbar-toggler {
+        visibility: visible;
+    }
     .aside,
-    .product-table-pc {
+    .responsive-table-pc {
         display: none;
     }
 
@@ -143,11 +190,32 @@ body {
         visibility: visible;
     }
 
-    .product-smartphone-cards {
+    .smartphone-cards {
         display: block;
     }
 
     .content {
         width: 100%;
+    }
+
+    .name-pc-tablet {
+        display: none;
+    }
+
+    .name-mobile {
+        display: block;
+    }
+
+    .show-element {
+        flex-direction: column;
+
+        .img-box {
+            width: 100%;
+            height: 250px;
+            margin-bottom: 30px;
+        }
+        .info {
+            width: 100%;
+        }
     }
 }

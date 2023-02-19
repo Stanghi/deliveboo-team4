@@ -2,7 +2,8 @@
     <a href="{{ route('admin.products.index') }}" title="Go back" class="btn btn-outline-dark me-3">
         <i class="fa-solid fa-arrow-left"></i>
     </a>
-    <h1>
+
+    <h1 class="name-pc-tablet">
         @if (Route::currentRouteName() === 'admin.products.create')
             Crea un nuovo prodotto
         @elseif (Route::currentRouteName() === 'admin.products.edit')

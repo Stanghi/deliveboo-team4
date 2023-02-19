@@ -33,7 +33,9 @@
             <div class="container-fluid collapse-background">
 
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/admin') }}">
-                    <div class="logo_laravel text-white">
+                    <div class="logo_laravel text-white d-flex align-items-center">
+                        <img class="me-2" style="width: 25px" src="{{ Vite::asset('resources/img/logo.png') }}"
+                            alt="Logo">
                         DeliveBoo
                     </div>
                 </a>
@@ -48,15 +50,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto nav-header-custom">
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url('/') }}"><i class="fa-solid fa-home me-2"></i>Torna
-                                al
-                                sito</a>
-                        </li>
 
                         <li class="nav-item">
-                            <a class="nav-link me-3" href="{{ route('admin.dashboard') }}">
-                                <i class="fa-solid fa-chart-pie me-2"></i>Statistiche
+                            <a class="nav-link me-3" href="{{ route('admin.restaurants.index') }}">
+                                <i class="fa-solid fa-utensils me-2"></i>Ristorante
                             </a>
                         </li>
 
@@ -73,10 +70,11 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link me-3" href="{{ route('admin.restaurants.index') }}">
-                                <i class="fa-solid fa-utensils me-2"></i>Ristorante
+                            <a class="nav-link me-3" href="{{ route('admin.dashboard') }}">
+                                <i class="fa-solid fa-chart-pie me-2"></i>Statistiche
                             </a>
                         </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -99,9 +97,12 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu" style="right: 5px; left: auto;" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu mb-2" style="right: 5px; left: auto;"
+                                    aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ route('admin.restaurants.index') }}"><i class="fa-solid fa-user me-2"></i>Profilo</a>
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i>Profilo</a>
+                                    <a class="dropdown-item" href="{{ url('/') }}"><i
+                                            class="fa-solid fa-globe me-2"></i>Torna al sito pubblico</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <table class="table product-table-pc table-striped">
+        <table class="table responsive-table-pc table-striped">
             <thead>
                 <tr>
                     <th scope="col">Nome</th>
@@ -59,7 +59,7 @@
             </tbody>
         </table>
 
-        <div class="product-smartphone-cards">
+        <div class="smartphone-cards">
             @forelse ($products as $product)
                 <div class="card mb-4">
                     <div class="card-header fw-bold">
@@ -90,7 +90,7 @@
                     </ul>
                 </div>
             @empty
-                <p>No</p>
+                <p>Nessun prodotto presente</p>
             @endforelse
         </div>
 

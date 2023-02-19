@@ -8,6 +8,7 @@
     <div class="container">
 
         @include('admin.partials.action-in-page')
+        <h1 class="name-mobile mb-5">Crea un nuovo prodotto</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger m-5" role="alert">
@@ -52,9 +53,7 @@
                 <input type="file" class="form-control @error('img') is-invalid @enderror" id="img" name="img"
                     placeholder="Aggiungi immagine..." onchange="showImage(event)" value="{{ old('img') }}">
 
-                <div class="cover-image mt-3">
-                    <img class="w-25" id="output-image" src="" alt="">
-                </div>
+                <div id="cover-image" class="cover-image mt-3" oninput="showCoverImg()"></div>
 
                 @error('img')
                     <div class="invalid-feedback">
@@ -98,6 +97,8 @@
     </div>
 
     <script>
+        document.getElementById("img").addEventListener("input", showCoverImg);
+
         ClassicEditor
             .create(document.querySelector('#description'), {
                 toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
@@ -109,6 +110,10 @@
         function showImage(event) {
             const tagImage = document.getElementById('output-image');
             tagImage.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function showCoverImg() {
+            document.getElementById("cover-image").innerHTML = `<img class="w-25" id="output-image" src="" alt="">`;
         }
 
         function InvalidMsg(textbox) {

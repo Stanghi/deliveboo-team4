@@ -5,18 +5,18 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container">
 
         <div class="row">
             <div class="container">
-                <div class="d-flex justify-content-between align-items-center mb-5">
-                    <h1>Riepilogo {{ $restaurant->name }}</h1>
+                <div class="d-flex justify-content-between align-items-center my-5">
+                    <h1>{{ $restaurant->name }}</h1>
                     <a href="{{ route('admin.restaurants.edit', $restaurant) }}" title="Modifica"
                         class="btn btn-outline-dark me-3">
                         <i class="fa-solid fa-pen"></i>
                     </a>
                 </div>
-                <div class="d-flex">
+                <div class="show-element d-flex">
 
                     <div class="img-box me-5">
                         @if ($restaurant->img)

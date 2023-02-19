@@ -55,7 +55,7 @@
                             @foreach ($order->products as $product)
                                 <tr>
                                     <td>{{ $product->pivot->product_id }}</td>
-                                    <td>{{ $product->name }}</td>
+                                    <td class="text-capitalize">{{ $product->name }}</td>
                                     <td>&euro; {{ number_format($product->price, 2, ',') }}</td>
                                     <td class="text-end">{{ $product->pivot->quantity }}</td>
                                 </tr>

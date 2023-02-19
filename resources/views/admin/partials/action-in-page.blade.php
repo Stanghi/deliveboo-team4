@@ -3,7 +3,7 @@
         <i class="fa-solid fa-arrow-left"></i>
     </a>
 
-    <h1 class="name-pc-tablet">
+    <h1 class="name-pc-tablet text-capitalize">
         @if (Route::currentRouteName() === 'admin.products.create')
             Crea un nuovo prodotto
         @elseif (Route::currentRouteName() === 'admin.products.edit')

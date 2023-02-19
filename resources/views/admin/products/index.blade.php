@@ -26,7 +26,7 @@
             <tbody>
                 @forelse ($products as $product)
                     <tr>
-                        <td>{{ $product->name }}</td>
+                        <td class="text-capitalize">{{ $product->name }}</td>
                         <td>&euro; {{ number_format($product->price, 2, ',') }}</td>
                         <td>
                             @if ($product->is_visible)
@@ -62,7 +62,7 @@
         <div class="smartphone-cards">
             @forelse ($products as $product)
                 <div class="card mb-4">
-                    <div class="card-header fw-bold">
+                    <div class="card-header fw-bold text-capitalize">
                         {{ $product->name }}
                     </div>
                     <ul class="list-group list-group-flush">

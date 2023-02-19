@@ -10,11 +10,11 @@
             <a href="{{ route('admin.restaurants.index') }}" title="Go back" class="btn btn-outline-dark my-5 me-5">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
-            <h1 class="name-pc-tablet">
+            <h1 class="name-pc-tablet text-capitalize">
                 Modifica {{ $restaurant->name }}
             </h1>
         </div>
-        <h1 class="name-mobile mb-5">
+        <h1 class="name-mobile mb-5 text-capitalize">
             Modifica {{ $restaurant->name }}
         </h1>
 

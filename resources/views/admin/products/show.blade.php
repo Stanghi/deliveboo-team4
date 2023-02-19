@@ -9,8 +9,9 @@
     <div class="container">
 
         @include('admin.partials.action-in-page')
-        <div class="d-flex">
 
+        <div class="show-element d-flex">
+            <h1 class="name-mobile mb-5">{{ $product->name }}</h1>
             <div class="img-box me-5">
                 @if ($product->img)
                     <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->img_original_name }}">

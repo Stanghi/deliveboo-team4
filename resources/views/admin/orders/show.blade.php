@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
-        <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-dark mb-3"><i
+    <div class="container">
+        <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-dark my-3"><i
                 class="fa-solid fa-arrow-left"></i></a>
         <div class="card">
             <div class="card-header">

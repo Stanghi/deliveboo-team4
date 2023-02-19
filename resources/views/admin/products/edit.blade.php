@@ -8,6 +8,7 @@
     <div class="container">
 
         @include('admin.partials.action-in-page')
+        <h1 class="name-mobile mb-5">Modifica {{ $product->name }}</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger m-5" role="alert">

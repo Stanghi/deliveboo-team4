@@ -5,13 +5,24 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
-        <h1 class="my-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="{{ route('admin.restaurants.index') }}" title="Go back" class="btn btn-outline-dark my-5">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h1 class="name-pc-tablet">
+                Modifica {{ $restaurant->name }}
+            </h1>
+            @include('admin.partials.form-delete', [
+                'route' => 'restaurants',
+                'message' => "Confermi l'eliminatione di $restaurant->name ?",
+                'entity' => $restaurant,
+            ])
+        </div>
+        <h1 class="name-mobile mb-5">
             Modifica {{ $restaurant->name }}
         </h1>
-        <div class="container">
-
-            {{-- @include('admin.partials.action-in-page') --}}
+        <div class="container p-0">
 
             @if ($errors->any())
                 <div class="alert alert-danger m-5" role="alert">
@@ -24,7 +35,8 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.restaurants.update', $restaurant) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.restaurants.update', $restaurant) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">

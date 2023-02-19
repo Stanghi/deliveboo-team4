@@ -21,7 +21,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data" onsubmit="return fileValidation()">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -55,7 +55,10 @@
                 <label for="img" class="form-label">Immagine</label>
                 <input type="file" class="form-control @error('img') is-invalid @enderror" id="img" name="img"
                     value="{{ old('img', $product->img) }}" placeholder="Modifica immagine..."
-                    oninput="showCoverImg(event)">
+                    oninput="showCoverImg(event)" onchange="fileValidation()">
+
+                    <p class="my-1" id="size-message"></p>
+
                 @error('img')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -105,13 +108,13 @@
     </div>
 
     <script>
-        ClassicEditor
-            .create(document.querySelector('#description'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        // ClassicEditor
+        //     .create(document.querySelector('#description'), {
+        //         toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
 
         function showCoverImg(event) {
             document.getElementById("img-changed").innerHTML =
@@ -134,6 +137,33 @@
             else textbox.setCustomValidity('');
 
             return true;
+        }
+
+        //File size image validation with error message
+        function fileValidation() {
+            const inputFiles = document.getElementById('img');
+            // Check if any file is selected.
+            if (inputFiles.files.length > 0) {
+                for (const i = 0; i <= inputFiles.files.length - 1; i++) {
+                    const fileSize = inputFiles.files.item(i).size;
+                    const file = Math.round((fileSize / 1024));
+                    const errorMessage = document.getElementById('size-message');
+                    // The size of the file.
+                    if (file >= 3072) {
+                        errorMessage.classList.add("text-danger");
+                        errorMessage.classList.add("fw-bold");
+                        errorMessage.innerText = 'File troppo grande, inserirlo al massimo di 3MB!';
+                        errorMessage.scrollIntoView();
+                        return false
+                    } else {
+                        errorMessage.classList.remove("text-danger");
+                        errorMessage.classList.add("fw-bold");
+                        errorMessage.innerText = "";
+                        return true
+                    }
+                }
+            }
+            return true
         }
     </script>
 @endsection

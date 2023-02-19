@@ -26,8 +26,8 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Nome *</label>
                 <input type="text" required class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" value="{{ old('name', $product->name) }}" placeholder="Modifica nome..."
-                    oninvalid="this.setCustomValidity('Campo obbligatorio')" oninput="this.setCustomValidity('')" />
+                    name="name" value="{{ old('name', $product->name) }}" minlength="2" maxlength="100" placeholder="Modifica nome..."
+                    oninvalid="this.setCustomValidity('Campo obbligatorio, richiede almeno 2 caratteri')" oninput="this.setCustomValidity('')" />
                 @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -51,7 +51,7 @@
             <div class="mb-3">
                 <label for="img" class="form-label">Immagine</label>
                 <input type="file" class="form-control @error('img') is-invalid @enderror" id="img" name="img"
-                    value="{{ old('img', $product->img) }}" placeholder="Modifica immagine..." onchange="showImage(event)">
+                    value="{{ old('img', $product->img) }}" size="3100" placeholder="Modifica immagine..." onchange="showImage(event)">
                 @error('img')
                     <div class="invalid-feedback">
                         {{ $message }}

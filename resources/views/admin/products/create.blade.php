@@ -25,8 +25,8 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Nome *</label>
                 <input required type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" placeholder="Aggiungi nome..." value="{{ old('name') }}"
-                    oninvalid="this.setCustomValidity('Campo obbligatorio')" oninput="this.setCustomValidity('')">
+                    name="name" placeholder="Aggiungi nome..." minlength="2" maxlength="100" value="{{ old('name') }}"
+                    oninvalid="this.setCustomValidity('Campo obbligatorio, richiede almeno 2 caratteri')" oninput="this.setCustomValidity('')">
                 @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}

@@ -63,7 +63,7 @@ class RegisteredUserController extends Controller
                 //User password
                 'password.required' => 'La password è un campo obbligatorio',
                 'password.min' => 'La password richiede almeno 8 caratteri',
-                'password.confirmed' => 'La password non corrisponde a quella inserito',
+                'password.confirmed' => 'Le password non coincidono',
 
 
                 //Restaurant name

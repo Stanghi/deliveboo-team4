@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -23,7 +24,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $categories = Category::all();
+        return view('auth.register', compact('categories'));
     }
 
     /**
@@ -42,7 +44,8 @@ class RegisteredUserController extends Controller
                 'address' => ['required', 'string', 'min:8', 'max:100'],
                 'iva' => ['required', 'digits:11', 'unique:restaurants,iva'],
                 'telephone' => ['required', 'min:5', 'max:20'],
-                'img' => ['nullable', 'image', 'max:3100']
+                'img' => ['nullable', 'image', 'max:3100'],
+                'categories' => ['required']
             ],
             [
                 //User name
@@ -60,7 +63,7 @@ class RegisteredUserController extends Controller
                 //User password
                 'password.required' => 'La password è un campo obbligatorio',
                 'password.min' => 'La password richiede almeno 8 caratteri',
-                'password.confirmed' => 'La password non corrisponde a quella inserito',
+                'password.confirmed' => 'Le password non coincidono',
 
 
                 //Restaurant name
@@ -85,9 +88,13 @@ class RegisteredUserController extends Controller
 
                 //Restaurant image
                 'img' => 'Il file caricato non è corretto',
-                'img.max' => 'Il campo immagine consente il caricamento di un file al massimo di 3 Mb'
+                'img.max' => 'Il campo immagine consente il caricamento di un file al massimo di 3 Mb',
+
+                //Restaurant category
+                'categories.required' => 'Selezionare almeno un\'opzione'
             ]
         );
+
         //User table
         $user = User::create([
             'name' => $request->name,
@@ -104,6 +111,7 @@ class RegisteredUserController extends Controller
             $request['img'] = Storage::put('uploads', $request['img']);
         }
 
+
         $restaurant = Restaurant::create([
             'user_id' => $user->id,
             'name' => $request->restaurant_name,
@@ -114,6 +122,11 @@ class RegisteredUserController extends Controller
             'img' => $request->img,
             'img_original_name' => $request->img_original_name
         ]);
+
+
+        if(array_key_exists('categories', $request->all())) {
+            $restaurant->categories()->attach($request['categories']);
+        }
 
         event(new Registered($user));
 

@@ -20,27 +20,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $restaurant = Restaurant::where('user_id', Auth::id())->first();
-        $orders = Order::where('restaurant_id', $restaurant->id)->get()->sortBy('id');
-
-        //$products = Product::where('restaurant_id', $restaurant->id)->get()->sortBy('id');
-        /*
-        foreach($orders as $order){
-            dump($order->id . ' ' . 'id ordine');
-            $total_quantity = 0;
-            foreach($order->products as $product){
-
-                $total_quantity += $product->pivot->quantity;
-                dump($product->name);
-                dump($product->pivot->quantity . ' ' . 'quantita individuale');
-
-            }
-
-            dump($total_quantity . ' ' . 'totale');
-        } */
-        // foreach($orders->products()->quantity as $item){
-
-        // }
+        $user = Auth::user();
+        $restaurant_id = $user->restaurants[0]->id;
+        $orders = Order::where('restaurant_id', $restaurant_id)->orderBy('created_at', 'desc')->get();
 
         return view('admin.orders.index', compact('orders'));
     }
@@ -72,7 +54,13 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('admin.orders.show', compact('order'));
+        $user = Auth::user();
+        $restaurant_id = $user->restaurants[0]->id;
+        if ($order->restaurant_id !== $restaurant_id) {
+            return (abort(404));
+        } else {
+            return view('admin.orders.show', compact('order'));
+        }
     }
 
     /**

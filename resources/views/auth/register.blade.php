@@ -8,7 +8,8 @@
                     <div class="card-header">{{ __('Registazione') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('register') }}" id="restaurant-form" onsubmit="return handleData()"
+                            enctype="multipart/form-data">
                             @csrf
 
                             {{-- User name --}}
@@ -43,7 +44,7 @@
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" placeholder="Scrivi qui il tuo indirizzo e-mail"
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required autocomplete="email"
-                                        title="Campo obbligatorio, inserire una e-mail valida"
+                                        title="Campo obbligatorio, inserire una e-mail valida" minlength="6"
                                         oninvalid="this.setCustomValidity('Campo obbligatorio, inserire una e-mail valida')"
                                         onchange="this.setCustomValidity('')">
 
@@ -85,7 +86,9 @@
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" placeholder="Riscrivi qui la password inserita"
-                                        required autocomplete="new-password" title="Campo obbligatorio">
+                                        required autocomplete="new-password" title="Campo obbligatorio"
+                                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, reinserire la password.')"
+                                        onchange="this.setCustomValidity('')">
                                 </div>
                             </div>
 
@@ -182,6 +185,29 @@
                                 </div>
                             </div>
 
+                            {{-- Restaurant categories --}}
+                            <div class="mb-4 row">
+                                <label for="categories" class="col-md-4 col-form-label text-md-right mb-1"><i
+                                        class="fa-solid fa-utensils"></i> Categorie *</label>
+                                <p class="text-danger mb-1" style="visibility:hidden; font-size:0.9rem;"
+                                    id="checkbox-error">
+                                    Selezionare almeno un'opzione.
+                                </p>
+                                <div class="row px-4">
+                                    @foreach ($categories as $category)
+                                        <div class="col-4  col-sm-3 col-xl-2 form-check">
+                                            <input class="form-check-input" type="checkbox" id="{{ $category->slug }}"
+                                                value="{{ $category->id }}" name="categories[]"
+                                                oninvalid="this.setCustomValidity('Selezionare almeno una categoria.')"
+                                                onchange="this.setCustomValidity('')"
+                                                @if (in_array($category->id, old('categories', []))) checked @endif>
+                                            <label class="form-check-label"
+                                                for="{{ $category->slug }}">{{ $category->name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
 
                             {{-- Registration button --}}
                             <div class="mb-4 row mb-0">
@@ -198,4 +224,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        //Checkbox validation with error message
+        function handleData() {
+            const form_data = new FormData(document.getElementById("restaurant-form"));
+            const errorCheckbox = document.getElementById("checkbox-error");
+            if(form_data.get('password') !== form_data.get('password_confirmation')) {
+                const password_confirmation = document.getElementById('password-confirm');
+                password_confirmation.setCustomValidity("Le password non coincidono");
+                return false
+            }
+            if (!form_data.has("categories[]")) {
+                errorCheckbox.style.visibility = "visible";
+                return false
+            } else {
+                errorCheckbox.style.visibility = "hidden";
+            }
+            return true
+        }
+    </script>
 @endsection

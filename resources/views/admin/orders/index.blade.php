@@ -35,7 +35,7 @@
                             {{ $total_quantity }}
                         </td>
                         <td>&euro; {{ number_format($order->amount, 2, ',') }}</td>
-                        <td>{{ date_format($order->created_at, 'd/m/Y') }} - {{ date_format($order->created_at, 'H:i') }}
+                        <td>{{ date_format($order->created_at, 'd/m/Y - H:i') }}
                         </td>
                         <td>
                             <a class="btn btn-outline-dark" href="{{ route('admin.orders.show', $order) }}"><i

@@ -24,11 +24,38 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'price' => 'required',
-            'img' => 'nullable|image|max:3000',
-            'description' => 'required',
+            'name' => 'required|min:2|max:150',
+            'price' => 'required|max:999.99',
+            'img' => 'nullable|image|max:3200',
+            'description' => 'required|max:2000',
             'is_visible' => 'required'
+        ];
+
+    }
+
+    public function messages()
+    {
+        return [
+
+            //name
+            'name.required' => 'Il nome del prodotto è un campo obbligatorio',
+            'name.min' => 'Il nome del prodotto richiede almeno :min caratteri',
+            'name.max' => 'Il nome del prodotto consente al massimo :max caratteri',
+
+            //is_visible
+            'is_visible.required' => 'La visibilità è un campo obbligatorio',
+
+            //price
+            'price.required' => 'Il prezzo è un campo obbligatorio',
+            'price.max' => 'Il prezzo non può superare :max',
+
+            //image
+            'img.image' => 'Il file caricato non è corretto',
+            'img.max' => 'Il campo immagine consente il caricamento di un file al massimo di 3 Mb',
+
+            //description
+            'description.required' => 'La descrizione è un campo obbligatorio',
+            'description.max' => 'La descrizione consente al massimo :max caratteri',
         ];
     }
 }

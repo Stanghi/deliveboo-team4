@@ -29,8 +29,8 @@ Route::middleware(['auth', 'verified'])
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('statistics', [StatisticController::class, 'index'])->name('statistics');
         Route::resource('products', ProductController::class);
-        Route::resource('restaurants', RestaurantController::class);
-        Route::resource('orders', OrderController::class)->except('create', 'edit');
+        Route::resource('restaurants', RestaurantController::class)->except('store', 'create', 'show', 'destroy');
+        Route::resource('orders', OrderController::class)->except('create', 'edit', 'update', 'destroy');
         //Route::resource('statistics', StatisticController::class)->except('create', 'edit');
     });
 

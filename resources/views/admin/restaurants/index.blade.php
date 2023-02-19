@@ -23,6 +23,8 @@
                             <img src="{{ asset('storage/' . $restaurant->img) }}"
                                 alt="{{ $restaurant->img_original_name }}">
                             <p>{{ $restaurant->img_original }}</p>
+                        @else
+                            <img src="{{ Vite::asset('resources/img/placeholder.png') }}" alt="Placeholder">
                         @endif
                     </div>
 

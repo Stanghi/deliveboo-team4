@@ -16,6 +16,8 @@
                 @if ($product->img)
                     <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->img_original_name }}">
                     <p>{{ $product->img_original }}</p>
+                @else
+                    <img src="{{ Vite::asset('resources/img/placeholder.png') }}" alt="Placeholder">
                 @endif
             </div>
 

@@ -27,8 +27,10 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Nome *</label>
                 <input type="text" required class="form-control @error('name') is-invalid @enderror" id="name"
-                    name="name" value="{{ old('name', $product->name) }}" minlength="2" maxlength="100" placeholder="Modifica nome..."
-                    oninvalid="this.setCustomValidity('Campo obbligatorio, richiede almeno 2 caratteri')" oninput="this.setCustomValidity('')" />
+                    name="name" value="{{ old('name', $product->name) }}" minlength="2" maxlength="100"
+                    placeholder="Modifica nome..."
+                    oninvalid="this.setCustomValidity('Campo obbligatorio, richiede almeno 2 caratteri')"
+                    oninput="this.setCustomValidity('')" />
                 @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -52,18 +54,23 @@
             <div class="mb-3">
                 <label for="img" class="form-label">Immagine</label>
                 <input type="file" class="form-control @error('img') is-invalid @enderror" id="img" name="img"
-                    value="{{ old('img', $product->img) }}" size="3100" placeholder="Modifica immagine..." onchange="showImage(event)">
+                    value="{{ old('img', $product->img) }}" placeholder="Modifica immagine..."
+                    oninput="showCoverImg(event)">
                 @error('img')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
+
                 @if ($product->img)
-                    <div class="cover-image mt-3">
-                        <img class="w-25" id="output-image" src="{{ asset('storage/' . $product->img) }}"
+                    <div id="image-box" class="cover-image mt-3">
+                        <img class="w-25" src="{{ asset('storage/' . $product->img) }}"
                             alt="{{ $product->img_original_name }}">
                     </div>
                 @endif
+
+                <div id="img-changed" class="cover-image mt-3"></div>
+
             </div>
 
             <div class="mb-3">
@@ -81,9 +88,9 @@
 
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione *</label><br>
-                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                    rows="5" placeholder="Modifica descrizione..." oninvalid="this.setCustomValidity('Campo obbligatorio')"
-                    oninput="this.setCustomValidity('')">{{ old('description', $product->description) }}</textarea>
+                <textarea required class="form-control @error('description') is-invalid @enderror" id="description-todo"
+                    name="description" rows="5" placeholder="Modifica descrizione..."
+                    oninvalid="this.setCustomValidity('Campo obbligatorio')" oninput="this.setCustomValidity('')">{{ old('description', $product->description) }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -106,9 +113,16 @@
                 console.error(error);
             });
 
-        function showImage(event) {
-            const tagImage = document.getElementById('output-image');
-            tagImage.src = URL.createObjectURL(event.target.files[0]);
+        function showCoverImg(event) {
+            document.getElementById("img-changed").innerHTML =
+                `<img class="w-25" id="output-image" src="">`;
+            document.getElementById("output-image").src = URL.createObjectURL(event.target.files[0]);
+
+
+            let imageBox = document.getElementById("image-box");
+            if (imageBox) {
+                imageBox.innerHTML = ``;
+            }
         }
 
         function InvalidMsg(textbox) {

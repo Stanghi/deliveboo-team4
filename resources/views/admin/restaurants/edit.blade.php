@@ -6,18 +6,13 @@
 
 @section('content')
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <a href="{{ route('admin.restaurants.index') }}" title="Go back" class="btn btn-outline-dark my-5">
+        <div class="d-flex align-items-center">
+            <a href="{{ route('admin.restaurants.index') }}" title="Go back" class="btn btn-outline-dark my-5 me-5">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
             <h1 class="name-pc-tablet">
                 Modifica {{ $restaurant->name }}
             </h1>
-            @include('admin.partials.form-delete', [
-                'route' => 'restaurants',
-                'message' => "Confermi l'eliminatione di $restaurant->name ?",
-                'entity' => $restaurant,
-            ])
         </div>
         <h1 class="name-mobile mb-5">
             Modifica {{ $restaurant->name }}
@@ -37,7 +32,8 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.restaurants.update', $restaurant) }}" method="POST" enctype="multipart/form-data" id="restaurant-edit" onsubmit="return handleData()">
+            <form action="{{ route('admin.restaurants.update', $restaurant) }}" method="POST" enctype="multipart/form-data"
+                id="restaurant-edit" onsubmit="return handleData()">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -46,7 +42,7 @@
                         name="name" value="{{ old('name', $restaurant->name) }}" placeholder="Aggiungi nome..." required
                         autocomplete="name" autofocus minlength="2" maxlength="100"
                         title="Campo obbligatorio, inserire almeno 2 caratteri"
-                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, inserire almeno 2 caratteri ed un massimo di 100.')"
+                        oninvalid="this.setCustomValidity('Campo obbligatorio, inserire almeno 2 caratteri ed un massimo di 100.')"
                         onchange="this.setCustomValidity('')">
                     @error('name')
                         <div class="invalid-feedback">
@@ -60,7 +56,7 @@
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
                         name="address" value="{{ old('address', $restaurant->address) }}" placeholder="Add address..."
                         required minlength="8" maxlength="100" autocomplete="address" autofocus
-                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, inserire un indirizzo valido.')"
+                        oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un indirizzo valido.')"
                         onchange="this.setCustomValidity('')">
                     @error('address')
                         <div class="invalid-feedback">
@@ -73,18 +69,20 @@
                     <label for="img" class="form-label">Immagine</label>
                     <input type="file" class="form-control @error('img') is-invalid @enderror" id="img"
                         name="img" value="{{ old('img', $restaurant->img) }}" placeholder="Add URL for image..."
-                        onchange="showImage(event)" size="3100">
+                        oninput="showCoverImg(event)">
                     @error('img')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                     @if ($restaurant->img)
-                        <div class="cover-image mt-3">
-                            <img class="w-25" id="output-image" src="{{ asset('storage/' . $restaurant->img) }}"
+                        <div id="image-box" class="cover-image mt-3">
+                            <img class="w-25" src="{{ asset('storage/' . $restaurant->img) }}"
                                 alt="{{ $restaurant->img_original_name }}">
                         </div>
                     @endif
+
+                    <div id="img-changed" class="cover-image mt-3"></div>
                 </div>
 
                 <div class="mb-3">
@@ -94,7 +92,7 @@
                         placeholder="Aggiungi numero telefonico..." required autocomplete="telephone" autofocus
                         title="Campo obbligatorio, inserire un numero di telefono valido" minlength="5"
                         pattern="[0-9-+\s()]{5,20}"
-                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, inserire un numero di telefono valido.')"
+                        oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un numero di telefono valido.')"
                         onchange="this.setCustomValidity('')">
                     @error('telephone')
                         <div class="invalid-feedback">
@@ -109,7 +107,7 @@
                         name="iva" value="{{ old('iva', $restaurant->iva) }}" placeholder="Aggiungi partita IVA..."
                         required autocomplete="iva" autofocus pattern="[0-9]{11}"
                         title="Campo obbligatorio, inserire una p.iva valida composta da 11 cifre"
-                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, richiede un numero di 11 cifre.')"
+                        oninvalid="this.setCustomValidity('Campo obbligatorio, richiede un numero di 11 cifre.')"
                         onchange="this.setCustomValidity('')">
                     @error('iva')
                         <div class="invalid-feedback">
@@ -138,9 +136,6 @@
                     </div>
                 </div>
 
-
-
-
                 <button category="submit" class="btn btn-dark mb-5">Invia
                     <i class="fa-solid fa-file-import"></i>
                 </button>
@@ -148,10 +143,16 @@
         </div>
 
         <script>
-            //Show thumbnail uploaded image
-            function showImage(event) {
-                const tagImage = document.getElementById('output-image');
-                tagImage.src = URL.createObjectURL(event.target.files[0]);
+            function showCoverImg(event) {
+                document.getElementById("img-changed").innerHTML =
+                    `<img class="w-25" id="output-image" src="">`;
+                document.getElementById("output-image").src = URL.createObjectURL(event.target.files[0]);
+
+
+                let imageBox = document.getElementById("image-box");
+                if (imageBox) {
+                    imageBox.innerHTML = ``;
+                }
             }
 
             //Checkbox validation with error message

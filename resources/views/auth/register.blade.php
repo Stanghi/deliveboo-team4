@@ -8,8 +8,8 @@
                     <div class="card-header">{{ __('Registazione') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}" id="restaurant-form" onsubmit="return handleData()"
-                            enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('register') }}" id="restaurant-form"
+                            onsubmit="return handleData()" enctype="multipart/form-data">
                             @csrf
 
                             {{-- User name --}}
@@ -67,7 +67,7 @@
                                         placeholder="Scrivi qui la password scelta" required autocomplete="new-password"
                                         minlength="8"
                                         title="Campo obbligatorio, inserire una password di almeno 8 caratteri"
-                                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, inserire una password di almeno 8 caratteri.')"
+                                        oninvalid="this.setCustomValidity('Campo obbligatorio, inserire una password di almeno 8 caratteri.')"
                                         onchange="this.setCustomValidity('')">
 
                                     @error('password')
@@ -87,7 +87,7 @@
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" placeholder="Riscrivi qui la password inserita"
                                         required autocomplete="new-password" title="Campo obbligatorio"
-                                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, reinserire la password.')"
+                                        oninvalid="this.setCustomValidity('Campo obbligatorio, reinserire la password.')"
                                         onchange="this.setCustomValidity('')">
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                         placeholder="Scrivi qui il nome del ristorante" required
                                         autocomplete="restaurant_name" autofocus minlength="2" maxlength="100"
                                         title="Campo obbligatorio, inserire almeno 2 caratteri"
-                                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, inserire almeno 2 caratteri ed un massimo di 100.')"
+                                        oninvalid="this.setCustomValidity('Campo obbligatorio, inserire almeno 2 caratteri ed un massimo di 100.')"
                                         onchange="this.setCustomValidity('')">
 
                                     @error('restaurant_name')
@@ -127,7 +127,7 @@
                                         placeholder="Scrivi qui la partita IVA del ristorante" required autocomplete="iva"
                                         autofocus pattern="[0-9]{11}"
                                         title="Campo obbligatorio, inserire una p.iva valida composta da 11 cifre"
-                                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, richiede un numero di 11 cifre.')"
+                                        oninvalid="this.setCustomValidity('Campo obbligatorio, richiede un numero di 11 cifre.')"
                                         onchange="this.setCustomValidity('')">
 
                                     @error('iva')
@@ -150,7 +150,7 @@
                                         placeholder="Scrivi qui l'indirizzo es. Via Rossi, 25, Roma (RM)" required
                                         title="Campo obbligatorio, inserire un indirizzo valido" minlength="8"
                                         maxlength="100" autocomplete="address" autofocus
-                                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, inserire un indirizzo valido.')"
+                                        oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un indirizzo valido.')"
                                         onchange="this.setCustomValidity('')">
 
                                     @error('address')
@@ -174,7 +174,7 @@
                                         autocomplete="telephone" autofocus
                                         title="Campo obbligatorio, inserire un numero di telefono valido"
                                         pattern="[0-9-+\s()]{5,20}"
-                                        oninvalid="this.setCustomValidity('Il campo è obbligatorio, inserire un numero di telefono valido.')"
+                                        oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un numero di telefono valido.')"
                                         onchange="this.setCustomValidity('')">
 
                                     @error('telephone')
@@ -230,7 +230,7 @@
         function handleData() {
             const form_data = new FormData(document.getElementById("restaurant-form"));
             const errorCheckbox = document.getElementById("checkbox-error");
-            if(form_data.get('password') !== form_data.get('password_confirmation')) {
+            if (form_data.get('password') !== form_data.get('password_confirmation')) {
                 const password_confirmation = document.getElementById('password-confirm');
                 password_confirmation.setCustomValidity("Le password non coincidono");
                 return false

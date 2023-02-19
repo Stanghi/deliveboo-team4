@@ -70,7 +70,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link me-3" href="{{ route('admin.dashboard') }}">
+                            <a class="nav-link me-3" href="{{ route('admin.statistics') }}">
                                 <i class="fa-solid fa-chart-pie me-2"></i>Statistiche
                             </a>
                         </li>
@@ -100,7 +100,6 @@
                                 <div class="dropdown-menu mb-2" style="right: 5px; left: auto;"
                                     aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i>Profilo</a>
                                     <a class="dropdown-item" href="{{ url('/') }}"><i
                                             class="fa-solid fa-globe me-2"></i>Torna al sito pubblico</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

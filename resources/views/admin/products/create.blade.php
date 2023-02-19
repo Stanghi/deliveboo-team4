@@ -27,7 +27,8 @@
                 <label for="name" class="form-label">Nome *</label>
                 <input required type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                     name="name" placeholder="Aggiungi nome..." minlength="2" maxlength="100" value="{{ old('name') }}"
-                    oninvalid="this.setCustomValidity('Campo obbligatorio, richiede almeno 2 caratteri')" oninput="this.setCustomValidity('')">
+                    oninvalid="this.setCustomValidity('Campo obbligatorio, richiede almeno 2 caratteri')"
+                    oninput="this.setCustomValidity('')">
                 @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -79,8 +80,8 @@
 
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione *</label>
-                <textarea class="form-control" id="description" name="description"
-                    rows="5" placeholder="Aggiungi descrizione..." oninvalid="this.setCustomValidity('Campo obbligatorio')"
+                <textarea required class="form-control" id="description-todo" name="description" rows="5"
+                    placeholder="Aggiungi descrizione..." oninvalid="this.setCustomValidity('Campo obbligatorio')"
                     oninput="this.setCustomValidity('')">{{ old('description') }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">
@@ -107,13 +108,13 @@
                 console.error(error);
             });
 
+        function showCoverImg() {
+            document.getElementById("cover-image").innerHTML = `<img class="w-25" id="output-image" src="" alt="">`;
+        }
+
         function showImage(event) {
             const tagImage = document.getElementById('output-image');
             tagImage.src = URL.createObjectURL(event.target.files[0]);
-        }
-
-        function showCoverImg() {
-            document.getElementById("cover-image").innerHTML = `<img class="w-25" id="output-image" src="" alt="">`;
         }
 
         function InvalidMsg(textbox) {

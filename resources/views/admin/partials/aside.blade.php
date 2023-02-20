@@ -1,6 +1,7 @@
 <nav class="aside">
     <ul>
-        <li class="{{ request()->segment(2) == '' ? 'active' : '' }}">
+        <li
+            class="{{ (request()->segment(2) == '' ? 'active' : '' || request()->segment(2) == 'restaurants') ? 'active' : '' }}">
             <a href="{{ route('admin.dashboard') }}">
                 <i class="fa-solid fa-utensils"></i>
                 <span>Ristorante</span>

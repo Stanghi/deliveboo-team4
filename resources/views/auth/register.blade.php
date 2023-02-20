@@ -37,7 +37,7 @@
                             {{-- User e-mail --}}
                             <div class="mb-4 row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right"><i
-                                        class="fa-solid fa-user"></i> {{ __('Indirizzo E-mail') }} *</label>
+                                        class="fa-solid fa-envelope"></i> {{ __('Indirizzo E-mail') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -59,7 +59,7 @@
                             {{-- User password --}}
                             <div class="mb-4 row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right"><i
-                                        class="fa-solid fa-user"></i> {{ __('Password') }} *</label>
+                                        class="fa-solid fa-lock"></i> {{ __('Password') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -81,7 +81,7 @@
                             {{-- User confirm password --}}
                             <div class="mb-4 row">
                                 <label for="password-confirm" class="col-md-4 col-form-label text-md-right"><i
-                                        class="fa-solid fa-user"></i> {{ __('Conferma Password') }} *</label>
+                                        class="fa-solid fa-lock"></i> {{ __('Conferma Password') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -118,7 +118,7 @@
                             {{-- Restaurant P.IVA --}}
                             <div class="mb-4 row">
                                 <label for="iva" class="col-md-4 col-form-label text-md-right"><i
-                                        class="fa-solid fa-utensils"></i> {{ __('P. IVA') }} *</label>
+                                        class="fa-solid fa-hashtag"></i> {{ __('P. IVA') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="iva" type="text"
@@ -141,7 +141,7 @@
                             {{-- Restaurant address --}}
                             <div class="mb-4 row">
                                 <label for="address" class="col-md-4 col-form-label text-md-right"><i
-                                        class="fa-solid fa-utensils"></i> {{ __('Indirizzo Ristorante') }} *</label>
+                                        class="fa-solid fa-location-dot"></i> {{ __('Indirizzo Ristorante') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="address" type="text"
@@ -164,7 +164,7 @@
                             {{-- Restaurant telephone --}}
                             <div class="mb-4 row">
                                 <label for="telephone" class="col-md-4 col-form-label text-md-right"><i
-                                        class="fa-solid fa-utensils"></i> {{ __('Numero di Telefono') }} *</label>
+                                        class="fa-solid fa-phone"></i> {{ __('Numero di Telefono') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="telephone" type="phone"
@@ -188,7 +188,7 @@
                             {{-- Restaurant categories --}}
                             <div class="mb-4 row">
                                 <label for="categories" class="col-md-4 col-form-label text-md-right mb-1"><i
-                                        class="fa-solid fa-utensils"></i> Categorie *</label>
+                                        class="fa-solid fa-tags"></i> Categorie *</label>
                                 <p class="text-danger mb-1" style="visibility:hidden; font-size:0.9rem;"
                                     id="checkbox-error">
                                     Selezionare almeno un'opzione.
@@ -210,8 +210,8 @@
 
 
                             {{-- Registration button --}}
-                            <div class="mb-4 row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="mb-4 row">
+                                <div class="text-center">
                                     <button type="submit" class="btn btn-outline-dark">
                                         {{ __('Registrati') }}
                                     </button>

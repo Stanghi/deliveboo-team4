@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <div class="d-flex align-items-center">
-            <a href="{{ route('admin.restaurants.index') }}" title="Go back" class="btn btn-outline-dark my-5 me-5">
+            <a href="{{ route('admin.dashboard') }}" title="Go back" class="btn btn-outline-dark my-5 me-5">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
             <h1 class="name-pc-tablet text-capitalize">

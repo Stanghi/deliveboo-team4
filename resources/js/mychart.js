@@ -1,28 +1,47 @@
 import Chart from "chart.js/auto";
 
 if (
-    typeof labels !== "undefined" &&
-    typeof sales !== "undefined" &&
-    labels !== undefined &&
-    sales !== undefined
+    typeof ordersByMonth !== "undefined" &&
+    typeof salesByMonth !== "undefined" &&
+    ordersByMonth !== undefined &&
+    salesByMonth !== undefined
 ) {
-    const data = {
-        labels: labels,
+    const dataOrders = {
+        labels: ordersByMonth.months,
+        datasets: [
+            {
+                label: "Ordini ricevuti mensilmente",
+                backgroundColor: "rgb(22, 40, 88)",
+                borderColor: "#5eba7d",
+                data: ordersByMonth.total,
+            },
+        ],
+    };
+
+    const dataSales = {
+        labels: salesByMonth.months,
         datasets: [
             {
                 label: "Fatturato Mensile",
                 backgroundColor: "rgb(22, 40, 88)",
                 borderColor: "rgb(240, 5, 32)",
-                data: sales,
+                data: salesByMonth.sales,
             },
         ],
     };
 
-    const config = {
+    const configOrders = {
         type: "line",
-        data: data,
+        data: dataOrders,
         options: {},
     };
 
-    new Chart(document.getElementById("myChart"), config);
+    const configSales = {
+        type: "line",
+        data: dataSales,
+        options: {},
+    };
+
+    new Chart(document.getElementById("chartOrders"), configOrders);
+    new Chart(document.getElementById("chartSales"), configSales);
 }

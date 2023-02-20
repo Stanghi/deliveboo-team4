@@ -7,17 +7,16 @@
 @section('content')
     <div class="container">
         <h2 class="my-5">Statistiche Ristorante</h2>
-        <div class="chart-box"> {{-- style="width: 900px; margin: auto;" --}}
-            <canvas id="myChart"></canvas>
+        <div class="chart-box p-1 w-50">
+            <canvas class="my-5" id="chartOrders"></canvas>
+            <canvas class="my-5" id="chartSales"></canvas>
         </div>
     </div>
 @endsection
 
 @section('script')
 <script>
-    const labels = {{ Js::from($labels) }};
-
-    const sales = {{ Js::from($data) }};
-
+    const ordersByMonth = {{ Js::from($statistics_data['numb_orders_by_month']) }};
+    const salesByMonth = {{ Js::from($statistics_data['$sales_by_month']) }};
 </script>
 @endsection

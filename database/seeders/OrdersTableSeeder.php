@@ -15,7 +15,7 @@ class OrdersTableSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
-        for($i = 0; $i < 200; $i++) {
+        for($i = 0; $i < 600; $i++) {
             $new_order = new Order();
             $new_order->name = $faker->firstName();
             $new_order->surname = $faker->lastName();

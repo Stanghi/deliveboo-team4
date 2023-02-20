@@ -13,4 +13,11 @@
     </div>
 @endsection
 
-<script src="{{ mix('../../../js/app.js') }}"></script>
+@section('script')
+<script>
+    const labels = {{ Js::from($labels) }};
+
+    const sales = {{ Js::from($data) }};
+
+</script>
+@endsection

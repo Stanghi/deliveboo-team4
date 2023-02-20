@@ -50,31 +50,33 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto nav-header-custom">
+                        @auth
 
-                        <li class="nav-item">
-                            <a class="nav-link me-3" href="{{ route('admin.restaurants.index') }}">
-                                <i class="fa-solid fa-utensils me-2"></i>Ristorante
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link me-3" href="{{ route('admin.restaurants.index') }}">
+                                    <i class="fa-solid fa-utensils me-2"></i>Ristorante
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link me-3" href="{{ route('admin.orders.index') }}">
-                                <i class="fa-solid fa-cart-shopping me-2"></i>Ordini
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link me-3" href="{{ route('admin.orders.index') }}">
+                                    <i class="fa-solid fa-cart-shopping me-2"></i>Ordini
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link me-3" href="{{ route('admin.products.index') }}">
-                                <i class="fa-solid fa-pizza-slice me-2"></i>Prodotti
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link me-3" href="{{ route('admin.products.index') }}">
+                                    <i class="fa-solid fa-pizza-slice me-2"></i>Prodotti
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link me-3" href="{{ route('admin.statistics') }}">
-                                <i class="fa-solid fa-chart-pie me-2"></i>Statistiche
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link me-3" href="{{ route('admin.statistics') }}">
+                                    <i class="fa-solid fa-chart-pie me-2"></i>Statistiche
+                                </a>
+                            </li>
 
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -121,7 +121,7 @@ class RestaurantController extends Controller
 
                     //Restaurant image
                     'img.image' => 'Il file caricato non è corretto',
-                    'img.max' => 'Il campo immagine consente il caricamento di un file al massimo di 3 Mb',
+                    'img.max' => 'Il campo immagine consente il caricamento di un file al massimo di 3MB',
 
                     //Restaurant category
                     'categories.required' => 'Selezionare almeno una categoria'

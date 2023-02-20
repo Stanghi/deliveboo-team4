@@ -38,7 +38,7 @@
 
                         <h3>Categorie</h3>
                         @foreach ($restaurant->categories as $category)
-                            <span class="badge text-bg-secondary fs-6">{{ $category->name }}</span>
+                            <span class="badge text-bg-secondary fs-6 mb-2">{{ $category->name }}</span>
                         @endforeach
                     </div>
                 </div>

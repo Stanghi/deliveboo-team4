@@ -54,7 +54,7 @@
                 <div class="mb-3">
                     <label for="address" class="form-label">Indirizzo *</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
-                        name="address" value="{{ old('address', $restaurant->address) }}" placeholder="Add address..."
+                        name="address" value="{{ old('address', $restaurant->address) }}" placeholder="Aggiungi indirizzo..."
                         required minlength="8" maxlength="100" autocomplete="address" autofocus
                         oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un indirizzo valido.')"
                         onchange="this.setCustomValidity('')">
@@ -67,9 +67,13 @@
 
                 <div class="mb-3">
                     <label for="img" class="form-label">Immagine</label>
-                    <input type="file" class="form-control @error('img') is-invalid @enderror" id="img"
-                        name="img" value="{{ old('img', $restaurant->img) }}" placeholder="Add URL for image..."
+                    <input type="file" id="file" onchange="fileValidation()"
+                        class="form-control @error('img') is-invalid @enderror" id="img" name="img"
+                        value="{{ old('img', $restaurant->img) }}" placeholder="Add URL for image..."
                         oninput="showCoverImg(event)">
+
+                    <p class="my-1" id="size-message"></p>
+
                     @error('img')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -143,11 +147,11 @@
         </div>
 
         <script>
+            //Show thumbnail of file image uploaded
             function showCoverImg(event) {
                 document.getElementById("img-changed").innerHTML =
                     `<img class="w-25" id="output-image" src="">`;
                 document.getElementById("output-image").src = URL.createObjectURL(event.target.files[0]);
-
 
                 let imageBox = document.getElementById("image-box");
                 if (imageBox) {
@@ -155,18 +159,50 @@
                 }
             }
 
-            //Checkbox validation with error message
+
+            //On submit validation for checkbox and image size
             function handleData() {
+                return (checkBoxValidation() && fileValidation())
+            }
+
+            //Checkbox validation with error message
+            function checkBoxValidation() {
                 const form_data = new FormData(document.getElementById("restaurant-edit"));
                 const errorCheckbox = document.getElementById("checkbox-error");
-                console.log(form_data);
                 if (!form_data.has("categories[]")) {
                     errorCheckbox.style.visibility = "visible";
                     return false;
-                } else {
-                    errorCheckbox.style.visibility = "hidden";
-                    return true;
                 }
+                errorCheckbox.style.visibility = "hidden";
+                return true;
+
+            }
+
+            //File size image validation with error message
+            function fileValidation() {
+                const inputFiles = document.getElementById('file');
+                // Check if any file is selected.
+                if (inputFiles.files.length > 0) {
+                    for (const i = 0; i <= inputFiles.files.length - 1; i++) {
+                        const fileSize = inputFiles.files.item(i).size;
+                        const file = Math.round((fileSize / 1024));
+                        const errorMessage = document.getElementById('size-message');
+                        // The size of the file.
+                        if (file >= 3072) {
+                            errorMessage.classList.add("text-danger");
+                            errorMessage.classList.add("fw-bold");
+                            errorMessage.innerText = 'File troppo grande, inserirlo al massimo di 3MB!';
+                            errorMessage.scrollIntoView();
+                            return false
+                        } else {
+                            errorMessage.classList.remove("text-danger");
+                            errorMessage.classList.add("fw-bold");
+                            errorMessage.innerText = "";
+                            return true
+                        }
+                    }
+                }
+                return true
             }
         </script>
     </div>

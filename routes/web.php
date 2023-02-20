@@ -31,11 +31,11 @@ Route::middleware(['auth', 'verified'])
         Route::resource('products', ProductController::class);
         Route::resource('restaurants', RestaurantController::class)->except('store', 'create', 'show', 'destroy');
         Route::resource('orders', OrderController::class)->except('create', 'edit', 'update', 'destroy');
-        //Route::resource('statistics', StatisticController::class)->except('create', 'edit');
     });
 
-// Route::get('{any?}', function () {
-//     return view('guest.home');
-// })->where('any', '.*')->name('home');
 
 require __DIR__ . '/auth.php';
+
+Route::get('{any?}', function () {
+    return view('guest.home');
+})->where('any', '.*')->name('home');

@@ -1,11 +1,18 @@
 <script>
+import Header from "./components/Header.vue";
 export default {
     name: "App",
+    components: {
+        Header,
+    },
 };
 </script>
 
 <template>
-    <h1>VUE CI STA</h1>
+    <Header />
+    <router-view></router-view>
 </template>
 
-<style></style>
+<style lang="scss">
+@use "../scss/appVue.scss";
+</style>

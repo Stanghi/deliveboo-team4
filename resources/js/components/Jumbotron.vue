@@ -6,9 +6,11 @@ export default {
 
 <template>
     <div class="jumbotron" id="Home">
-        <div class="col-left">
-            <h2>I piatti che ami,<span></span></h2>
-            <h2>a domicilio.<span></span></h2>
+        <div class="container p-0">
+            <div class="col-left">
+                <h2>I piatti che ami,<span></span></h2>
+                <h2>a domicilio.<span></span></h2>
+            </div>
         </div>
     </div>
 </template>
@@ -21,7 +23,7 @@ export default {
     //justify-content: center;
     align-items: center;
     width: 100%;
-    height: 540px;
+    height: 450px;
     box-shadow: inset 0px 100px 100px rgba(0, 0, 0, 0.25);
 
     background: rgba(0, 0, 0, 0.5) url("../../img/jumbotron.jpg");
@@ -32,28 +34,30 @@ export default {
 
     h2 {
         font-size: 5rem;
-        margin-left: 100px;
+        //margin-left: 100px;
     }
 }
 
-.jumbotron .col-left h2 {
-    font-size: 80px;
-    color: transparent;
-    position: relative;
-    //display: inline-block;
-    animation: text_reveal 0.5s ease forwards;
-    animation-delay: 1s;
-}
+.col-left {
+    width: 50%;
+    h2 {
+        font-size: 80px;
+        color: transparent;
+        position: relative;
+        animation: text_reveal 0.5s ease forwards;
+        animation-delay: 1s;
 
-.jumbotron .col-left h2 span {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 0;
-    animation: overlay 1s ease forwards;
-    animation-delay: 0.5s;
-    background-color: $orange;
+        span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            animation: overlay 1s ease forwards;
+            animation-delay: 0.5s;
+            background-color: $orange;
+        }
+    }
 }
 
 .jumbotron .col-left h2:nth-child(1) {

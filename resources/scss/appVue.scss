@@ -5,9 +5,9 @@ body {
     background-color: $light-gray;
 }
 
-main {
-    padding-top: 60px;
-}
+// main {
+//     padding-top: 60px;
+// }
 
 .debug {
     background-color: rgba(255, 0, 0, 0.5);
@@ -18,7 +18,8 @@ a {
     text-decoration: none;
 }
 
-ol, ul{
+ol,
+ul {
     list-style: none;
 }
 
@@ -31,5 +32,61 @@ ol, ul{
     background-color: rgba(241, 90, 37, 0.9);
     &:hover {
         background-color: $orange;
+    }
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    color: $dark-gray;
+    font-family: swiper-icons;
+    font-size: 25px !important;
+    text-transform: none !important;
+    letter-spacing: 0;
+    font-variant: initial;
+    line-height: 1;
+    // prova
+    // font-size: 1rem !important;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    background-color: $light-gray;
+    height: 100% !important;
+    top: 50% !important;
+    transform: translateY(-50%);
+    margin: 0 !important;
+    padding: 0 !important;
+    // prova
+    //border-radius: 100% !important;
+    // height: 35px !important;
+    // width: 35px !important;
+    // background-color: $orange;
+}
+
+.swiper-button-prev {
+    left: 0 !important;
+    // prova
+    // left: 5px !important;
+}
+
+.swiper-button-next {
+    right: 0 !important;
+    // prova
+    // right: 5px !important;
+}
+
+@media all and (max-width: 480px) {
+    .mySwiper {
+        width: 100%;
+    }
+}
+@media all and (max-width: 767px) {
+    .mySwiper {
+        width: 100%;
+    }
+}
+@media all and (min-width: 1024px) {
+    .mySwiper {
+        width: 100%;
     }
 }

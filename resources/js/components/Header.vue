@@ -71,8 +71,10 @@ header {
     a {
         text-decoration: none;
         color: $white;
+        font-weight: bolder;
         &:hover {
             text-decoration: underline;
+            // color: $orange;
         }
     }
     .fa-cart-shopping:hover {

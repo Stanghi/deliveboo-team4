@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "./pages/Home.vue";
-import Restaurant from "./pages/restaurant.vue";
-import Cart from "./pages/cart.vue";
-import Team from "./pages/team.vue";
+import Restaurant from "./pages/Restaurant.vue";
+import Cart from "./pages/Cart.vue";
+import Team from "./pages/Team.vue";
 import Error404 from "./pages/Error404.vue";
 
 const router = createRouter({

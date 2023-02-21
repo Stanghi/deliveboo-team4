@@ -25,7 +25,7 @@ Route::namespace('Api')
     ->group(function(){
         Route::get('/', [RestaurantController::class, 'index']);
         Route::get('/search', [RestaurantController::class, 'search']);
-
+        Route::get('/restaurantsbycategory/{values}', [RestaurantController::class, 'getByCategory']);
     });
 
 

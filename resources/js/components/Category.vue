@@ -1,12 +1,13 @@
-<!-- Ciao Federico :) -->
 <script>
 import axios from "axios";
 import { baseUrl } from "../data/data";
 import { store } from "../data/store";
-import CategoryCard from "./CategoryCard.vue";
+import SliderCategory from "./SliderCategory.vue";
 
 export default {
-    components: { CategoryCard },
+    components: {
+        SliderCategory,
+    },
     name: "Category",
     data() {
         return {
@@ -17,36 +18,35 @@ export default {
     methods: {
         getApi() {
             axios.get(this.baseUrl + "restaurants").then((result) => {
-                store.restaurants = result.data.restaurants;
                 store.categories = result.data.categories;
-                console.log(result.data);
             });
         },
 
-        getCategories(category_id) {
-            axios
-                .get(this.baseUrl + "restaurants/getCategories/" + category_id)
-                .then((result) => {
-                    console.log(result.data);
-                });
+        getCategories(categories) {
+            if(categories.length) {
+                // console.log(typeof categories, categories );
+                const stringCategories = categories.join();
+                axios
+                    .get(this.baseUrl + "restaurants/restaurantsbycategory/" + stringCategories)
+                    .then((result) => {
+                        store.restaurants = result.data.restaurants;
+                        // console.log(result.data);
+                        console.log(stringCategories);
+                    });
+            }else {
+                store.restaurants = [];
+            }
         },
     },
     mounted() {
         this.getApi();
-        this.getCategories();
     },
 };
 </script>
 
 <template>
-    <div
-        class="container p-0 d-flex justify-content-between align-items-center flex-wrap"
-    >
-        <CategoryCard
-            v-for="category in store.categories"
-            :key="category.id"
-            :category="category"
-        />
+    <div class="container m-0 p-0">
+        <SliderCategory :categories="store.categories" @prova="getCategories(store.filterCategory)" />
     </div>
 </template>
 

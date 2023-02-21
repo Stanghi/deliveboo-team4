@@ -1,20 +1,26 @@
 <script>
-import RestaurantItem from './RestaurantItem.vue';
+import RestaurantItem from "./RestaurantItem.vue";
+import { store } from "../data/store";
 export default {
     name: "RestaurantsCards",
     components: {
-        RestaurantItem
+        RestaurantItem,
+    },
+    data() {
+        return {
+            store
+        }
     }
 };
 </script>
 
 <template>
-    <div class="container">
-        <div class="row mb-5 row-cols-1 row-cols-md-2 row-cols-lg-3">
-            <RestaurantItem v-for="i in 10" :key="i" />
+    <div class="container" v-if="store.restaurants.length">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+            <RestaurantItem v-for="restaurant in store.restaurants" :key="store.restaurants.id" :restaurant="restaurant" />
         </div>
     </div>
+    <h3 v-if="!store.restaurants.length && store.filterCategory.length">Nessun risultato trovato</h3>
 </template>
 
-<style>
-</style>
+<style></style>

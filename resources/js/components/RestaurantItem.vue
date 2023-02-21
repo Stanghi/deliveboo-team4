@@ -1,19 +1,22 @@
 <script>
 export default {
     name: "RestaurantItem",
+    props: {
+        restaurant: Object
+    }
 };
 </script>
 
 <template>
     <div class="col">
-        <router-link :to="{name: 'home'}" class="text-decoration-none">
-            <div class="card d-flex flex-row pe-5 mb-5 mx-2">
+        <router-link :to="{ name: 'home' }" class="text-decoration-none">
+            <div class="card d-flex flex-row mb-5 mx-2">
                 <div class="card-image">
                     <img src="../../img/placeholder.png" alt="placeholder" />
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bold">Ristorante La Medusa</h5>
-                    <p class="card-text address">Via Roma, 25 Milano</p>
+                    <h5 class="card-title fw-bold">{{restaurant.name}}</h5>
+                    <p class="card-text address">{{restaurant.address}}</p>
                     <span class="category badge fw-normal">Categoria</span>
                 </div>
             </div>

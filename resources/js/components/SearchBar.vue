@@ -1,19 +1,29 @@
 <script>
 
 import { store } from '../data/store';
+import axios from 'axios';
 
 export default {
     name: "SearchBar",
     data(){
         return{
             searched: '',
-            store
+            store,
+            baseUrl: 'http://127.0.0.1:8000/api/restaurants'
         }
     },
     methods:{
         startSearch(){
-            console.log(this.searched);
+            axios.get(this.baseUrl + '/search', {
+                params: {
+                    searched: this.searched
+                }
+            })
+                .then(result => {
+                        store.restaurants = result.data.restaurants;
+                })
             this.searched = ''
+            console.log(store.restaurants);
         }
     }
 }

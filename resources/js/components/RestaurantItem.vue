@@ -1,6 +1,9 @@
 <script>
 export default {
     name: "RestaurantItem",
+    props: {
+        restaurant: Object
+    }
 };
 </script>
 
@@ -12,8 +15,8 @@ export default {
                     <img src="../../img/placeholder.png" alt="placeholder" />
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bold">Ristorante La Medusa</h5>
-                    <p class="card-text address">Via Roma, 25 Milano</p>
+                    <h5 class="card-title fw-bold">{{restaurant.name}}</h5>
+                    <p class="card-text address">{{restaurant.address}}</p>
                     <span class="category badge fw-normal">Categoria</span>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 <script>
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { store } from "../data/store";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -18,6 +19,23 @@ export default {
             modules: [Navigation],
         };
     },
+    data() {
+        return {
+            store,
+        };
+    },
+    methods: {
+        isChosen(id) {
+            if (!this.store.filterCategory.includes(id)) {
+                this.store.filterCategory.push(id);
+            } else {
+                const index = this.store.filterCategory.indexOf(id);
+                this.store.filterCategory.splice(index, 1);
+            }
+            console.log(this.store.filterCategory);
+        },
+    },
+    mounted() {},
 };
 </script>
 
@@ -41,20 +59,32 @@ export default {
         :navigation="true"
         class="mySwiper px-5"
     >
-        <!--
-        :slides-per-view="9"
-        :space-between="15"
-        -->
         <swiper-slide v-for="(category, index) in categories" :key="index">
-            <div class="card">
+            <div @click="isChosen(category.id); $emit('prova') " class="card">
                 <img
                     :src="`/storage/${category.img}`"
                     class="card-img-top"
                     alt="..."
                 />
                 <div class="card-body">
-                    <h6 class="card-title m-0 p-0">
-                        <i class="fa-solid fa-check"></i>
+                    <h6
+                        class="card-title m-0 p-0"
+                        :class="{
+                            '': !store.filterCategory.includes(category.id),
+                            'is-chosen': store.filterCategory.includes(
+                                category.id
+                            ),
+                        }"
+                    >
+                        <i
+                            class="fa-solid fa-check"
+                            :class="{
+                                '': !store.filterCategory.includes(category.id),
+                                'is-chosen': store.filterCategory.includes(
+                                    category.id
+                                ),
+                            }"
+                        ></i>
                         {{ category.name }}
                     </h6>
                 </div>
@@ -93,6 +123,12 @@ export default {
     }
     &:hover .fa-check,
     &:hover .card-title {
+        display: inline-block;
+        color: $orange;
+    }
+
+    .card-title.is-chosen,
+    .fa-check.is-chosen {
         display: inline-block;
         color: $orange;
     }

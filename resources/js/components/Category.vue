@@ -18,29 +18,35 @@ export default {
     methods: {
         getApi() {
             axios.get(this.baseUrl + "restaurants").then((result) => {
-                store.restaurants = result.data.restaurants;
                 store.categories = result.data.categories;
             });
         },
 
-        getCategories(category_id) {
-            axios
-                .get(this.baseUrl + "restaurants/getCategories/" + category_id)
-                .then((result) => {
-                    console.log("x");
-                });
+        getCategories(categories) {
+            if(categories.length) {
+                // console.log(typeof categories, categories );
+                const stringCategories = categories.join();
+                axios
+                    .get(this.baseUrl + "restaurants/restaurantsbycategory/" + stringCategories)
+                    .then((result) => {
+                        store.restaurants = result.data.restaurants;
+                        // console.log(result.data);
+                        console.log(stringCategories);
+                    });
+            }else {
+                store.restaurants = [];
+            }
         },
     },
     mounted() {
         this.getApi();
-        this.getCategories();
     },
 };
 </script>
 
 <template>
     <div class="container m-0 p-0">
-        <SliderCategory :categories="store.categories" />
+        <SliderCategory :categories="store.categories" @prova="getCategories(store.filterCategory)" />
     </div>
 </template>
 

@@ -3,10 +3,11 @@
 import axios from 'axios';
 import {baseUrl} from '../data/data';
 import {store} from '../data/store';
-import CategoryCard from './CategoryCard.vue';
+import SliderCategory from './SliderCategory.vue';
 
 export default {
-  components: {CategoryCard,
+  components: {
+    SliderCategory
    },
   name:'Category',
   data(){
@@ -39,12 +40,9 @@ export default {
 </script>
 
 <template>
-  <div class="container debug">
-    <h1>Categorie</h1>
-    <div class="d-flex justify-content-between debug">
-        <CategoryCard
-        v-for="category in store.categories" :key="category.id" :category="category"
-        />
+  <div class="container">
+    <div class="d-flex justify-content-between">
+        <SliderCategory :categories="store.categories"/>
     </div>
   </div>
 </template>

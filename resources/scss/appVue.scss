@@ -25,3 +25,40 @@ main {
         background-color: $orange;
     }
 }
+
+// SWIPER NAVIGATION
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    color: $dark-gray;
+    font-family: swiper-icons;
+    font-size: 25px !important;
+    text-transform: none !important;
+    letter-spacing: 0;
+    font-variant: initial;
+    line-height: 1;
+
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    background-color: $light-gray;
+    // width: 45px !important;
+    height: 100% !important;
+    top: 50% !important;
+    transform: translateY(-50%);
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.swiper-button-prev {
+    left: 0 !important;
+}
+
+.swiper-button-next {
+   right: 0 !important;
+}
+
+
+
+
+

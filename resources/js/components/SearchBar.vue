@@ -44,7 +44,6 @@ export default {
     background-color: rgba(255, 0, 0, 0.137);
 }
 .my-input{
-    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
     border: 0;
 }
 .my-btn-color{

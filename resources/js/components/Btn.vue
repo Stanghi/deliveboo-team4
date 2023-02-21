@@ -1,16 +1,30 @@
 <script>
 export default {
     name: "Btn",
+
+    data(){
+      return{
+        isScrolledDown: false,
+      };
+    },
+
     methods: {
         scrollToTop(){
             window.scrollTo({top: 0, behaviour: "smooth"});
+            this.isScrolledDown = false;
+        },
+        handleScroll(){
+          this.isScrolledDown = window.scrollY > 540;
         },
     },
+    mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+    }
 };
 </script>
 
 <template>
-  <button class="scroll-top-button" @click="scrollToTop">
+  <button class="scroll-top-button" :class="{hidden: !isScrolledDown}" @click="scrollToTop">
   <i class="fas fa-chevron-up"></i>
   </button>
 </template>
@@ -38,6 +52,9 @@ export default {
     background-color: $light-gray;
     color: $orange;
     border: 1px solid $orange;
+  }
+  &.hidden{
+    opacity: 0;
   }
 }
 

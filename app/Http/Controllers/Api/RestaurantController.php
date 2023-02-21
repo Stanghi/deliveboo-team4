@@ -18,6 +18,14 @@ class RestaurantController extends Controller
         return response()->json(compact('restaurants', 'categories'));
     }
 
+    public function search() 
+    {
+        $searched = $_GET['searched'];
+        $restaurants = Restaurant::where('name', 'like', "%$searched%")->with('categories')->get();
+        
+        return response()->json(compact('restaurants'));
+    }
+
     public function getByCategory($values)
     {
         $categoryChoice = explode(',', $values);

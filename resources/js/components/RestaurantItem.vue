@@ -2,8 +2,8 @@
 export default {
     name: "RestaurantItem",
     props: {
-        restaurant: Object
-    }
+        restaurant: Object,
+    },
 };
 </script>
 
@@ -12,12 +12,27 @@ export default {
         <router-link :to="{ name: 'home' }" class="text-decoration-none">
             <div class="card d-flex flex-row mb-5 mx-2">
                 <div class="card-image">
-                    <img src="../../img/placeholder.png" alt="placeholder" />
+                    <img
+                        v-if="restaurant.img"
+                        :src="`/storage/${restaurant.img}`"
+                        :alt="restaurant.name"
+                    />
+                    <img
+                        v-else
+                        src="../../img/placeholder.png"
+                        :alt="restaurant.name"
+                    />
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bold">{{restaurant.name}}</h5>
-                    <p class="card-text address">{{restaurant.address}}</p>
-                    <span class="category badge fw-normal">Categoria</span>
+                    <h5 class="card-title fw-bold">{{ restaurant.name }}</h5>
+                    <p class="card-text address">{{ restaurant.address }}</p>
+                    <div class="category-box">
+                        <span
+                            v-for="category in restaurant.categories"
+                            class="badge me-1 fw-normal"
+                            >{{ category.name }}</span
+                        >
+                    </div>
                 </div>
             </div>
         </router-link>
@@ -67,9 +82,14 @@ export default {
             overflow: hidden;
         }
 
-        .badge {
-            background-color: $light-gray;
-            color: $dark-gray;
+        .category-box {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            .badge {
+                background-color: $light-gray;
+                color: $dark-gray;
+            }
         }
     }
 }

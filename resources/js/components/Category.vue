@@ -23,17 +23,21 @@ export default {
         },
 
         getCategories(categories) {
-            if(categories.length) {
+            if (categories.length) {
                 // console.log(typeof categories, categories );
                 const stringCategories = categories.join();
                 axios
-                    .get(this.baseUrl + "restaurants/restaurantsbycategory/" + stringCategories)
+                    .get(
+                        this.baseUrl +
+                            "restaurants/restaurantsbycategory/" +
+                            stringCategories
+                    )
                     .then((result) => {
                         store.restaurants = result.data.restaurants;
                         // console.log(result.data);
                         console.log(stringCategories);
                     });
-            }else {
+            } else {
                 store.restaurants = [];
             }
         },
@@ -46,7 +50,10 @@ export default {
 
 <template>
     <div class="container m-0 p-0">
-        <SliderCategory :categories="store.categories" @prova="getCategories(store.filterCategory)" />
+        <SliderCategory
+            :categories="store.categories"
+            @prova="getCategories(store.filterCategory)"
+        />
     </div>
 </template>
 

@@ -60,7 +60,13 @@ export default {
         class="mySwiper px-5"
     >
         <swiper-slide v-for="(category, index) in categories" :key="index">
-            <div @click="isChosen(category.id); $emit('prova') " class="card">
+            <div
+                @click="
+                    isChosen(category.id);
+                    $emit('prova');
+                "
+                class="card"
+            >
                 <img
                     :src="`/storage/${category.img}`"
                     class="card-img-top"
@@ -121,7 +127,7 @@ export default {
             display: none;
         }
     }
-    &:hover .fa-check,
+
     &:hover .card-title {
         display: inline-block;
         color: $orange;

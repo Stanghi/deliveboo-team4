@@ -1,32 +1,32 @@
 <script>
-import { store } from '../data/store';
-import axios from 'axios';
+import { store } from "../data/store";
+import axios from "axios";
 
 export default {
     name: "SearchBar",
-    data(){
-        return{
-            searched: '',
+    data() {
+        return {
+            searched: "",
             store,
-            baseUrl: 'http://127.0.0.1:8000/api/restaurants'
-        }
+            baseUrl: "http://127.0.0.1:8000/api/restaurants",
+        };
     },
-    methods:{
-        startSearch(){
-            axios.get(this.baseUrl + '/search', {
-                params: {
-                    searched: this.searched
-                }
-            })
-                .then(result => {
-                        store.restaurants = result.data.restaurants;
+    methods: {
+        startSearch() {
+            axios
+                .get(this.baseUrl + "/search", {
+                    params: {
+                        searched: this.searched,
+                    },
                 })
-            this.searched = ''
+                .then((result) => {
+                    store.restaurants = result.data.restaurants;
+                });
+            this.searched = "";
             console.log(store.restaurants);
-        }
-    }
-}
-
+        },
+    },
+};
 </script>
 <template lang="">
     <div class="container">

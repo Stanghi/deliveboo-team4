@@ -112,13 +112,16 @@ export default {
 
 .card-social__item {
     list-style: none;
+    transition: fill 0.2s ease ,transform 0.2s ease;
+
 }
 
 .card-social__item a {
 
     color: $dark_gray;
     cursor: pointer;
-    transition: fill 0.2s ease ,transform 0.2s ease;
+    transition: transform 0.15s ease;
+    font-size: 1.4rem;
 }
 
 /*Text*/
@@ -148,9 +151,8 @@ export default {
     opacity: 1;
 }
 
-.card-social__item i:hover {
-    fill: #232323;
-    transform: scale(1.1);
+.card-social__item:hover {
+    transform: scale(1.2);
 }
 
 .card-avatar img:hover {

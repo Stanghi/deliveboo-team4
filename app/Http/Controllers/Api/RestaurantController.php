@@ -26,7 +26,11 @@ class RestaurantController extends Controller
 
         if ($restaurant) {
             $products = Product::where('restaurant_id', $restaurant->id)->get();
-            return response()->json(compact('restaurant', 'products'));
+            return response()->json([
+                'restaurant' => $restaurant,
+                'products' => $products,
+                'success' => true
+            ]);  /* compact('restaurant', 'products') */
         } else {
             return response()->json([
                 'success' => false,
@@ -55,10 +59,10 @@ class RestaurantController extends Controller
         return response()->json(compact('restaurants'));
     }
 
-    public function getTeamMembers(){
+    public function getTeamMembers()
+    {
         $team_members = TeamMember::all();
 
         return response()->json(compact('team_members'));
-
     }
 }

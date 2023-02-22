@@ -24,8 +24,14 @@ export default {
             axios
                 .get(this.baseUrl + "restaurants/" + this.$route.params.slug)
                 .then((result) => {
+                    this.success = result.data.success;
                     this.restaurant = result.data.restaurant;
                     this.products = result.data.products;
+                })
+                .catch((error) => {
+                    if (error.response.status === 404) {
+                        this.$router.push({ name: "404" });
+                    }
                 });
         },
     },

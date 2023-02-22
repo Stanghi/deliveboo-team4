@@ -42,7 +42,7 @@ export default {
         }"
         :autoplay="{
             delay: 6000,
-            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
         }"
         :loop="true"
         navigation
@@ -52,8 +52,14 @@ export default {
             v-for="restaurant in store.restaurantsInEvidence"
             :key="restaurant.slug"
         >
-            <router-link :to="{ name: 'home' }">
+            <router-link
+                :to="{ name: 'restaurant', params: { slug: restaurant.slug } }"
+            >
                 <div class="restaurant-image">
+                    <h2>{{ restaurant.name }}</h2>
+
+                    <!-- <i class="fa-solid fa-circle-info"></i> -->
+                    <h3 class="">Scopri {{ restaurant.name }}</h3>
                     <img
                         :src="`/storage/${restaurant.img}`"
                         :alt="restaurant.name"
@@ -68,14 +74,60 @@ export default {
 @use "../../scss/_variables.scss" as *;
 
 .restaurant-image {
+    position: relative;
     width: 100%;
     height: 500px;
     border-radius: 10px;
+    overflow: hidden;
+
+    &:hover h3 {
+        display: block;
+    }
+    &:hover img {
+        filter: brightness(30%);
+    }
+    &:hover h2 {
+        display: none;
+    }
+
+    h2 {
+        color: $white;
+        font-size: 3.2rem;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        z-index: 20;
+    }
+
+    h3 {
+        width: 100%;
+        text-align: center;
+        display: none;
+        color: $light-gray;
+        font-size: 3.5rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 20;
+    }
     img {
+        border-radius: 10px;
         height: 100%;
         width: 100%;
         object-fit: cover;
+        filter: brightness(75%);
     }
     cursor: pointer;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

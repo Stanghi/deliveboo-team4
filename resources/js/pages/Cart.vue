@@ -5,10 +5,9 @@ export default {
 </script>
 
 <template>
-    <div class="container my-5">
-        <h1>Riepilogo Carrello</h1>
+    <div class="container">
+        <h1 class="mb-5">Riepilogo Carrello</h1>
         <div class="cart-container mt-3">
-
             <div class="box pt-2">
                 <h3 class="Current">Carrello</h3>
                 <h5 class="Action">Svuota Carrello</h5>
@@ -16,7 +15,7 @@ export default {
 
             <div class="box box-items">
                 <div class="image-item">
-                    <img src="../../img/placeholder.png"/>
+                    <img src="../../img/placeholder.png" />
                 </div>
                 <div class="info-items">
                     <h1 class="title">Bistecca</h1>
@@ -35,7 +34,7 @@ export default {
 
             <div class="box box-items">
                 <div class="image-item">
-                    <img src="../../img/placeholder.png"/>
+                    <img src="../../img/placeholder.png" />
                 </div>
                 <div class="info-items">
                     <h1 class="title">Bistecca</h1>
@@ -54,7 +53,7 @@ export default {
 
             <div class="box box-items">
                 <div class="image-item">
-                    <img src="../../img/placeholder.png"/>
+                    <img src="../../img/placeholder.png" />
                 </div>
                 <div class="info-items">
                     <h1 class="title">Bistecca</h1>
@@ -89,135 +88,135 @@ export default {
 <style scoped lang="scss">
 @use "../../scss/_variables.scss" as *;
 
-    .cart-container{
-        width: 100%;
-        height: 85%;
-        background-color: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0px 25px 40px #1687d933;
-        .box{
-            margin: auto;
-            width: 90%;
-            height: 15%;
+.cart-container {
+    width: 100%;
+    height: 85%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25);
+    .box {
+        margin: auto;
+        width: 90%;
+        height: 15%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .Current {
+        font-size: 20px;
+        font-weight: 700;
+        color: #2f3841;
+    }
+    .Action {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e44c4c;
+        cursor: pointer;
+        border-bottom: 1px solid #e44c4c;
+    }
+    .box-items {
+        .image-item {
+            width: 15%;
+            img {
+                width: 100%;
+            }
+        }
+        .info-items {
+            width: 20%;
+            .title {
+                padding-top: 5px;
+                line-height: 10px;
+                font-size: 20px;
+                font-weight: 800;
+                color: #202020;
+            }
+            .subtitle {
+                line-height: 10px;
+                font-size: 10px;
+                font-weight: 600;
+                color: #909090;
+            }
+        }
+        .counter {
+            width: 15%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .Current{
-            font-size: 20px;
-            font-weight: 700;
-            color: #2F3841;
-        }
-        .Action{
-            font-size: 14px;
-            font-weight: 600;
-            color: #E44C4C;
-            cursor: pointer;
-            border-bottom: 1px solid #E44C4C;
-        }
-        .box-items{
-            .image-item{
-                width: 15%;
-                img{
-                    width: 100%;
-                }
-            }
-            .info-items{
-                width: 20%;
-                .title{
-                    padding-top: 5px;
-                    line-height: 10px;
-                    font-size: 20px;
-                    font-weight: 800;
-                    color: #202020;
-                }
-                    .subtitle{
-                    line-height: 10px;
-                    font-size: 10px;
-                    font-weight: 600;
-                    color: #909090;
-                }
-            }
-            .counter{
-                width: 15%;
+            .btn {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: #d9d9d9;
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                .btn{
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    background-color: #d9d9d9;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 15px;
-                    font-weight: 900;
-                    color: #202020;
-                    cursor: pointer;
-                }
-                    .count{
-                    font-size: 15px;
-                    font-weight: 900;
-                    color: #202020;
-                }
+                font-size: 15px;
+                font-weight: 900;
+                color: #202020;
+                cursor: pointer;
             }
-            .prices{
-                height: 100%;
-                text-align: right;
-                .amount{
-                    padding-top: 20px;
-                    font-size: 26px;
-                    font-weight: 800;
-                    color: #202020;
-                }
-                .remove{
-                    padding-top: 5px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: #E44C4C;
-                    cursor: pointer;
-                }
+            .count {
+                font-size: 15px;
+                font-weight: 900;
+                color: #202020;
             }
         }
-        .checkout{
-            border-top: 2px solid #909090;
-            margin: auto;
-            width: 90%;
-            display: flex;
-            justify-content: end;
-            .total{
-                text-align: end;
-                .Subtotal{
-                    font-size: 18px;
-                    font-weight: 700;
-                    color: #202020;
-                }
-                .items{
-                    font-size: 16px;
-                    font-weight: 500;
-                    color: #909090;
-                    line-height: 10px;
-                }
-                .total-amount{
-                    font-size: 26px;
-                    font-weight: 900;
-                    color: #202020;
-                }
-
-                .button{
-                    margin-top: 5px;
-                    width: 100%;
-                    height: 40px;
-                    border: none;
-                    background: $orange;
-                    border-radius: 20px;
-                    cursor: pointer;
-                    font-size: 16px;
-                    font-weight: 600;
-                    color: $dark-gray;
-                }
+        .prices {
+            height: 100%;
+            text-align: right;
+            .amount {
+                padding-top: 20px;
+                font-size: 26px;
+                font-weight: 800;
+                color: #202020;
+            }
+            .remove {
+                padding-top: 5px;
+                font-size: 14px;
+                font-weight: 600;
+                color: #e44c4c;
+                cursor: pointer;
             }
         }
     }
+    .checkout {
+        border-top: 2px solid #909090;
+        margin: auto;
+        width: 90%;
+        display: flex;
+        justify-content: end;
+        .total {
+            text-align: end;
+            .Subtotal {
+                font-size: 18px;
+                font-weight: 700;
+                color: #202020;
+            }
+            .items {
+                font-size: 16px;
+                font-weight: 500;
+                color: #909090;
+                line-height: 10px;
+            }
+            .total-amount {
+                font-size: 26px;
+                font-weight: 900;
+                color: #202020;
+            }
+
+            .button {
+                margin-top: 5px;
+                width: 100%;
+                height: 40px;
+                border: none;
+                background: $orange;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: 600;
+                color: $dark-gray;
+            }
+        }
+    }
+}
 </style>

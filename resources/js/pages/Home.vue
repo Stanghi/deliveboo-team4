@@ -10,13 +10,13 @@ export default {
         RestaurantsCards,
         Category,
         SearchBar,
-        SliderRestaurantsEvidence
+        SliderRestaurantsEvidence,
     },
 };
 </script>
 
 <template>
-    <div class="container home-container py-5">
+    <div class="container home-container mb-5">
         <h2 class="mb-5">Cerca per categoria o per ristorante</h2>
         <Category class="mb-5" />
         <SearchBar class="mb-5" />

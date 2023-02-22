@@ -37,6 +37,7 @@ export default {
 @use "../../scss/_variables.scss" as *;
 
 .scroll-top-button {
+    z-index: 100;
     position: fixed;
     bottom: 20px;
     right: 20px;

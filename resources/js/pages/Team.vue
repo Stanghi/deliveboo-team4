@@ -1,61 +1,63 @@
 <script>
-import axios from 'axios';
-import {store} from '../data/store';
+import axios from "axios";
+import { store } from "../data/store";
 export default {
     name: "Team",
-    data(){
+    data() {
         return {
             baseUrl: "http://127.0.0.1:8000/api/restaurants/team_members",
-            store
-        }
+            store,
+        };
     },
     methods: {
         getTeamMembers() {
-            axios.get(this.baseUrl)
-                .then(results => {
-                    store.team_members = results.data.team_members;
-                    console.log(store.team_members);
-                })
-        }
+            axios.get(this.baseUrl).then((results) => {
+                store.team_members = results.data.team_members;
+                console.log(store.team_members);
+            });
+        },
     },
-    mounted(){
+    mounted() {
         this.getTeamMembers();
-    }
+    },
 };
 </script>
 
 <template>
-    <h1>Team</h1>
-    <div class="container my-5">
+    <div class="container">
+        <h1>Team</h1>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12" v-for="(team_member, index) in store.team_members" :key="index">
-
+            <div
+                class="col-lg-4 col-md-6 col-sm-12"
+                v-for="(team_member, index) in store.team_members"
+                :key="index"
+            >
                 <div class="card mb-4">
                     <div class="card-info">
                         <div class="card-avatar">
-                            <img :src="`/storage/${team_member.img}`" :alt=" team_member.name ">
+                            <img
+                                :src="`/storage/${team_member.img}`"
+                                :alt="team_member.name"
+                            />
                         </div>
-                        <div class="card-title">{{team_member.name}} {{ team_member.surname }}</div>
+                        <div class="card-title">
+                            {{ team_member.name }} {{ team_member.surname }}
+                        </div>
                         <div class="card-subtitle">Team 4 member</div>
                     </div>
                     <ul class="card-social">
                         <li class="card-social__item">
-
                             <a :href="team_member.li_link">
-
                                 <i class="fa-brands fa-linkedin"></i>
                             </a>
                         </li>
                         <li class="card-social__item">
                             <a :href="team_member.gh_link">
-
                                 <i class="fa-brands fa-github"></i>
                             </a>
                         </li>
                         <li class="card-social__item">
-
                             <a :href="team_member.ig_link">
-
                                 <i class="fa-brands fa-instagram"></i>
                             </a>
                         </li>
@@ -74,7 +76,7 @@ export default {
     height: 400px;
     background: $light-gray;
     padding: 2rem 1.5rem;
-    transition: box-shadow .3s ease, transform .2s ease;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 .card-info {
@@ -82,11 +84,11 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: transform .2s ease, opacity .2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 /*Image*/
-.card-avatar img{
+.card-avatar img {
     --size: 60px;
     background: linear-gradient(to top, #f1e1c1 0%, #fcbc97 100%);
 
@@ -94,10 +96,9 @@ export default {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    transition: transform .2s ease;
+    transition: transform 0.2s ease;
     margin-bottom: 1rem;
 }
-
 
 /*Card footer*/
 .card-social {
@@ -106,18 +107,16 @@ export default {
     justify-content: space-around;
     width: 100%;
     opacity: 0;
-    transition: transform .2s ease, opacity .2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
     padding-left: 0;
 }
 
 .card-social__item {
     list-style: none;
-    transition: fill 0.2s ease ,transform 0.2s ease;
-
+    transition: fill 0.2s ease, transform 0.2s ease;
 }
 
 .card-social__item a {
-
     color: $dark_gray;
     cursor: pointer;
     transition: transform 0.15s ease;

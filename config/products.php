@@ -941,7 +941,7 @@ return [
         ],
         [
             "name" => "Keftedekia",
-            "img" => "uploads/Ristorante_Greco_ Dioniso_Keftedakia.jpg",
+            "img" => "uploads/Ristorante_Greco_Dioniso_Keftedakia.jpg",
             "isVisible" => true,
             "restaurant_id" => 20,
             "description" => "Carne macinata di vitella, mischiata con delle spezie e gli aromi",
@@ -949,7 +949,7 @@ return [
         ],
         [
             "name" => "Mussaka",
-            "img" => "uploads/Ristorante_Greco_ Dioniso_Mussaka.jpeg",
+            "img" => "uploads/Ristorante_Greco_Dioniso_Mussaka.jpeg",
             "isVisible" => true,
             "restaurant_id" => 20,
             "description" => "Tipica specialità greca a base di carne, melanzane e spezie",
@@ -957,7 +957,7 @@ return [
         ],
         [
             "name" => "Gyros Pita",
-            "img" => "uploads/Ristorante_Greco_ Dioniso_gyros_pita.webp",
+            "img" => "uploads/Ristorante_Greco_Dioniso_gyros_pita.webp",
             "isVisible" => true,
             "restaurant_id" => 20,
             "description" => "Gyros è ripieno di carne di maiale cotta su spiedi, tagliata a fettine sottili e servita arrotolata nelle pite, i tipici pani greci simili alle nostre piadine.",
@@ -965,7 +965,7 @@ return [
         ],
         [
             "name" => "Pita souvlaki",
-            "img" => "uploads/Ristorante_Greco_ Dioniso_Pita_souvlaki.jpeg",
+            "img" => "uploads/Ristorante_Greco_Dioniso_Pita_souvlaki.jpeg",
             "isVisible" => true,
             "restaurant_id" => 20,
             "description" => "Il gyros souvlaki è un piatto di carne tipico della cucina greca, realizzato con pita, carne di pollo e salsa tzatziki",
@@ -1368,7 +1368,7 @@ return [
         [
             "name" => "Pollo alle Mandorle",
             "restaurant_id" => 29,
-            "img" => "uploads/little-beijing.jpg",
+            "img" => "uploads/pollo-alle-mandorle.jpg",
             "isVisible" => true,
             "description" => "Tipico della cucina casalinga del Guangdong, il pollo alle mandorle è una ricetta molto apprezzata in tutto il mondo che non manca mai nel menù dei ristoranti cinesi.",
             "price" => "11.00",

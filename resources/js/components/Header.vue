@@ -24,7 +24,12 @@ export default {
 </script>
 
 <template>
-    <header :class="{ onScroll: !view.topOfPage }">
+    <header
+        :class="{
+            onScroll: !view.topOfPage,
+            headerDark: $route.name == 'cart' || $route.name == 'team',
+        }"
+    >
         <router-link :to="{ name: 'home' }">
             <div class="logo">
                 <img class="me-2" src="../../img/logo.png" alt="logo" />
@@ -82,7 +87,8 @@ header {
     }
 }
 
-.onScroll {
+.onScroll,
+.headerDark {
     background-color: $dark-gray;
 }
 </style>

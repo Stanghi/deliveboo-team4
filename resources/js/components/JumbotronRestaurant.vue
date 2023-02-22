@@ -1,8 +1,12 @@
 <script>
+import { store } from "../data/store";
 export default {
     name: "Jumbotron",
-    props: {
-        restaurant: Object,
+
+    data() {
+        return {
+            store,
+        };
     },
 };
 </script>
@@ -10,15 +14,15 @@ export default {
 <template>
     <div
         class="jumbotron"
-        :style="{ backgroundImage: `url(/storage/${restaurant.img})` }"
+        :style="{ backgroundImage: `url(/storage/${store.restaurant.img})` }"
     >
         <div class="container p-0">
-            <h2>{{ restaurant.name }}</h2>
-            <h4>{{ restaurant.address }}</h4>
-            <img :src="restaurant.img" alt="" />
+            <h2>{{ store.restaurant.name }}</h2>
+            <h4>{{ store.restaurant.address }}</h4>
+            <img :src="store.restaurant.img" alt="" />
             <span
                 class="badge fw-normal me-2"
-                v-for="(categories, index) in restaurant.categories"
+                v-for="(categories, index) in store.restaurant.categories"
                 :key="index"
             >
                 {{ categories.name }}

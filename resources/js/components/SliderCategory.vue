@@ -26,6 +26,7 @@ export default {
     },
     methods: {
         isChosen(id) {
+            store.searched = "";
             if (!this.store.filterCategory.includes(id)) {
                 this.store.filterCategory.push(id);
             } else {
@@ -63,7 +64,7 @@ export default {
             <div
                 @click="
                     isChosen(category.id);
-                    $emit('prova');
+                    $emit('categoryClicked');
                 "
                 class="card"
             >

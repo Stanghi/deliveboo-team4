@@ -5,9 +5,9 @@ body {
     background-color: $light-gray;
 }
 
-// main {
-//     padding-top: 60px;
-// }
+main {
+    padding-top: 60px;
+}
 
 .debug {
     background-color: rgba(255, 0, 0, 0.5);
@@ -44,8 +44,6 @@ ul {
     letter-spacing: 0;
     font-variant: initial;
     line-height: 1;
-    // prova
-    // font-size: 1rem !important;
 }
 
 .swiper-button-prev,
@@ -56,23 +54,14 @@ ul {
     transform: translateY(-50%);
     margin: 0 !important;
     padding: 0 !important;
-    // prova
-    //border-radius: 100% !important;
-    // height: 35px !important;
-    // width: 35px !important;
-    // background-color: $orange;
 }
 
 .swiper-button-prev {
     left: 0 !important;
-    // prova
-    // left: 5px !important;
 }
 
 .swiper-button-next {
     right: 0 !important;
-    // prova
-    // right: 5px !important;
 }
 
 @media all and (max-width: 480px) {

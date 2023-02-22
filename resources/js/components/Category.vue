@@ -17,17 +17,19 @@ export default {
     },
     methods: {
         getApi() {
+            store.isLoading = true;
             axios.get(this.baseUrl + "restaurants").then((result) => {
                 store.categories = result.data.categories;
                 store.allRestaurants = result.data.restaurants;
                 this.getRestaurantsInEvidence();
+                store.isLoading = false;
             });
         },
 
         getCategories(categories) {
             if (categories.length) {
-                // console.log(typeof categories, categories );
                 const stringCategories = categories.join();
+                store.isLoading = true;
                 axios
                     .get(
                         this.baseUrl +
@@ -36,7 +38,7 @@ export default {
                     )
                     .then((result) => {
                         store.restaurants = result.data.restaurants;
-                        // console.log(result.data);
+                        store.isLoading = false;
                         console.log(stringCategories);
                     });
             } else {
@@ -44,13 +46,16 @@ export default {
             }
         },
         getRestaurantsInEvidence() {
-            while(store.restaurantsInEvidence.length < 8) {
-                let item = store.allRestaurants[Math.floor(Math.random()*store.allRestaurants.length)];
-                if(!store.restaurantsInEvidence.includes(item)) {
+            while (store.restaurantsInEvidence.length < 8) {
+                let item =
+                    store.allRestaurants[
+                        Math.floor(Math.random() * store.allRestaurants.length)
+                    ];
+                if (!store.restaurantsInEvidence.includes(item)) {
                     store.restaurantsInEvidence.push(item);
                 }
             }
-        }
+        },
     },
     mounted() {
         this.getApi();
@@ -62,7 +67,7 @@ export default {
     <div class="container m-0 p-0">
         <SliderCategory
             :categories="store.categories"
-            @prova="getCategories(store.filterCategory)"
+            @categoryClicked="getCategories(store.filterCategory)"
         />
     </div>
 </template>

@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import JumbotronRestaurant from "../components/JumbotronRestaurant.vue";
+// import JumbotronRestaurant from "../components/JumbotronRestaurant.vue";
 import ProductCards from "../components/ProductCard.vue";
 import { baseUrl } from "../data/data";
 import { store } from "../data/store";
@@ -9,7 +9,7 @@ export default {
     name: "Restaurant",
     components: {
         ProductCards,
-        JumbotronRestaurant,
+        // JumbotronRestaurant,
     },
     data() {
         return {
@@ -25,7 +25,7 @@ export default {
                 .get(this.baseUrl + "restaurants/" + this.$route.params.slug)
                 .then((result) => {
                     this.success = result.data.success;
-                    this.restaurant = result.data.restaurant;
+                    store.restaurant = result.data.restaurant;
                     this.products = result.data.products;
                 })
                 .catch((error) => {
@@ -43,10 +43,10 @@ export default {
 </script>
 
 <template>
-    <JumbotronRestaurant
+    <!-- <JumbotronRestaurant
         v-show="$route.name == 'restaurant'"
         :restaurant="restaurant"
-    />
+    /> -->
 
     <div class="container">
         <div class="my-5 d-flex">

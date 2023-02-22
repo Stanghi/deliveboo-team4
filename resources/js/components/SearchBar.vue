@@ -6,29 +6,30 @@ export default {
     name: "SearchBar",
     data() {
         return {
-            searched: "",
             store,
             baseUrl: "http://127.0.0.1:8000/api/restaurants",
         };
     },
     methods: {
         startSearch() {
-            if(this.searched){
+            store.typed = true;
+            if (store.searched) {
+                store.isLoading = true;
                 axios
                     .get(this.baseUrl + "/search", {
                         params: {
-                            searched: this.searched,
+                            searched: store.searched,
                         },
                     })
                     .then((result) => {
                         store.restaurants = result.data.restaurants;
+                        store.isLoading = false;
                     });
-                this.searched = "";
 
-            }else{
+                store.filterCategory = [];
+            } else {
                 store.restaurants = [];
             }
-            // console.log(store.restaurants);
         },
     },
 };
@@ -43,7 +44,7 @@ export default {
                         class="form-control"
                         aria-label="Recipient's username"
                         aria-describedby="button-addon2"
-                        v-model="searched"
+                        v-model="store.searched"
                         @keyup.enter="startSearch()"
                         placeholder="Cerca un ristorante per nome..."
                     />

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Restaurant;
+use App\Models\TeamMember;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -52,5 +53,12 @@ class RestaurantController extends Controller
         })->get();
 
         return response()->json(compact('restaurants'));
+    }
+
+    public function getTeamMembers(){
+        $team_members = TeamMember::all();
+
+        return response()->json(compact('team_members'));
+
     }
 }

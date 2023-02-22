@@ -27,16 +27,12 @@ export default class Cart {
     }
 
     findItem(product) {
-        if (this._restaurant && this._restaurant.id === product.restaurant_id) {
-            return this._items.find((item) => item.product.id === product.id);
-        } else {
-            return null;
-        }
+        return this._items.find((item) => item.product.id === product.id);
     }
 
-    addItem(product) {
+    addItem(product, productRestaurant) {
         if (this.isEmpty()) {
-            this._restaurant = product.restaurant_id;
+            this._restaurant = productRestaurant;
             const newItem = new CartItem(product);
             this._items.push(newItem);
             return true;

@@ -13,17 +13,22 @@ export default {
     },
     methods: {
         startSearch() {
-            axios
-                .get(this.baseUrl + "/search", {
-                    params: {
-                        searched: this.searched,
-                    },
-                })
-                .then((result) => {
-                    store.restaurants = result.data.restaurants;
-                });
-            this.searched = "";
-            console.log(store.restaurants);
+            if(this.searched){
+                axios
+                    .get(this.baseUrl + "/search", {
+                        params: {
+                            searched: this.searched,
+                        },
+                    })
+                    .then((result) => {
+                        store.restaurants = result.data.restaurants;
+                    });
+                this.searched = "";
+
+            }else{
+                store.restaurants = [];
+            }
+            // console.log(store.restaurants);
         },
     },
 };

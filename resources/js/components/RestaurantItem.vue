@@ -9,7 +9,10 @@ export default {
 
 <template>
     <div class="col">
-        <router-link :to="{ name: 'home' }" class="text-decoration-none">
+        <router-link
+            :to="{ name: 'restaurant', params: { slug: restaurant.slug } }"
+            class="text-decoration-none"
+        >
             <div class="card d-flex flex-row mb-5 mx-2">
                 <div class="card-image">
                     <img

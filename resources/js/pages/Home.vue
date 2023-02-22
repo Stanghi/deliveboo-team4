@@ -2,7 +2,7 @@
 import RestaurantsCards from "../components/RestaurantsCards.vue";
 import SearchBar from "../components/SearchBar.vue";
 import Category from "../components/Category.vue";
-import FeaturedRestaurants from "../components/FeaturedRestaurants.vue";
+import SliderRestaurantsEvidence from "../components/SliderRestaurantsEvidence.vue";
 
 export default {
     name: "Home",
@@ -10,7 +10,7 @@ export default {
         RestaurantsCards,
         Category,
         SearchBar,
-        FeaturedRestaurants,
+        SliderRestaurantsEvidence
     },
 };
 </script>
@@ -23,7 +23,7 @@ export default {
         <RestaurantsCards />
 
         <h2 class="mb-5">Ristoranti in primo piano</h2>
-        <FeaturedRestaurants />
+        <SliderRestaurantsEvidence />
     </div>
 </template>
 

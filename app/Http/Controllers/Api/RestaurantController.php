@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Restaurant;
 use App\Models\TeamMember;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,6 +18,20 @@ class RestaurantController extends Controller
         $categories = Category::all();
 
         return response()->json(compact('restaurants', 'categories'));
+    }
+
+    public function show($slug)
+    {
+        $restaurant = Restaurant::where('slug', $slug)->with(['categories'])->first();
+
+        if ($restaurant) {
+            $products = Product::where('restaurant_id', $restaurant->id)->get();
+            return response()->json(compact('restaurant', 'products'));
+        } else {
+            return response()->json([
+                'success' => false,
+            ], 404);
+        }
     }
 
     public function search()

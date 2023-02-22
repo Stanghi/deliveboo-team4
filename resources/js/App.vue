@@ -12,12 +12,20 @@ export default {
         Footer,
         Btn,
     },
+    methods: {
+        isHome() {
+            return this.$route.name === "home";
+        },
+        isRestaurant() {
+            return this.$route.name === "ristorante";
+        },
+    },
 };
 </script>
 
 <template>
     <Header />
-    <Jumbotron />
+    <Jumbotron v-show="$route.name == 'home'" />
     <main>
         <router-view> </router-view>
     </main>

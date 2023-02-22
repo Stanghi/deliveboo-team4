@@ -1,9 +1,10 @@
-import {reactive} from 'vue'
+import { reactive } from "vue";
 
 export const store = reactive({
     restaurants: [],
     categories: [],
-    filterCategory: new Array,
     allRestaurants: [],
     restaurantsInEvidence: []
+    filterCategory: new Array(),
+    selectedProducts: [],
 });

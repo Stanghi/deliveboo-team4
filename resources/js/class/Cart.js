@@ -1,19 +1,9 @@
-//Immaginiamo il Carrello come una classe ovvero come un'entità che ha delle proprietà e dei metodi che definiscono come
-// è fatta questa entità (le proprietà) e come si comporta(metodi).
-//La classe Carrello è composta dalle proprietà restaurant(ovvero il ristorante a cui fanno riferimento i prodotti del carrello) e la proprietà items.
-//Nel costuttore di Cart questi due parametri non sono obbligatori e c'è un default per cui se istanziamo un nuovo carrello senza passare nulla, si creerà un carrello vuoto dove restaurant è null e gli items è un array vuoto.
-//La proprietà items è un array dove pusheremo i prodotti. I prodotti però non vengono pushati direttamente ma per ogni prodotto prima di pusharlo
-//istanziamo un oggetto della classe ClassItem che costruiamo in base al prodotto.
-//Vedi descrizione ClassItem.
-//Ne consegue che quando dobbiamo pushare un prodotto nel carrello, istanziamo ClassItem passando al costruttore le proprietà restaurant(del prodotto), product(il prodotto stesso) mentre quantity (la quantità del prodotto) è una proprietà non obbligatoria quindi se non gliela passiamo avrà un default che è 1.
-
 //Importazione classe CartItem
-import CartItem from "./CartItem";
+import CartItem from "./CartItem.js";
 
 //DEFINIZIONE DELLA CLASSE CART
 export default class Cart {
-  //COSTRUTTORE DELLA CLASSE CART
-  //Qui definiamo le proprietà da passare al costruttore quando istanzio l'oggetto Cart. Sono proprietà private(non possiamo accederci da fuori ma dobbiamo sempre fare delle getter per accederci), non obbligatorie quindi se non passate al momento dell'stanziamento dell'oggetto, prendono i valori di default.
+  //Costruttore della classe Cart
   constructor(_restaurant = null, _items = []) {
     this._restaurant = _restaurant;
     this._items = _items;
@@ -46,8 +36,8 @@ export default class Cart {
 
   //METODO FINDITEM()
   //Metodo della classe Cart che chiede come argomenti un prodotto esterno che voglio cercare se sia presente nel carrello e il ristorante del prodotto che sto cercando. Il metodo controlla prima di tutto se c'è corrispondenza tra il ristorante del prodotto e il ristorante del mio carrello. Poi lo cerca e se lo trova restituisce l'item del carrello che corrisponde a quel prodotto.
-  findItem(product, productRestaurant) {
-    if (this._restaurant && this._restaurant.id === productRestaurant.id) {
+  findItem(product) {
+    if (this._restaurant && this._restaurant.id === product.restaurant_id) {
       return this._items.find((item) => item.product.id === product.id);
     } else {
       return null;
@@ -62,18 +52,18 @@ export default class Cart {
   //Se lo trovo allora chiamo il metodo increaseQuantity dell'item stesso (metodo della classe CartItem di cui item è un'istanza). Questo metodo mi permette di aumentare la quantità di quel prodotto (valore salvato della proprietà quantity di CartItem).
   //3. Se non c'è corrispondenza tra il ristorante del prodotto e quello del carrello, per il momento non faccio nulla.
 
-  addItem(product, productRestaurant) {
+  addItem(product) {
     if (this.isEmpty()) {
-      this._restaurant = productRestaurant;
-      const newItem = new CartItem(product, productRestaurant);
+      this._restaurant = product.restaurant_id;
+      const newItem = new CartItem(product);
       this._items.push(newItem);
       return true;
-    } else if (this._restaurant.id === productRestaurant.id) {
-      const item = this.findItem(product, productRestaurant);
+    } else if (this._restaurant.id === product.restaurant_id) {
+      const item = this.findItem(product);
       if (item) {
         item.increaseQuantity();
       } else {
-        const newItem = new CartItem(product, productRestaurant);
+        const newItem = new CartItem(product);
         this._items.push(newItem);
       }
       return true;
@@ -111,6 +101,6 @@ export default class Cart {
   loadFromStorage(cartStorage) {
     this._restaurant = cartStorage._restaurant;
     cartStorage._items.forEach(item => {
-      this._items.push(new CartItem(item._product, item._restaurant, item._quantity))});
+      this._items.push(new CartItem(item._product, item._quantity))});
   }
 }

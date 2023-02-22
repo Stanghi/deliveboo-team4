@@ -4,4 +4,6 @@ export const store = reactive({
     restaurants: [],
     categories: [],
     filterCategory: new Array,
+    allRestaurants: [],
+    restaurantsInEvidence: []
 });

@@ -19,6 +19,8 @@ export default {
         getApi() {
             axios.get(this.baseUrl + "restaurants").then((result) => {
                 store.categories = result.data.categories;
+                store.allRestaurants = result.data.restaurants;
+                this.getRestaurantsInEvidence();
             });
         },
 
@@ -41,6 +43,14 @@ export default {
                 store.restaurants = [];
             }
         },
+        getRestaurantsInEvidence() {
+            while(store.restaurantsInEvidence.length < 8) {
+                let item = store.allRestaurants[Math.floor(Math.random()*store.allRestaurants.length)];
+                if(!store.restaurantsInEvidence.includes(item)) {
+                    store.restaurantsInEvidence.push(item);
+                }
+            }
+        }
     },
     mounted() {
         this.getApi();

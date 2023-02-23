@@ -11,6 +11,11 @@ export default {
     beforeMount() {
         window.addEventListener("scroll", this.handleScroll);
     },
+    computed: {
+        cart() {
+            return this.$store.getters.getCart;
+        },
+    },
     methods: {
         handleScroll() {
             if (window.pageYOffset > 100) {
@@ -46,6 +51,7 @@ export default {
             <a href="/admin" class="me-3">Accedi al tuo ristorante </a>
             <router-link :to="{ name: 'cart' }">
                 <i class="fa-solid fa-cart-shopping fs-5"></i>
+                <span>{{ cart.totalQuantity }}</span>
             </router-link>
         </div>
     </header>

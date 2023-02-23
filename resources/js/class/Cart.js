@@ -11,7 +11,7 @@ export default class Cart {
     }
 
     get totalQuantity() {
-        return this._items.reduce((sum, item) => item.quantity, 0);
+        return this._items.reduce((sum, item) =>sum + item.quantity, 0);
     }
 
     get items() {

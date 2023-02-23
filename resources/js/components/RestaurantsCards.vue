@@ -34,6 +34,7 @@ export default {
         >
             Nessun risultato trovato
         </h3>
+        <h3 class="text-center mb-5" v-if="(store.searched === '' && store.btnClicked === true)">Per cercare inserire il nome di un ristorante</h3>
     </div>
 </template>
 

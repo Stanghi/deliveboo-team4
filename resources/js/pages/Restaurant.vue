@@ -70,7 +70,7 @@ export default {
 
 <template>
     <div class="container">
-        <div class="my-5 d-flex">
+        <div class="mb-5 d-flex">
             <div class="left pe-5">
                 <h2 class="mb-5">Scopri il menù</h2>
                 <ProductCards
@@ -81,35 +81,51 @@ export default {
                 />
             </div>
             <div class="right">
-                <h2 class="mb-5">Riepilogo ordine</h2>
-                <div class="riepilogo">
-                    <div v-if="!cart.isEmpty()">
-                        <h5>{{ cart.restaurant.name }}</h5>
-                        <span
-                            class="cart-items"
-                            v-for="item in cart.items"
-                            :key="item.slug"
-                        >
-                            <p>{{ item.product.name }}</p>
-                            <div class="bnt-box d-flex align-items-center ms-2">
-                                <button class="btn" @click="removeFromCart(item.product)">
-                                    <i class="fa-solid fa-minus"></i>
-                                </button>
-                                <span class="mx-2">{{
-                                    productQuantityInCart(item.product)
-                                }}</span>
-                                <button class="btn me-2" @click="addToCart(item.product)">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                                <span>{{formatPrice(item.totalPrice)}}</span>
+                <div class="sticky">
+                    <h2 class="mb-5">Riepilogo ordine</h2>
+                    <div class="riepilogo">
+                        <div v-if="!cart.isEmpty()">
+                            <h5>{{ cart.restaurant.name }}</h5>
+                            <span
+                                class="cart-items"
+                                v-for="item in cart.items"
+                                :key="item.slug"
+                            >
+                                <p class="product-name">
+                                    {{ item.product.name }}
+                                </p>
+                                <div
+                                    class="bnt-box d-flex align-items-center justify-content-between ms-2"
+                                >
+                                    <button
+                                        class="btn"
+                                        @click="removeFromCart(item.product)"
+                                    >
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="mx-2">{{
+                                        productQuantityInCart(item.product)
+                                    }}</span>
+                                    <button
+                                        class="btn me-2"
+                                        @click="addToCart(item.product)"
+                                    >
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <div class="">
+                                        {{ formatPrice(item.totalPrice) }}
+                                    </div>
+                                </div>
+                            </span>
+                            <div
+                                class="sub-total d-flex w-100 justify-content-between mt-4"
+                            >
+                                <h5>Subtotale</h5>
+                                <h5>{{ formatPrice(cart.amount) }}</h5>
                             </div>
-                        </span>
-                        <div class="sub-total d-flex w-100 justify-content-between mt-4">
-                            <h5>Subtotale</h5>
-                            <h5>{{formatPrice(cart.amount)}}</h5>
                         </div>
+                        <span v-else>Nessuno prodotto selezionato</span>
                     </div>
-                    <span v-else>Nessuno prodotto selezionato</span>
                 </div>
             </div>
         </div>
@@ -125,7 +141,9 @@ export default {
 
 .right {
     width: 30%;
+
     .btn {
+        font-size: 0.7rem;
         background-color: $light-gray;
         color: $dark-gray;
         &:hover {
@@ -133,22 +151,36 @@ export default {
             color: $light-gray;
         }
     }
-}
-.riepilogo {
-    padding: 20px;
-    border-radius: 10px;
-    background-color: $white;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25);
 
-    .cart-items {
-        padding: 10px 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px dashed $dark-gray;
+    .sticky {
+        position: sticky;
+        top: 100px;
+        .riepilogo {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: $white;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25);
 
-        p {
-            margin: 0;
+            .product-name {
+                width: 45%;
+                white-space: pre-wrap;
+            }
+
+            .bnt-box {
+                width: 55%;
+            }
+
+            .cart-items {
+                padding: 10px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px dashed $dark-gray;
+
+                p {
+                    margin: 0;
+                }
+            }
         }
     }
 }

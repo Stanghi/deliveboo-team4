@@ -32,7 +32,10 @@ export default {
     <header
         :class="{
             onScroll: !view.topOfPage,
-            headerDark: $route.name == 'cart' || $route.name == 'team',
+            headerDark:
+                $route.name == 'cart' ||
+                $route.name == 'team' ||
+                $route.name == '404',
         }"
     >
         <router-link :to="{ name: 'home' }">
@@ -47,11 +50,13 @@ export default {
             <router-link :to="{ name: 'team' }">Team</router-link>
         </div>
 
-        <div>
+        <div class="d-flex">
             <a href="/admin" class="me-3">Accedi al tuo ristorante </a>
-            <router-link :to="{ name: 'cart' }">
-                <i class="fa-solid fa-cart-shopping fs-5"></i>
-                <span>{{ cart.totalQuantity }}</span>
+            <router-link :to="{ name: 'cart' }" class="cart-relative">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="badge rounded-pill" v-if="cart.totalQuantity">
+                    {{ cart.totalQuantity }}
+                </div>
             </router-link>
         </div>
     </header>
@@ -88,8 +93,21 @@ header {
             // color: $orange;
         }
     }
-    .fa-cart-shopping:hover {
-        color: $orange;
+    .fa-cart-shopping {
+        font-size: 1.6rem;
+        & :hover {
+            color: $orange;
+        }
+    }
+
+    .cart-relative {
+        position: relative;
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: $orange;
+        }
     }
 }
 

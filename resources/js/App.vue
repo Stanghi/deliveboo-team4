@@ -21,8 +21,8 @@ export default {
         };
     },
     mounted() {
-    this.$store.commit("updateCartFromLocalStorage");
-  },
+        this.$store.commit("updateCartFromLocalStorage");
+    },
 };
 </script>
 

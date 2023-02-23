@@ -135,5 +135,8 @@ export default {
             }
         }
     }
+    &:last-child {
+        margin-bottom: 0px !important;
+    }
 }
 </style>

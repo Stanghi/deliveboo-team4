@@ -1,86 +1,101 @@
 <script>
 export default {
     name: "Cart",
+    computed: {
+        cart() {
+            return this.$store.getters.getCart;
+        },
+    },
+    methods: {
+        removeAllProducts() {
+            this.cart.clear();
+            this.$store.commit("updateCart");
+        },
+
+        formatPrice(price) {
+            return new Intl.NumberFormat("it-IT", {
+                style: "currency",
+                currency: "EUR",
+            }).format(price);
+        },
+        addToCart(product) {
+            this.cart.addItem(product, this.restaurant);
+            this.$store.commit("updateCart");
+        },
+
+        removeFromCart(product) {
+            this.cart.removeItem(product);
+            this.$store.commit("updateCart");
+        },
+    },
 };
 </script>
 
 <template>
-    <div class="container">
+    <div class="container py-5">
         <h1 class="mb-5">Riepilogo Carrello</h1>
-        <div class="cart-container mt-3">
-            <div class="box pt-2">
-                <h3 class="Current">Carrello</h3>
-                <h5 class="Action">Svuota Carrello</h5>
-            </div>
+        <div class="cart-container py-5 px-4">
+            <div v-if="!cart.isEmpty()">
+                <div class="box pt-2">
+                    <h3 class="Current">Carrello {{ cart.restaurant.name }}</h3>
+                    <h5 class="Action" @click="removeAllProducts()">
+                        Svuota Carrello
+                    </h5>
+                </div>
 
-            <div class="box box-items">
-                <div class="image-item">
-                    <img src="../../img/placeholder.png" />
-                </div>
-                <div class="info-items">
-                    <h1 class="title">Bistecca</h1>
-                    <h3 class="subtitle">250gr</h3>
-                </div>
-                <div class="counter">
-                    <div class="btn">+</div>
-                    <div class="count">5</div>
-                    <div class="btn">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount">€ 4</div>
-                    <div class="remove">Elimina</div>
-                </div>
-            </div>
-
-            <div class="box box-items">
-                <div class="image-item">
-                    <img src="../../img/placeholder.png" />
-                </div>
-                <div class="info-items">
-                    <h1 class="title">Bistecca</h1>
-                    <h3 class="subtitle">250gr</h3>
-                </div>
-                <div class="counter">
-                    <div class="btn">+</div>
-                    <div class="count">5</div>
-                    <div class="btn">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount">€ 4</div>
-                    <div class="remove">Elimina</div>
-                </div>
-            </div>
-
-            <div class="box box-items">
-                <div class="image-item">
-                    <img src="../../img/placeholder.png" />
-                </div>
-                <div class="info-items">
-                    <h1 class="title">Bistecca</h1>
-                    <h3 class="subtitle">250gr</h3>
-                </div>
-                <div class="counter">
-                    <div class="btn">+</div>
-                    <div class="count">5</div>
-                    <div class="btn">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount">€ 4</div>
-                    <div class="remove">Elimina</div>
-                </div>
-            </div>
-
-            <div class="checkout mt-2">
-                <div class="total my-2">
-                    <div>
-                        <div class="Subtotal">Sub-Total</div>
-                        <div class="items">3 Prodotti</div>
+                <div
+                    v-for="(item, index) in cart.items"
+                    :key="index"
+                    class="box box-items"
+                >
+                    <div class="image-item">
+                        <img :src="`/storage/${item.product.img}`" />
                     </div>
+                    <div class="info-items">
+                        <h1 class="title">{{ item.product.name }}</h1>
+                        <span>{{ formatPrice(item.product.price) }}</span>
+                    </div>
+                    <div class="bnt-box d-flex align-items-center ms-2">
+                        <button
+                            class="btn"
+                            @click="removeFromCart(item.product)"
+                        >
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <span class="mx-2">{{ item.quantity }}</span>
+                        <button
+                            class="btn me-2"
+                            @click="addToCart(item.product)"
+                        >
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="prices">
+                        <div class="amount">
+                            {{ formatPrice(item.totalPrice) }}
+                        </div>
+                        <div class="remove">Elimina</div>
+                    </div>
+                </div>
 
-                    <div class="total-amount">€ 20</div>
-                    <button class="button">Checkout</button>
+                <div class="checkout mt-2">
+                    <div class="total my-2">
+                        <div>
+                            <div class="Subtotal">Subtotale</div>
+                            <div v-if="cart.totalQuantity > 1" class="items">
+                                {{ cart.totalQuantity }} Prodotti
+                            </div>
+                            <div v-else class="items">1 Prodotto</div>
+                        </div>
+
+                        <div class="total-amount">
+                            {{ formatPrice(cart.amount) }}
+                        </div>
+                        <button class="button">Checkout</button>
+                    </div>
                 </div>
             </div>
+            <h5 v-else>Il carrello è vuoto</h5>
         </div>
     </div>
 </template>
@@ -137,23 +152,18 @@ export default {
                 color: #909090;
             }
         }
-        .counter {
+        .bnt-box {
             width: 15%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             .btn {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                background-color: #d9d9d9;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 15px;
-                font-weight: 900;
-                color: #202020;
-                cursor: pointer;
+                background-color: $light-gray;
+                color: $dark-gray;
+                &:hover {
+                    background-color: $orange;
+                    color: $light-gray;
+                }
             }
             .count {
                 font-size: 15px;

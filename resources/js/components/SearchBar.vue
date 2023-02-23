@@ -12,8 +12,8 @@ export default {
     },
     methods: {
         startSearch() {
-            store.typed = true;
             if (store.searched) {
+                store.typed = true;
                 store.isLoading = true;
                 axios
                     .get(this.baseUrl + "/search", {
@@ -29,6 +29,8 @@ export default {
                 store.filterCategory = [];
             } else {
                 store.restaurants = [];
+                store.filterCategory = [];
+                store.btnClicked = true;
             }
         },
     },
@@ -46,6 +48,7 @@ export default {
                         aria-describedby="button-addon2"
                         v-model="store.searched"
                         @keyup.enter="startSearch()"
+                        @keydown="store.typed = false; store.btnClicked = false"
                         placeholder="Cerca un ristorante per nome..."
                     />
                     <button

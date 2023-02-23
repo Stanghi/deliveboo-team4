@@ -29,16 +29,16 @@ return [
         [
             "name" => "Federico",
             "surname" => "Sainas",
-            "li_link" => "#",
-            "gh_link" => "#",
-            "img" => "/uploads/federico_Sainas.jpg"
+            "li_link" => "https://www.linkedin.com/in/federico-sainas/",
+            "gh_link" => "https://github.com/SainasFede",
+            "img" => "/uploads/federico_sainas.jpg"
 
         ],
         [
             "name" => "Mattia",
             "surname" => "Stangherlin",
-            "li_link" => "#",
-            "gh_link" => "#",
+            "li_link" => "https://www.linkedin.com/in/mattia-stangherlin/",
+            "gh_link" => "https://github.com/Stanghi",
             "img" => "/uploads/mattia_stangherlin.jpg"
 
         ],

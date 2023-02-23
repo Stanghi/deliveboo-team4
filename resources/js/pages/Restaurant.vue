@@ -17,6 +17,7 @@ export default {
             products: [],
             store,
             visible: false,
+            newProduct: null
         };
     },
     computed: {
@@ -39,7 +40,7 @@ export default {
                     }
                 });
         },
-        removeAllProducts() {
+        clearCart() {
             this.cart.clear();
             this.$store.commit("updateCart");
         },
@@ -50,7 +51,7 @@ export default {
             }
         },
         addToCart(product) {
-            this.cart.addItem(product, this.restaurant);
+            this.cart.addItem(product, store.restaurant);
             this.$store.commit("updateCart");
         },
 
@@ -68,8 +69,11 @@ export default {
             this.visible = !this.visible;
             if (this.visible) {
                 window.scrollTo(0, 0);
-                console.log(window);
             }
+        },
+        handleNewCart(product) {
+            this.newProduct = product;
+            this.OpenCloseFun();
         },
     },
     mounted() {
@@ -115,7 +119,8 @@ export default {
                     <button
                         @click="
                             OpenCloseFun();
-                            removeAllProducts();
+                            clearCart();
+                            addToCart(this.newProduct);
                         "
                         type="button"
                         class="btn new-cart"
@@ -137,14 +142,14 @@ export default {
                     :key="index"
                     :product="product"
                     :restaurant="store.restaurant"
-                    @CartFull="OpenCloseFun()"
+                    @CartFull="handleNewCart"
                 />
             </div>
             <div class="right ms-5">
                 <div class="sticky">
                     <h2 class="mb-5">Riepilogo ordine</h2>
                     <div class="riepilogo">
-                        <div v-if="!cart.isEmpty()">
+                        <div v-if="!cart.isEmpty() && cart.restaurant">
                             <h5>{{ cart.restaurant.name }}</h5>
                             <span
                                 class="cart-items"

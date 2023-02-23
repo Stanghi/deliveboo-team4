@@ -62,6 +62,14 @@ export default class Cart {
         }
     }
 
+    removeItems(product) {
+        const item = this.findItem(product);
+        if (item) {
+            const indexItem = this._items.indexOf(item);
+            this._items.splice(indexItem, 1);
+        }
+    }
+
     clear() {
         this._restaurant = null;
         this._items = [];

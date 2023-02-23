@@ -33,7 +33,7 @@ export default {
             if (this.cart.addItem(this.product, this.restaurant)) {
                 this.$store.commit("updateCart");
             } else {
-                this.$emit("CartFull");
+                this.$emit("CartFull",  this.product);
             }
         },
 

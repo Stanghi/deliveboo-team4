@@ -2,7 +2,7 @@
 export default {
     name: "SummaryCartMobile",
     props: {
-        amount: Number,
+        amount: String,
         totalQuantity: Number,
     },
 };

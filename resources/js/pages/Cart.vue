@@ -1,6 +1,17 @@
 <script>
 export default {
     name: "Cart",
+    computed: {
+        cart() {
+            return this.$store.getters.getCart;
+        },
+    },
+    methods: {
+        removeAllProducts() {
+            this.cart.clear();
+            this.$store.commit("updateCart");
+        },
+    },
 };
 </script>
 
@@ -9,46 +20,8 @@ export default {
         <h1 class="mb-5">Riepilogo Carrello</h1>
         <div class="cart-container mt-3">
             <div class="box pt-2">
-                <h3 class="Current">Carrello</h3>
-                <h5 class="Action">Svuota Carrello</h5>
-            </div>
-
-            <div class="box box-items">
-                <div class="image-item">
-                    <img src="../../img/placeholder.png" />
-                </div>
-                <div class="info-items">
-                    <h1 class="title">Bistecca</h1>
-                    <h3 class="subtitle">250gr</h3>
-                </div>
-                <div class="counter">
-                    <div class="btn">+</div>
-                    <div class="count">5</div>
-                    <div class="btn">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount">€ 4</div>
-                    <div class="remove">Elimina</div>
-                </div>
-            </div>
-
-            <div class="box box-items">
-                <div class="image-item">
-                    <img src="../../img/placeholder.png" />
-                </div>
-                <div class="info-items">
-                    <h1 class="title">Bistecca</h1>
-                    <h3 class="subtitle">250gr</h3>
-                </div>
-                <div class="counter">
-                    <div class="btn">+</div>
-                    <div class="count">5</div>
-                    <div class="btn">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount">€ 4</div>
-                    <div class="remove">Elimina</div>
-                </div>
+                <h3 class="Current">Carrello {{cart.restaurant.name}}</h3>
+                <h5 class="Action" @click="removeAllProducts()">Svuota Carrello</h5>
             </div>
 
             <div class="box box-items">

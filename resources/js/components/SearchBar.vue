@@ -12,8 +12,8 @@ export default {
     },
     methods: {
         startSearch() {
-            store.typed = true;
             if (store.searched) {
+                store.typed = true;
                 store.isLoading = true;
                 axios
                     .get(this.baseUrl + "/search", {
@@ -46,6 +46,7 @@ export default {
                         aria-describedby="button-addon2"
                         v-model="store.searched"
                         @keyup.enter="startSearch()"
+                        @keydown="store.typed = false"
                         placeholder="Cerca un ristorante per nome..."
                     />
                     <button

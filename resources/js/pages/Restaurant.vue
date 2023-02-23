@@ -104,7 +104,7 @@ export default {
                                 <span>{{formatPrice(item.totalPrice)}}</span>
                             </div>
                         </span>
-                        <div class="sub-total d-flex w-100 justify-content-between">
+                        <div class="sub-total d-flex w-100 justify-content-between mt-4">
                             <h5>Subtotale</h5>
                             <h5>{{formatPrice(cart.amount)}}</h5>
                         </div>

@@ -30,8 +30,11 @@ export default {
             }).format(price);
         },
         addToCart() {
-            this.cart.addItem(this.product, this.restaurant);
-            this.$store.commit("updateCart");
+            if (this.cart.addItem(this.product, this.restaurant)) {
+                this.$store.commit("updateCart");
+            } else {
+                this.$emit("CartFull");
+            }
         },
 
         removeFromCart() {
@@ -63,8 +66,12 @@ export default {
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="m-0">{{ formatPrice(product.price) }}</h4>
 
-                <div class="bnt-box">
-                    <button class="btn" @click="removeFromCart()">
+                <div>
+                    <button
+                        class="btn"
+                        @click="removeFromCart()"
+                        :class="!productQuantityInCart && 'disabled'"
+                    >
                         <i class="fa-solid fa-minus"></i>
                     </button>
                     <span class="mx-2">{{ productQuantityInCart }}</span>
@@ -138,5 +145,10 @@ export default {
     &:last-child {
         margin-bottom: 0px !important;
     }
+}
+
+.disabled {
+    opacity: 0.4;
+    border: none;
 }
 </style>

@@ -14,6 +14,7 @@ export default {
             baseUrl,
             products: [],
             store,
+            visible: false,
         };
     },
     computed: {
@@ -61,6 +62,13 @@ export default {
                 currency: "EUR",
             }).format(price);
         },
+        OpenCloseFun() {
+            this.visible = !this.visible;
+            if (this.visible) {
+                window.scrollTo(0, 0);
+                console.log(window);
+            }
+        },
     },
     mounted() {
         this.getApi();
@@ -69,6 +77,56 @@ export default {
 </script>
 
 <template>
+    <div
+        v-if="visible"
+        class="modal fade show"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-modal="true"
+        role="dialog"
+        style="display: block"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Vuoi creare un nuovo carrello?</h5>
+                    <button
+                        @click="OpenCloseFun()"
+                        type="button"
+                        class="btn-close"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    In questo modo cancelli il carrello esistente da
+                    <strong>{{ cart.restaurant.name }}</strong> e crei un nuovo
+                    carrello da <strong>{{ store.restaurant.name }}</strong
+                    >?
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button
+                        @click="OpenCloseFun()"
+                        type="button"
+                        class="btn annulla"
+                    >
+                        Annulla
+                    </button>
+                    <button
+                        @click="
+                            OpenCloseFun();
+                            removeAllProducts();
+                        "
+                        type="button"
+                        class="btn new-cart"
+                    >
+                        Nuovo carrello
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div :class="visible && 'darken'"></div>
+    <!--  -->
     <div class="container">
         <div class="mb-5 d-flex">
             <div class="left pe-5">
@@ -78,6 +136,7 @@ export default {
                     :key="index"
                     :product="product"
                     :restaurant="store.restaurant"
+                    @CartFull="OpenCloseFun()"
                 />
             </div>
             <div class="right">
@@ -123,8 +182,21 @@ export default {
                                 <h5>Subtotale</h5>
                                 <h5>{{ formatPrice(cart.amount) }}</h5>
                             </div>
+                            <router-link
+                                :to="{ name: 'cart' }"
+                                class="btn go-cart w-100 fs-6 mt-3 fw-bolder"
+                            >
+                                <i class="fa-solid fa-cart-shopping me-2"></i>
+                                Vai al carrello
+                            </router-link>
                         </div>
-                        <span v-else>Nessuno prodotto selezionato</span>
+                        <span
+                            class="d-flex flex-column align-items-center fs-5 empty-cart"
+                            v-else
+                        >
+                            <i class="fa-solid fa-cart-shopping mb-2"></i>
+                            Il carrello è vuoto
+                        </span>
                     </div>
                 </div>
             </div>
@@ -134,6 +206,37 @@ export default {
 
 <style scoped lang="scss">
 @use "../../scss/_variables.scss" as *;
+
+.darken {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+}
+
+.annulla {
+    &:hover {
+        background-color: $light-gray;
+        color: $dark-gray;
+    }
+}
+
+.new-cart,
+.right .btn.go-cart {
+    background-color: $orange;
+    color: $white;
+
+    &:hover {
+        background-color: lighten($orange, 10%);
+        color: $white;
+    }
+}
 
 .left {
     width: 70%;
@@ -180,6 +283,10 @@ export default {
                 p {
                     margin: 0;
                 }
+            }
+
+            .empty-cart {
+                opacity: 0.5;
             }
         }
     }

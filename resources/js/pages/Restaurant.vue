@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import ProductCards from "../components/ProductCard.vue";
+import SummaryCartMobile from "../components/SummaryCartMobile.vue";
 import { baseUrl } from "../data/data";
 import { store } from "../data/store";
 
@@ -8,6 +9,7 @@ export default {
     name: "Restaurant",
     components: {
         ProductCards,
+        SummaryCartMobile,
     },
     data() {
         return {
@@ -100,8 +102,7 @@ export default {
                 <div class="modal-body">
                     In questo modo cancelli il carrello esistente da
                     <strong>{{ cart.restaurant.name }}</strong> e crei un nuovo
-                    carrello da <strong>{{ store.restaurant.name }}</strong
-                    >?
+                    carrello da <strong>{{ store.restaurant.name }}</strong>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button
@@ -129,7 +130,7 @@ export default {
     <!--  -->
     <div class="container">
         <div class="mb-5 d-flex">
-            <div class="left pe-5">
+            <div class="left">
                 <h2 class="mb-5">Scopri il menù</h2>
                 <ProductCards
                     v-for="(product, index) in products"
@@ -139,7 +140,7 @@ export default {
                     @CartFull="OpenCloseFun()"
                 />
             </div>
-            <div class="right">
+            <div class="right ms-5">
                 <div class="sticky">
                     <h2 class="mb-5">Riepilogo ordine</h2>
                     <div class="riepilogo">
@@ -202,6 +203,12 @@ export default {
             </div>
         </div>
     </div>
+    <SummaryCartMobile
+        :amount="formatPrice(cart.amount)"
+        :totalQuantity="cart.totalQuantity"
+        v-show="!cart.isEmpty()"
+        class="visible"
+    />
 </template>
 
 <style scoped lang="scss">
@@ -218,6 +225,10 @@ export default {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     overflow: hidden;
+}
+
+.visible {
+    display: none;
 }
 
 .annulla {
@@ -289,6 +300,27 @@ export default {
                 opacity: 0.5;
             }
         }
+    }
+}
+
+@media all and (max-width: 480px) {
+    .visible {
+        display: block;
+    }
+    .right {
+        display: none;
+    }
+    .left {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+}
+@media all and (max-width: 767px) {
+}
+@media all and (min-width: 1024px) {
+    .visible {
+        visibility: hidden;
     }
 }
 </style>

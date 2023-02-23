@@ -5,75 +5,93 @@ export default {
 </script>
 
 <template>
-    <footer class="p-5">
-        <h3>Scopri DeliveBoo</h3>
-        <ul>
-            <li>
-                <a href="#" class="">Investitori</a>
-            </li>
+    <footer>
+        <div class="container d-flex justify-content-between py-5">
+            <div class="box-col">
+                <h3>Scopri DeliveBoo</h3>
+                <ul>
+                    <li>
+                        <a href="#" class="">Investitori</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Chi siamo</a>
-            </li>
+                    <li>
+                        <a href="#" class="">Chi siamo</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Ristoranti</a>
-            </li>
+                    <li>
+                        <a href="#" class="">Ristoranti</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Altro</a>
-            </li>
+                    <li>
+                        <a href="#" class="">Altro</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Pressroom</a>
-            </li>
+                    <li>
+                        <a href="#" class="">Pressroom</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Programmazione</a>
-            </li>
+                    <li>
+                        <a href="#" class="">Programmazione</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Design</a>
-            </li>
+                    <li>
+                        <a href="#" class="">Design</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Lavora con noi</a>
-            </li>
+                    <li>
+                        <a href="#" class="">Lavora con noi</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Diventa nostro partner</a>
-            </li>
-        </ul>
+                    <li>
+                        <a href="#" class="">Diventa nostro partner</a>
+                    </li>
+                </ul>
+            </div>
 
-        <h3>Note Legali</h3>
-        <ul>
-            <li>
-                <a href="#" class="">Termini & Condizioni</a>
-            </li>
+            <div class="box-col">
+                <h3>Note Legali</h3>
+                <ul>
+                    <li>
+                        <a href="#" class="">Termini & Condizioni</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Chi siamo</a>
-            </li>
+                    <li>
+                        <a href="#" class="">Chi siamo</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Ristoranti</a>
-            </li>
-        </ul>
+                    <li>
+                        <a href="#" class="">Ristoranti</a>
+                    </li>
+                </ul>
+            </div>
 
-        <h3>Aiuto</h3>
-        <ul>
-            <li>
-                <a href="#" class="">Contatti</a>
-            </li>
+            <div class="box-col">
+                <h3>Aiuto</h3>
+                <ul>
+                    <li>
+                        <a href="#" class="">Contatti</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">FAQ</a>
-            </li>
+                    <li>
+                        <a href="#" class="">FAQ</a>
+                    </li>
 
-            <li>
-                <a href="#" class="">Tipi di cucina</a>
-            </li>
-        </ul>
+                    <li>
+                        <a href="#" class="">Tipi di cucina</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="box-col d-flex flex-column">
+                <div class="deliveboo-logo d-flex align-items-center">
+                    <img src="../../img/logo.png" alt="" />
+                    <span class="fs-2 fw-bold"> DeliveBoo </span>
+                </div>
+                <div class="boolean-logo d-flex align-items-center">
+                    <img src="../../img/boolean-logo.png" alt="" />
+                    <span class="fs-2 fw-bold"> Boolean </span>
+                </div>
+            </div>
+        </div>
     </footer>
 </template>
 
@@ -81,7 +99,38 @@ export default {
 @use "../../scss/_variables.scss" as *;
 
 footer {
-    background-color: $dark-gray;
     height: 100%;
+    width: 100%;
+    background-color: $dark-gray;
+
+    .box-col {
+        width: calc(100% / 3);
+        //padding: 40px 80px;
+        h3 {
+            color: $light-gray;
+        }
+        ul {
+            text-decoration: none;
+            padding: 0;
+            a {
+                color: $light-gray;
+                &:hover {
+                    color: $orange;
+                }
+            }
+        }
+
+        .boolean-logo,
+        .deliveboo-logo {
+            height: calc(100% / 2);
+            img {
+                width: 70px;
+                margin-right: 30px;
+            }
+            span {
+                color: $light-gray;
+            }
+        }
+    }
 }
 </style>

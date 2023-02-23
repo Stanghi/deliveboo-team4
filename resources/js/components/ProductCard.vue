@@ -38,7 +38,7 @@ export default {
         },
 
         removeFromCart() {
-            this.cart.removeItem(this.product);
+            this.cart.decreaseItem(this.product);
             this.$store.commit("updateCart");
         },
     },

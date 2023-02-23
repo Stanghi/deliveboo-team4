@@ -33,7 +33,6 @@ export default {
                 const index = this.store.filterCategory.indexOf(id);
                 this.store.filterCategory.splice(index, 1);
             }
-            console.log(this.store.filterCategory);
         },
     },
     mounted() {},

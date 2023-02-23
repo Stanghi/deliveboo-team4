@@ -51,7 +51,7 @@ export default class Cart {
     }
 
 
-    removeItem(product) {
+    decreaseItem(product) {
         const item = this.findItem(product);
         if (item) {
             item.decreaseQuantity();
@@ -62,7 +62,7 @@ export default class Cart {
         }
     }
 
-    removeItems(product) {
+    deleteItem(product) {
         const item = this.findItem(product);
         if (item) {
             const indexItem = this._items.indexOf(item);

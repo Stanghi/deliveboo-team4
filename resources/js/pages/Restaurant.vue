@@ -56,7 +56,7 @@ export default {
         },
 
         removeFromCart(product) {
-            this.cart.removeItem(product);
+            this.cart.decreaseItem(product);
             this.$store.commit("updateCart");
         },
         formatPrice(price) {

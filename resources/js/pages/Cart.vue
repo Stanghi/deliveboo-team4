@@ -9,6 +9,7 @@ export default {
             baseUrl,
             store,
             apiToken: null,
+            makePaymentUrl: baseUrl + "orders/make/payment",
         };
     },
     computed: {
@@ -49,30 +50,35 @@ export default {
             this.$store.commit("updateCart");
         },
         createDropIn(token) {
-            // Step two: create a dropin instance using that container (or a string
-            //   that functions as a query selector such as `#dropin-container`)
-            console.log("dropin-container: ");
-            console.log(document.getElementById("dropin-container"));
+            const form = document.getElementById("payment-form");
             braintree.dropin
                 .create({
                     authorization: token,
                     locale: "it_IT",
                     container: document.getElementById("dropin-container"),
-                    // ...plus remaining configuration
                 })
                 .then((dropinInstance) => {
-                    // Use `dropinInstance` here
-                    // Methods documented at https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html
+                    form.addEventListener("submit", (event) => {
+                        event.preventDefault();
+                        dropinInstance
+                            .requestPaymentMethod()
+                            .then((payload) => {
+                                document.getElementById("nonce").value =
+                                    payload.nonce;
+                                form.submit();
+                            })
+                            .catch((error) => {
+                                throw error;
+                            });
+                    });
                 })
                 .catch((error) => {});
         },
         getToken() {
-            axios
-                .get(baseUrl + "orders/generate")
-                .then((result) => {
-                    this.token = result.data.token;
-                    this.createDropIn(this.token);
-                });
+            axios.get(baseUrl + "orders/generate").then((result) => {
+                this.token = result.data.token;
+                this.createDropIn(this.token);
+            });
         },
     },
     mounted() {
@@ -179,7 +185,20 @@ export default {
                 </span>
             </div>
         </div>
-        <div id="dropin-container"></div>
+        <form id="payment-form" :action="makePaymentUrl" method="post">
+            <div class="client-data d-flex flex-column w-50">
+                <input type="text" class="form-control mb-3" placeholder="Nome Cliente" name="name" value=""/>
+                <input type="text" class="form-control mb-3" placeholder="Cognome Cliente" name="surname" value=""/>
+                <input type="email" class="form-control mb-3" placeholder="Indirizzo e-mail" name="email" value=""/>
+                <input type="text" class="form-control mb-3" placeholder="Indirizzo" name="address" value=""/>
+                <input type="text" class="form-control mb-3" placeholder="Contatto Telefonico" name="telephone" value=""/>
+            </div>
+            <div id="dropin-container" class="w-50"></div>
+            <button class="btn btn-light" type="submit">
+                Effettua Pagamento
+            </button>
+            <input type="hidden" id="nonce" name="payment_method_nonce" />
+        </form>
     </div>
 </template>
 

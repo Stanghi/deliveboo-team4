@@ -6,7 +6,7 @@ export default {
 
 <template>
     <div class="jumbotron" id="Home">
-        <div class="container p-0">
+        <div class="container">
             <div class="col-left">
                 <h2>I piatti che ami,<span></span></h2>
                 <h2>a domicilio.<span></span></h2>
@@ -31,11 +31,6 @@ export default {
     background-position: center 55%;
     background-repeat: no-repeat;
     background-size: cover;
-
-    h2 {
-        font-size: 5rem;
-        //margin-left: 100px;
-    }
 }
 
 .col-left {
@@ -51,8 +46,8 @@ export default {
             position: absolute;
             left: 0;
             top: 0;
-            height: 100%;
             width: 0;
+            height: 100%;
             animation: overlay 1s ease forwards;
             animation-delay: 0.5s;
             background-color: $orange;
@@ -90,6 +85,20 @@ export default {
 @keyframes text_reveal {
     100% {
         color: $white;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .jumbotron {
+        height: 250px;
+        .col-left {
+            width: 100%;
+            text-align: center;
+            h2 {
+                font-size: 30px;
+                display: inline-block;
+            }
+        }
     }
 }
 </style>

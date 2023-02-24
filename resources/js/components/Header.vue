@@ -3,6 +3,7 @@ export default {
     name: "Header",
     data() {
         return {
+            hamburgerMenuClosed: true,
             view: {
                 topOfPage: true,
             },
@@ -23,6 +24,11 @@ export default {
             } else {
                 if (!this.view.topOfPage) this.view.topOfPage = true;
             }
+        },
+
+        hamburgerOpenClose() {
+            this.hamburgerMenuClosed = !this.hamburgerMenuClosed;
+            console.log(this.hamburgerMenuClosed);
         },
     },
 };
@@ -45,12 +51,12 @@ export default {
             </div>
         </router-link>
 
-        <div>
+        <div class="center-nav">
             <router-link class="me-3" :to="{ name: 'home' }">Home</router-link>
             <router-link :to="{ name: 'team' }">Team</router-link>
         </div>
 
-        <div class="d-flex">
+        <div class="right-nav">
             <a href="/admin" class="me-3">Accedi al tuo ristorante </a>
             <router-link :to="{ name: 'cart' }" class="cart-relative">
                 <i class="fa-solid fa-cart-shopping"></i>
@@ -59,11 +65,35 @@ export default {
                 </div>
             </router-link>
         </div>
+
+        <div class="hamburger-menu">
+            <i class="fa-solid fa-bars"></i>
+            <div
+                id="overlay"
+                class="d-none"
+                :class="hamburgerMenuClosed && 'menu'"
+            >
+                <a href="#">Link1</a>
+                <a href="#">Link2</a>
+                <a href="#">Link3</a>
+                <a href="#">Link4</a>
+            </div>
+            <div class="nav">
+                <div
+                    id="hamburger"
+                    @click="hamburgerOpenClose()"
+                    :class="hamburgerMenuClosed && 'open'"
+                >
+                    <div></div>
+                </div>
+            </div>
+        </div>
     </header>
 </template>
 
 <style lang="scss" scoped>
 @use "../../scss/_variables.scss" as *;
+
 header {
     z-index: 999;
     position: fixed;
@@ -93,26 +123,47 @@ header {
             // color: $orange;
         }
     }
-    .fa-cart-shopping {
-        font-size: 1.6rem;
-        & :hover {
-            color: $orange;
+
+    .right-nav {
+        display: flex;
+        .fa-cart-shopping {
+            font-size: 1.6rem;
+            & :hover {
+                color: $orange;
+            }
+        }
+
+        .cart-relative {
+            position: relative;
+            .badge {
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                background-color: $orange;
+            }
         }
     }
 
-    .cart-relative {
-        position: relative;
-        .badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background-color: $orange;
-        }
+    .hamburger-menu {
+        display: none;
     }
 }
 
 .onScroll,
 .headerDark {
     background-color: $dark-gray;
+}
+
+@media all and (max-width: 480px) {
+    .center-nav,
+    header .right-nav {
+        display: none;
+    }
+
+    header .hamburger-menu {
+        display: block;
+    }
+
+    //
 }
 </style>

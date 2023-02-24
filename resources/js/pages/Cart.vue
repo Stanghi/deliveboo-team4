@@ -65,6 +65,10 @@ export default {
                             .then((payload) => {
                                 document.getElementById("nonce").value =
                                     payload.nonce;
+
+                                document.getElementById("cart-input").value =
+                                    this.cart.toFormData();
+
                                 form.submit();
                             })
                             .catch((error) => {
@@ -187,11 +191,48 @@ export default {
         </div>
         <form id="payment-form" :action="makePaymentUrl" method="post">
             <div class="client-data d-flex flex-column w-50">
-                <input type="text" class="form-control mb-3" placeholder="Nome Cliente" name="name" value=""/>
-                <input type="text" class="form-control mb-3" placeholder="Cognome Cliente" name="surname" value=""/>
-                <input type="email" class="form-control mb-3" placeholder="Indirizzo e-mail" name="email" value=""/>
-                <input type="text" class="form-control mb-3" placeholder="Indirizzo" name="address" value=""/>
-                <input type="text" class="form-control mb-3" placeholder="Contatto Telefonico" name="telephone" value=""/>
+                <input
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Nome Cliente"
+                    name="name"
+                    value=""
+                />
+                <input
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Cognome Cliente"
+                    name="surname"
+                    value=""
+                />
+                <input
+                    type="email"
+                    class="form-control mb-3"
+                    placeholder="Indirizzo e-mail"
+                    name="email"
+                    value=""
+                />
+                <input
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Indirizzo"
+                    name="address"
+                    value=""
+                />
+                <input
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Contatto Telefonico"
+                    name="telephone"
+                    value=""
+                />
+                <input
+                    id="cart-input"
+                    class="d-none"
+                    name="cart"
+                    value=""
+                    type="text"
+                />
             </div>
             <div id="dropin-container" class="w-50"></div>
             <button class="btn btn-light" type="submit">

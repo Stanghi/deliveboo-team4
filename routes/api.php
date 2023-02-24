@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\RestaurantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,6 @@ Route::namespace('Api')
         Route::get('/{slug}', [RestaurantController::class, 'show']);
         Route::get('/restaurantsbycategory/{values}', [RestaurantController::class, 'getByCategory']);
     });
+
+Route::get('orders/generate', [OrderController::class, 'generate']);
+Route::post('orders/make/payment', [OrderController::class, 'makePayment']);

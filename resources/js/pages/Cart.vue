@@ -1,4 +1,5 @@
 <script>
+import axios from "axios";
 import { baseUrl } from "../data/data";
 import { store } from "../data/store";
 export default {
@@ -7,6 +8,7 @@ export default {
         return {
             baseUrl,
             store,
+            apiToken: null,
         };
     },
     computed: {
@@ -46,6 +48,36 @@ export default {
             this.cart.deleteItem(product);
             this.$store.commit("updateCart");
         },
+        createDropIn(token) {
+            // Step two: create a dropin instance using that container (or a string
+            //   that functions as a query selector such as `#dropin-container`)
+            console.log("dropin-container: ");
+            console.log(document.getElementById("dropin-container"));
+            braintree.dropin
+                .create({
+                    authorization: token,
+                    locale: "it_IT",
+                    container: document.getElementById("dropin-container"),
+                    // ...plus remaining configuration
+                })
+                .then((dropinInstance) => {
+                    // Use `dropinInstance` here
+                    // Methods documented at https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html
+                })
+                .catch((error) => {});
+        },
+        getToken() {
+            axios
+                .get(baseUrl + "orders/generate")
+                .then((result) => {
+                    this.token = result.data.token;
+                    this.createDropIn(this.token);
+                });
+        },
+    },
+    mounted() {
+        this.createDropIn();
+        this.getToken();
     },
 };
 </script>
@@ -147,6 +179,7 @@ export default {
                 </span>
             </div>
         </div>
+        <div id="dropin-container"></div>
     </div>
 </template>
 

@@ -1,62 +1,150 @@
 <script>
+import { baseUrl } from "../data/data";
+import { store } from "../data/store";
 export default {
     name: "Cart",
+    data() {
+        return {
+            baseUrl,
+            store,
+        };
+    },
+    computed: {
+        cart() {
+            return this.$store.getters.getCart;
+        },
+    },
+    methods: {
+        removeAllProducts() {
+            this.cart.clear();
+            this.$store.commit("updateCart");
+        },
+
+        formatPrice(price) {
+            return new Intl.NumberFormat("it-IT", {
+                style: "currency",
+                currency: "EUR",
+            }).format(price);
+        },
+        addToCart(product) {
+            this.cart.addItem(product, store.restaurant);
+            this.$store.commit("updateCart");
+        },
+
+        removeFromCart(product) {
+            console.log(product);
+            this.cart.decreaseItem(product);
+            this.$store.commit("updateCart");
+        },
+        productQuantityInCart(product) {
+            const item = this.cart.findItem(product);
+            if (item) {
+                return item.quantity;
+            }
+        },
+        deleteItem(product) {
+            this.cart.deleteItem(product);
+            this.$store.commit("updateCart");
+        },
+    },
 };
 </script>
 <template>
     <div class="container my-5 p-3 rounded bg-light">
         <div class="row no-gutters">
-            <div class="col-md-8">
-                <div class="product-details mr-2">
-                    <div class="d-flex flex-row align-items-center"><i class="fa fa-long-arrow-left"></i><span class="ml-2 mx-2">Torna ai Ristoranti</span></div>
-                    <hr>
-                    <h6 class="mb-0">Riepilogo Carrello</h6>
-                    <div class="d-flex justify-content-between"><span>Prodotti nel carrello : </span>
-                        <div class="d-flex align-items-center">
-                            <div class="ml-2">
-                                <span class="mr-1">Prezzo/U</span>
+            <div class="col-md-8" v-if="!cart.isEmpty()">
+                <div class="product-details">
+                    <div class="top">
+                        <span class="">
+                            <button
+                                class="btn"
+                                @click="deleteItem(item.product)"
+                            >
+                                <i class="fa-solid fa-utensils"></i>
+                                Torna a
+                                <span class="fw-bolder">{{
+                                    cart.restaurant.name
+                                }}</span>
+                            </button>
+                        </span>
+                        <button
+                            @click="removeAllProducts()"
+                            class="btn ml-2 mx-2 fw-bolder"
+                            title="Rimuovi tutti i prodotti"
+                        >
+                            Svuota carrello
+                        </button>
+                    </div>
+
+                    <div
+                        v-for="(item, index) in cart.items"
+                        :key="index"
+                        class="d-flex align-items-center row-product"
+                    >
+                        <div class="left">
+                            <div class="d-flex img-item">
+                                <img
+                                    :src="`/storage/${item.product.img}`"
+                                    width="100"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <span class="fw-bolder">
+                                    {{ item.product.name }}</span
+                                ><span
+                                    >Prezzo Unitario
+                                    {{ formatPrice(item.product.price) }}</span
+                                >
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="btn-box">
+                                <button
+                                    title="Rimuovi tutti i prodotti"
+                                    class="btn me-2"
+                                    @click="deleteItem(item.product)"
+                                >
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                <button
+                                    title="Rimuovi un prodotto"
+                                    class="btn"
+                                    @click="removeFromCart(item.product)"
+                                >
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <span class="mx-2">{{
+                                    productQuantityInCart(item.product)
+                                }}</span>
+                                <button
+                                    title="Aggiungi un prodotto"
+                                    class="btn me-2"
+                                    @click="addToCart(item.product)"
+                                >
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="total-amount">
+                                {{ formatPrice(item.totalPrice) }}
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mt-3 p-2 items">
-                        <div class="d-flex flex-row">
-                            <img class="" src="../../img/placeholder.png" width="100">
-                            <div class="ml-2"><span class="d-block">Tagliata di Renna</span><span class="">350gr</span></div>
-                        </div>
-                        <div class="">
-                            <span class="fs-3">-</span><span class="fs-5 mx-3">1</span><span class="fs-4">+</span>
-                        </div>
-                        <div class="d-flex flex-column align-items-center">
-                            <span class="ml-5 my-3">€50</span>
-                            <i class="fa-solid fa-trash"></i>
-                        </div>
-                    </div>
-
+                </div>
+                <div class="total-amount d-flex justify-content-between fs-4">
+                    <div>Totale:</div>
+                    <div>{{ formatPrice(cart.amount) }}</div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="payment-info">
-                    <div class="d-flex justify-content-between align-items-center"><span>Dettaglio Carta</span><img class="rounded" width="30"></div><span class="type d-block mt-3 mb-1">Tipo di carta</span>
-
-                    <label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span> </label>
-
-                    <label class="radio mx-2"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span> </label>
-
-                    <label class="radio me-2"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png"/></span> </label>
-
-
-                    <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span> </label>
-
-                    <div><label class="credit-card-label">Intestatario</label><input type="text" class="form-control credit-inputs" placeholder="Inserire il nome"></div>
-                    <div><label class="credit-card-label">Numero Carta</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
-                    <div class="row">
-                        <div class="col-md-6"><label class="credit-card-label">Validità</label><input type="text" class="form-control credit-inputs" placeholder="12/28"></div>
-                        <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="666"></div>
-                    </div>
-                    <hr class="line">
-                    <div class="d-flex justify-content-between information"><span>Subtotale</span><span>€50.00</span></div>
-                    <div class="d-flex justify-content-between information"><span>Spese Spedizione</span><span>€20.00</span></div>
-                    <div class="d-flex justify-content-between information"><span>Totale</span><span>€3020.00</span></div><button class="btn btn-primary d-flex justify-content-between mt-3 w-100" type="button"><span>Checkout</span><span>€3020.00</span></button></div>
+            <div
+                class="d-flex justify-content-center align-items-center prova"
+                v-else
+            >
+                <span
+                    class="d-flex flex-column align-items-center fs-5 empty-cart"
+                >
+                    <i class="fa-solid fa-cart-shopping mb-2"></i>
+                    Il carrello è vuoto
+                </span>
             </div>
         </div>
     </div>
@@ -65,109 +153,68 @@ export default {
 <style scoped lang="scss">
 @use "../../scss/_variables.scss" as *;
 
-.payment-info {
-  background: $light-gray;
-  padding: 10px;
-  border-radius: 6px;
-  color: $dark-gray;
-  font-weight: bold;
+.container {
+    min-height: calc(100vh - 60px - 368px - 98px);
 }
 
-.product-details {
-  padding: 10px;
+.btn {
+    font-size: 0.9rem;
+    background-color: $light-gray;
+    color: $dark-gray;
+    &:hover {
+        background-color: $orange;
+        color: $light-gray;
+    }
 }
 
-body {
-  background: #eee;
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    // d-flex flex-row align-items-center mb-3
 }
 
-.cart {
-  background: #fff;
+.row-product {
+    padding: 10px;
+    border-top: 3px solid $light-gray;
+    &:last-child {
+        border-bottom: 3px solid $light-gray;
+    }
 }
 
-.p-about {
-  font-size: 12px;
+.left {
+    display: flex;
+    align-items: center;
+    width: 70%;
+    .img-item {
+        height: 80px;
+        width: 80px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-right: 15px;
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 
-.table-shadow {
-  -webkit-box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.42);
-  box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.42);
+.right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    height: 80px;
 }
 
-.type {
-  font-weight: 400;
-  font-size: 10px;
+.total-amount {
+    padding: 10px;
+    font-weight: bolder;
 }
 
-label.radio {
-  cursor: pointer;
-}
-
-label.radio input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-label.radio span {
-  padding: 1px 12px;
-  border: 2px solid #ada9a9;
-  display: inline-block;
-  color: #8f37aa;
-  border-radius: 3px;
-  text-transform: uppercase;
-  font-size: 11px;
-  font-weight: 300;
-}
-
-label.radio input:checked + span {
-  border-color: #fff;
-  background-color: blue;
-  color: #fff;
-}
-
-.credit-inputs {
-  background: rgb(102,102,221);
-  color: #fff !important;
-  border-color: rgb(102,102,221);
-}
-
-.credit-inputs::placeholder {
-  color: #fff;
-  font-size: 13px;
-}
-
-.credit-card-label {
-  font-size: 9px;
-  font-weight: 300;
-}
-
-.form-control.credit-inputs:focus {
-  background: rgb(102,102,221);
-  border: rgb(102,102,221);
-}
-
-.line {
-  border-bottom: 1px solid rgb(102,102,221);
-}
-
-.information span {
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.information {
-  margin-bottom: 5px;
-}
-
-.items {
-  -webkit-box-shadow: 5px 5px 4px -1px rgba(0,0,0,0.25);
-  box-shadow: 5px 5px 4px -1px rgba(0, 0, 0, 0.08);
-}
-
-.spec {
-  font-size: 11px;
+.empty-cart {
+    opacity: 0.5;
 }
 </style>

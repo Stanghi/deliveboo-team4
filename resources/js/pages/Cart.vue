@@ -5,81 +5,59 @@ export default {
 </script>
 
 <template>
-    <div class="container">
-        <h1 class="mb-5">Riepilogo Carrello</h1>
-        <div class="cart-container mt-3">
-            <div class="box pt-2">
-                <h3 class="Current">Carrello</h3>
-                <h5 class="Action">Svuota Carrello</h5>
-            </div>
-
-            <div class="box box-items">
-                <div class="image-item">
-                    <img src="../../img/placeholder.png" />
-                </div>
-                <div class="info-items">
-                    <h1 class="title">Bistecca</h1>
-                    <h3 class="subtitle">250gr</h3>
-                </div>
-                <div class="counter">
-                    <div class="btn">+</div>
-                    <div class="count">5</div>
-                    <div class="btn">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount">€ 4</div>
-                    <div class="remove">Elimina</div>
-                </div>
-            </div>
-
-            <div class="box box-items">
-                <div class="image-item">
-                    <img src="../../img/placeholder.png" />
-                </div>
-                <div class="info-items">
-                    <h1 class="title">Bistecca</h1>
-                    <h3 class="subtitle">250gr</h3>
-                </div>
-                <div class="counter">
-                    <div class="btn">+</div>
-                    <div class="count">5</div>
-                    <div class="btn">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount">€ 4</div>
-                    <div class="remove">Elimina</div>
-                </div>
-            </div>
-
-            <div class="box box-items">
-                <div class="image-item">
-                    <img src="../../img/placeholder.png" />
-                </div>
-                <div class="info-items">
-                    <h1 class="title">Bistecca</h1>
-                    <h3 class="subtitle">250gr</h3>
-                </div>
-                <div class="counter">
-                    <div class="btn">+</div>
-                    <div class="count">5</div>
-                    <div class="btn">-</div>
-                </div>
-                <div class="prices">
-                    <div class="amount">€ 4</div>
-                    <div class="remove">Elimina</div>
-                </div>
-            </div>
-
-            <div class="checkout mt-2">
-                <div class="total my-2">
-                    <div>
-                        <div class="Subtotal">Sub-Total</div>
-                        <div class="items">3 Prodotti</div>
+    <div class="container my-5 p-3 rounded bg-light">
+        <div class="row no-gutters">
+            <div class="col-md-8">
+                <div class="product-details mr-2">
+                    <div class="d-flex flex-row align-items-center"><i class="fa fa-long-arrow-left"></i><span class="ml-2 mx-2">Torna ai Ristoranti</span></div>
+                    <hr>
+                    <h6 class="mb-0">Riepilogo Carrello</h6>
+                    <div class="d-flex justify-content-between"><span>Prodotti nel carrello : </span>
+                        <div class="d-flex align-items-center">
+                            <div class="ml-2">
+                                <span class="mr-1">Prezzo/U</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3 p-2 items">
+                        <div class="d-flex flex-row">
+                            <img class="" src="../../img/placeholder.png" width="100">
+                            <div class="ml-2"><span class="d-block">Tagliata di Renna</span><span class="">350gr</span></div>
+                        </div>
+                        <div class="">
+                            <span class="fs-3">-</span><span class="fs-5 mx-3">1</span><span class="fs-4">+</span>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="ml-5 my-3">€50</span>
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
                     </div>
 
-                    <div class="total-amount">€ 20</div>
-                    <button class="button">Checkout</button>
                 </div>
+            </div>
+            <div class="col-md-4">
+                <div class="payment-info">
+                    <div class="d-flex justify-content-between align-items-center"><span>Dettaglio Carta</span><img class="rounded" width="30"></div><span class="type d-block mt-3 mb-1">Tipo di carta</span>
+
+                    <label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png"/></span> </label>
+
+                    <label class="radio mx-2"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span> </label>
+
+                    <label class="radio me-2"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png"/></span> </label>
+
+
+                    <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span> </label>
+
+                    <div><label class="credit-card-label">Intestatario</label><input type="text" class="form-control credit-inputs" placeholder="Inserire il nome"></div>
+                    <div><label class="credit-card-label">Numero Carta</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
+                    <div class="row">
+                        <div class="col-md-6"><label class="credit-card-label">Validità</label><input type="text" class="form-control credit-inputs" placeholder="12/28"></div>
+                        <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="666"></div>
+                    </div>
+                    <hr class="line">
+                    <div class="d-flex justify-content-between information"><span>Subtotale</span><span>€50.00</span></div>
+                    <div class="d-flex justify-content-between information"><span>Spese Spedizione</span><span>€20.00</span></div>
+                    <div class="d-flex justify-content-between information"><span>Totale</span><span>€3020.00</span></div><button class="btn btn-primary d-flex justify-content-between mt-3 w-100" type="button"><span>Checkout</span><span>€3020.00</span></button></div>
             </div>
         </div>
     </div>
@@ -88,135 +66,109 @@ export default {
 <style scoped lang="scss">
 @use "../../scss/_variables.scss" as *;
 
-.cart-container {
-    width: 100%;
-    height: 85%;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25);
-    .box {
-        margin: auto;
-        width: 90%;
-        height: 15%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .Current {
-        font-size: 20px;
-        font-weight: 700;
-        color: #2f3841;
-    }
-    .Action {
-        font-size: 14px;
-        font-weight: 600;
-        color: #e44c4c;
-        cursor: pointer;
-        border-bottom: 1px solid #e44c4c;
-    }
-    .box-items {
-        .image-item {
-            width: 15%;
-            img {
-                width: 100%;
-            }
-        }
-        .info-items {
-            width: 20%;
-            .title {
-                padding-top: 5px;
-                line-height: 10px;
-                font-size: 20px;
-                font-weight: 800;
-                color: #202020;
-            }
-            .subtitle {
-                line-height: 10px;
-                font-size: 10px;
-                font-weight: 600;
-                color: #909090;
-            }
-        }
-        .counter {
-            width: 15%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            .btn {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                background-color: #d9d9d9;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 15px;
-                font-weight: 900;
-                color: #202020;
-                cursor: pointer;
-            }
-            .count {
-                font-size: 15px;
-                font-weight: 900;
-                color: #202020;
-            }
-        }
-        .prices {
-            height: 100%;
-            text-align: right;
-            .amount {
-                padding-top: 20px;
-                font-size: 26px;
-                font-weight: 800;
-                color: #202020;
-            }
-            .remove {
-                padding-top: 5px;
-                font-size: 14px;
-                font-weight: 600;
-                color: #e44c4c;
-                cursor: pointer;
-            }
-        }
-    }
-    .checkout {
-        border-top: 2px solid #909090;
-        margin: auto;
-        width: 90%;
-        display: flex;
-        justify-content: end;
-        .total {
-            text-align: end;
-            .Subtotal {
-                font-size: 18px;
-                font-weight: 700;
-                color: #202020;
-            }
-            .items {
-                font-size: 16px;
-                font-weight: 500;
-                color: #909090;
-                line-height: 10px;
-            }
-            .total-amount {
-                font-size: 26px;
-                font-weight: 900;
-                color: #202020;
-            }
+.payment-info {
+  background: $light-gray;
+  padding: 10px;
+  border-radius: 6px;
+  color: $dark-gray;
+  font-weight: bold;
+}
 
-            .button {
-                margin-top: 5px;
-                width: 100%;
-                height: 40px;
-                border: none;
-                background: $orange;
-                border-radius: 20px;
-                cursor: pointer;
-                font-size: 16px;
-                font-weight: 600;
-                color: $dark-gray;
-            }
-        }
-    }
+.product-details {
+  padding: 10px;
+}
+
+body {
+  background: #eee;
+}
+
+.cart {
+  background: #fff;
+}
+
+.p-about {
+  font-size: 12px;
+}
+
+.table-shadow {
+  -webkit-box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.42);
+  box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.42);
+}
+
+.type {
+  font-weight: 400;
+  font-size: 10px;
+}
+
+label.radio {
+  cursor: pointer;
+}
+
+label.radio input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+label.radio span {
+  padding: 1px 12px;
+  border: 2px solid #ada9a9;
+  display: inline-block;
+  color: #8f37aa;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 300;
+}
+
+label.radio input:checked + span {
+  border-color: #fff;
+  background-color: blue;
+  color: #fff;
+}
+
+.credit-inputs {
+  background: rgb(102,102,221);
+  color: #fff !important;
+  border-color: rgb(102,102,221);
+}
+
+.credit-inputs::placeholder {
+  color: #fff;
+  font-size: 13px;
+}
+
+.credit-card-label {
+  font-size: 9px;
+  font-weight: 300;
+}
+
+.form-control.credit-inputs:focus {
+  background: rgb(102,102,221);
+  border: rgb(102,102,221);
+}
+
+.line {
+  border-bottom: 1px solid rgb(102,102,221);
+}
+
+.information span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.information {
+  margin-bottom: 5px;
+}
+
+.items {
+  -webkit-box-shadow: 5px 5px 4px -1px rgba(0,0,0,0.25);
+  box-shadow: 5px 5px 4px -1px rgba(0, 0, 0, 0.08);
+}
+
+.spec {
+  font-size: 11px;
 }
 </style>

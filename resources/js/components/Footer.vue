@@ -81,7 +81,7 @@ export default {
                     </li>
                 </ul>
             </div>
-            <div class="box-col d-flex flex-column">
+            <div class="box-col img">
                 <div class="deliveboo-logo d-flex align-items-center">
                     <img src="../../img/logo.png" alt="" />
                     <span class="fs-2 fw-bold"> DeliveBoo </span>
@@ -104,6 +104,8 @@ footer {
     background-color: $dark-gray;
 
     .box-col {
+        display: flex;
+        flex-direction: column;
         width: calc(100% / 3);
         //padding: 40px 80px;
         h3 {
@@ -128,6 +130,36 @@ footer {
                 margin-right: 30px;
             }
             span {
+                font-size: 1.15rem;
+                color: $light-gray;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 480px) {
+    .container {
+        // margin-bottom: 60px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 40px;
+        h3 {
+            width: 100%;
+        }
+
+        .box-col {
+            width: 100%;
+        }
+
+        .box-col.img {
+            flex-direction: row;
+            justify-content: space-between;
+
+            img {
+                width: 40px;
+            }
+            span {
+                font-size: 1rem;
                 color: $light-gray;
             }
         }

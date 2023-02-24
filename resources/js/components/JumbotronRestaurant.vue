@@ -16,7 +16,7 @@ export default {
         class="jumbotron"
         :style="{ backgroundImage: `url(/storage/${store.restaurant.img})` }"
     >
-        <div class="container p-0">
+        <div class="container">
             <h2>{{ store.restaurant.name }}</h2>
             <h4>{{ store.restaurant.address }}</h4>
             <img :src="store.restaurant.img" alt="" />
@@ -54,9 +54,35 @@ export default {
         //margin-left: 100px;
     }
 
+    h2,
+    h4 {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
     .badge {
         background-color: $light-gray;
         color: $dark-gray;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .jumbotron {
+        height: 250px;
+
+        .container {
+            padding-left: 30px;
+            h2 {
+                font-size: 25px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            h4 {
+                font-size: 15px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
     }
 }
 </style>

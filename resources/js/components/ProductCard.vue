@@ -3,12 +3,24 @@ import { store } from "../data/store";
 export default {
     name: "Team",
     props: {
-        products: Object,
+        product: Object,
+        restaurant: Object,
     },
     data() {
         return {
             store,
         };
+    },
+    computed: {
+        cart() {
+            return this.$store.getters.getCart;
+        },
+        productQuantityInCart() {
+            const item = this.cart.findItem(this.product);
+            if (item) {
+                return item.quantity;
+            }
+        },
     },
     methods: {
         formatPrice(price) {
@@ -17,25 +29,21 @@ export default {
                 currency: "EUR",
             }).format(price);
         },
-        addProduct(product, boolean) {
-            if (
-                !this.store.selectedProducts.includes(product) &&
-                boolean === true
-            ) {
-                this.store.selectedProducts.push(product);
-            } else if (boolean === false) {
-                const index = this.store.selectedProducts.indexOf(product);
-                this.store.selectedProducts.splice(index, 1);
+        addToCart() {
+            if (this.cart.addItem(this.product, this.restaurant)) {
+                this.$store.commit("updateCart");
+            } else {
+                this.$emit("CartFull",  this.product);
             }
-            console.log(this.store.selectedProducts, this.counter);
         },
-        removeProduct(product) {
-            console.log(product, "Rimosso");
+
+        removeFromCart() {
+            this.cart.decreaseItem(this.product);
+            this.$store.commit("updateCart");
         },
     },
     mounted() {
         this.formatPrice();
-        console.log(this.store.selectedProducts.length);
     },
 };
 </script>
@@ -44,32 +52,31 @@ export default {
     <div class="card d-flex flex-row mb-5 mx-2">
         <div class="card-image">
             <img
-                v-if="products.img"
-                :src="`/storage/${products.img}`"
-                :alt="products.name"
+                v-if="product.img"
+                :src="`/storage/${product.img}`"
+                :alt="product.name"
             />
-            <img v-else src="../../img/placeholder.png" :alt="products.name" />
+            <img v-else src="../../img/placeholder.png" :alt="product.name" />
         </div>
         <div class="card-body">
             <h5 class="card-title fw-bold">
-                {{ products.name }}
+                {{ product.name }}
             </h5>
-            <p>{{ products.description }}</p>
+            <p>{{ product.description }}</p>
             <div class="d-flex justify-content-between align-items-center">
-                <h4 class="m-0">{{ formatPrice(products.price) }}</h4>
+                <h4 class="m-0">{{ formatPrice(product.price) }}</h4>
 
-                <div class="bnt-box">
-                    <button
-                        class="btn me-2"
-                        @click="addProduct(products.name, true)"
-                    >
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
+                <div>
                     <button
                         class="btn"
-                        @click="addProduct(products.name, false)"
+                        @click="removeFromCart()"
+                        :class="!productQuantityInCart && 'disabled'"
                     >
                         <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span class="mx-2">{{ productQuantityInCart }}</span>
+                    <button class="btn me-2" @click="addToCart()">
+                        <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
             </div>
@@ -135,5 +142,13 @@ export default {
             }
         }
     }
+    &:last-child {
+        margin-bottom: 0px !important;
+    }
+}
+
+.disabled {
+    opacity: 0.4;
+    border: none;
 }
 </style>

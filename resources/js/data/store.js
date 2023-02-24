@@ -12,4 +12,5 @@ export const store = reactive({
     searched: "",
     isLoading: false,
     typed: false,
+    btnClicked: false
 });

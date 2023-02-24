@@ -12,10 +12,7 @@ export default {
         return {
             store,
         };
-    },
-    mounted() {
-        console.log(store.restaurant);
-    },
+    }
 };
 </script>
 
@@ -33,14 +30,16 @@ export default {
         </div>
         <h3
             class="text-center mb-5"
-            v-if="
-                (!store.restaurants.length && store.filterCategory.length) ||
-                (!store.restaurants.length && store.searched && store.typed)
-            "
+            v-else-if="store.filterCategory.length || (store.searched && store.typed)"
         >
             Nessun risultato trovato
         </h3>
+        <h3 class="text-center mb-5" v-if="(store.searched === '' && store.btnClicked === true)">Per cercare inserire il nome di un ristorante</h3>
     </div>
 </template>
 
 <style></style>
+
+
+<!-- // (!store.restaurants.length && store.filterCategory.length) ||
+// (!store.restaurants.length && store.searched && store.typed) -->

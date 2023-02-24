@@ -3,7 +3,6 @@ export default {
     name: "Cart",
 };
 </script>
-
 <template>
     <div class="container my-5 p-3 rounded bg-light">
         <div class="row no-gutters">

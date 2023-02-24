@@ -39,7 +39,6 @@ export default {
                     .then((result) => {
                         store.restaurants = result.data.restaurants;
                         store.isLoading = false;
-                        console.log(stringCategories);
                     });
             } else {
                 store.restaurants = [];

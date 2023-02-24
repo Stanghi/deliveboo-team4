@@ -42,7 +42,7 @@ export default {
     bottom: 20px;
     right: 20px;
     background-color: $orange;
-    color: $light-gray;
+    color: $white;
     border: none;
     border-radius: 50%;
     width: 50px;
@@ -54,13 +54,18 @@ export default {
     cursor: pointer;
 
     &:hover {
-        background-color: $light-gray;
-        color: $orange;
-        border: 1px solid $orange;
+        background-color: lighten($orange, 10%);
+        color: $white;
     }
     &.hidden {
-        opacity: 0;
+        display: none;
         pointer-events: none;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .scroll-top-button {
+        display: none;
     }
 }
 </style>

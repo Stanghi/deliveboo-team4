@@ -39,4 +39,10 @@ export default {
         color: $dark-gray;
     }
 }
+
+@media all and (max-width: 480px) {
+    .home-container h2 {
+        font-size: 2rem;
+    }
+}
 </style>

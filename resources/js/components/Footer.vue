@@ -6,149 +6,91 @@ export default {
 
 <template>
     <footer>
-        <div class="cont">
-            <nav class="blocs">
+        <div class="container d-flex justify-content-between py-5">
+            <div class="box-col">
+                <h3>Scopri DeliveBoo</h3>
+                <ul>
+                    <li>
+                        <a href="#" class="">Investitori</a>
+                    </li>
 
-                <!-- Primo Blocco -->
-                <div class="bloc">
-                    <div class="light-bloc">
-                        <div class="frame">
-                            <h3 >Scopri DeliveBoo</h3>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Investitori</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Chi siamo</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Ristoranti</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Altro</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Pressroom</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Programmazione</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Design</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Lavora con noi</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Diventa nostro partner</a>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <li>
+                        <a href="#" class="">Chi siamo</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Ristoranti</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Altro</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Pressroom</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Programmazione</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Design</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Lavora con noi</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Diventa nostro partner</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="box-col">
+                <h3>Note Legali</h3>
+                <ul>
+                    <li>
+                        <a href="#" class="">Termini & Condizioni</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Chi siamo</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Ristoranti</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="box-col">
+                <h3>Aiuto</h3>
+                <ul>
+                    <li>
+                        <a href="#" class="">Contatti</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">FAQ</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="">Tipi di cucina</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="box-col img">
+                <div class="deliveboo-logo d-flex align-items-center">
+                    <img src="../../img/logo.png" alt="" />
+                    <span class="fs-2 fw-bold"> DeliveBoo </span>
                 </div>
-                <!-- /Primo Blocco -->
-
-                <!-- Secondo Blocco -->
-                <div class="bloc">
-                    <div class="light-bloc">
-                        <div class="frame">
-                            <h3>Note Legali</h3>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Termini & Condizioni</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Chi siamo</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Ristoranti</a>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="boolean-logo d-flex align-items-center">
+                    <img src="../../img/boolean-logo.png" alt="" />
+                    <span class="fs-2 fw-bold"> Boolean </span>
                 </div>
-                <!-- /Secondo Blocco -->
-
-                <!-- Terzo Blocco -->
-                <div class="bloc">
-                    <div class="light-bloc">
-                        <div class="frame">
-                            <h3>Aiuto</h3>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Contatti</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">FAQ</a>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <a href="#" class="">Tipi di cucina</a>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Terzo Blocco -->
-
-                <!-- Quarto Blocco -->
-                <div class="bloc"></div>
-                <!-- /Quarto Blocco -->
-            </nav>
-            <nav></nav>
+            </div>
         </div>
     </footer>
 </template>
@@ -156,53 +98,71 @@ export default {
 <style lang="scss" scoped>
 @use "../../scss/_variables.scss" as *;
 
-footer{
+footer {
+    height: 100%;
+    width: 100%;
     background-color: $dark-gray;
-    color: $white;
-    .cont{
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 0 16px;
-        overflow: hidden;
-        .blocs{
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            margin: 0;
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
-            .bloc{
-                min-width: auto;
-                flex: 1;
-                background: $dark-gray;
-                border-radius: 3px;
-                .light-bloc{
-                    min-width: 272px;
-                    .frame{
-                    padding: 24px;
+
+    .box-col {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% / 3);
+        //padding: 40px 80px;
+        h3 {
+            color: $light-gray;
+        }
+        ul {
+            text-decoration: none;
+            padding: 0;
+            a {
+                color: $light-gray;
+                &:hover {
+                    color: $orange;
                 }
-                }
+            }
+        }
+
+        .boolean-logo,
+        .deliveboo-logo {
+            height: calc(100% / 2);
+            img {
+                width: 70px;
+                margin-right: 30px;
+            }
+            span {
+                font-size: 1.15rem;
+                color: $light-gray;
             }
         }
     }
 }
 
-h3{
-    font-size: 19px;
-    line-height: 24px;
-    font-weight: 700px;
-    padding-bottom: 8px;
-}
+@media all and (max-width: 480px) {
+    .container {
+        // margin-bottom: 60px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 40px;
+        h3 {
+            width: 100%;
+        }
 
-a{
-    color: $white;
-}
+        .box-col {
+            width: 100%;
+        }
 
-a:hover{
-    color: $orange;
-}
+        .box-col.img {
+            flex-direction: row;
+            justify-content: space-between;
 
-ul{
-    padding-left: 0;
+            img {
+                width: 40px;
+            }
+            span {
+                font-size: 1rem;
+                color: $light-gray;
+            }
+        }
+    }
 }
 </style>

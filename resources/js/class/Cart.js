@@ -11,7 +11,7 @@ export default class Cart {
     }
 
     get totalQuantity() {
-        return this._items.reduce((sum, item) => item.quantity, 0);
+        return this._items.reduce((sum, item) =>sum + item.quantity, 0);
     }
 
     get items() {
@@ -27,16 +27,12 @@ export default class Cart {
     }
 
     findItem(product) {
-        if (this._restaurant && this._restaurant.id === product.restaurant_id) {
-            return this._items.find((item) => item.product.id === product.id);
-        } else {
-            return null;
-        }
+        return this._items.find((item) => item.product.id === product.id);
     }
 
-    addItem(product) {
+    addItem(product, productRestaurant) {
         if (this.isEmpty()) {
-            this._restaurant = product.restaurant_id;
+            this._restaurant = productRestaurant;
             const newItem = new CartItem(product);
             this._items.push(newItem);
             return true;
@@ -55,7 +51,7 @@ export default class Cart {
     }
 
 
-    removeItem(product) {
+    decreaseItem(product) {
         const item = this.findItem(product);
         if (item) {
             item.decreaseQuantity();
@@ -63,6 +59,14 @@ export default class Cart {
                 const indexItem = this._items.indexOf(item);
                 this._items.splice(indexItem, 1);
             }
+        }
+    }
+
+    deleteItem(product) {
+        const item = this.findItem(product);
+        if (item) {
+            const indexItem = this._items.indexOf(item);
+            this._items.splice(indexItem, 1);
         }
     }
 

@@ -12,8 +12,8 @@ export default {
     },
     methods: {
         startSearch() {
-            store.typed = true;
             if (store.searched) {
+                store.typed = true;
                 store.isLoading = true;
                 axios
                     .get(this.baseUrl + "/search", {
@@ -29,35 +29,37 @@ export default {
                 store.filterCategory = [];
             } else {
                 store.restaurants = [];
+                store.filterCategory = [];
+                store.btnClicked = true;
             }
         },
     },
 };
 </script>
-<template lang="">
-    <div class="container">
-        <div class="row">
-            <div class="col-8 offset-2 d-flex align-items-center">
-                <div class="input-group">
-                    <input
-                        type="text"
-                        class="form-control"
-                        aria-label="Recipient's username"
-                        aria-describedby="button-addon2"
-                        v-model="store.searched"
-                        @keyup.enter="startSearch()"
-                        placeholder="Cerca un ristorante per nome..."
-                    />
-                    <button
-                        class="btn my-btn-color fw-bold"
-                        type="button"
-                        id="button-addon2"
-                        @click="startSearch()"
-                    >
-                        Cerca
-                    </button>
-                </div>
-            </div>
+<template>
+    <div class="container d-flex justify-content-center p-0">
+        <div class="input-group">
+            <input
+                type="text"
+                class="form-control"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+                v-model="store.searched"
+                @keyup.enter="startSearch()"
+                @keydown="
+                    store.typed = false;
+                    store.btnClicked = false;
+                "
+                placeholder="Cerca un ristorante per nome..."
+            />
+            <button
+                class="btn my-btn-color fw-bold"
+                type="button"
+                id="button-addon2"
+                @click="startSearch()"
+            >
+                Cerca
+            </button>
         </div>
     </div>
 </template>
@@ -75,6 +77,7 @@ export default {
 }
 
 .input-group {
+    width: 50%;
     border-radius: 10px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
 
@@ -84,6 +87,14 @@ export default {
             border-color: $orange;
             box-shadow: 0 0 0 0.2rem rgba(241, 90, 37, 0.25);
         }
+    }
+}
+
+@media all and (max-width: 480px) {
+    .input-group {
+        width: 100%;
+        padding: 0;
+        margin: 0;
     }
 }
 </style>

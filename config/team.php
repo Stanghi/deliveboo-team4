@@ -41,6 +41,6 @@ return [
             "gh_link" => "https://github.com/Stanghi",
             "img" => "/uploads/mattia_stangherlin.jpg"
 
-        ],
+        ]
     ]
 ];

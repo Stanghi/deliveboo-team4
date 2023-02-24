@@ -24,8 +24,7 @@ export default {
 </script>
 
 <template>
-    <div class="container">
-        <h1>Team</h1>
+    <div class="container my-5">
         <div class="row">
             <div
                 class="col-lg-4 col-md-6 col-sm-12"
@@ -54,11 +53,6 @@ export default {
                         <li class="card-social__item">
                             <a :href="team_member.gh_link">
                                 <i class="fa-brands fa-github"></i>
-                            </a>
-                        </li>
-                        <li class="card-social__item">
-                            <a :href="team_member.ig_link">
-                                <i class="fa-brands fa-instagram"></i>
                             </a>
                         </li>
                     </ul>
@@ -98,6 +92,8 @@ export default {
     border-radius: 50%;
     transition: transform 0.2s ease;
     margin-bottom: 1rem;
+
+    object-fit: cover;
 }
 
 /*Card footer*/

@@ -17,7 +17,8 @@ export default {
             telephone: "",
             note: "",
             nonce: "",
-            errors: "",
+            errorsValidation: {},
+            errorMessage: ''
         };
     },
     computed: {
@@ -73,6 +74,7 @@ export default {
                             .then((payload) => {
                                 // document.getElementById("nonce").value =
                                 this.nonce = payload.nonce;
+                                this.makePayment();
                             })
                             .catch((error) => {
                                 console.log(error);
@@ -81,6 +83,13 @@ export default {
                     });
                 })
                 .catch((error) => {});
+        },
+        destroyDropIn() {
+            dropinInstance.teardown(function (err) {
+                if (err) {
+                    console.error("An error occurred during teardown:", err);
+                }
+            });
         },
         getToken() {
             axios.get(baseUrl + "orders/generate").then((result) => {
@@ -99,20 +108,37 @@ export default {
                 note: this.note,
                 payment_method_nonce: this.nonce,
             };
-            axios.post(this.makePaymentUrl, formData).then((result) => {
-                console.log("risultato");
-                console.log(result);
-                if (result.data.success) {
-                    this.removeAllProducts();
-                    this.$router.push({ name: "successPayment" });
-                }
-            });
+
+            this.errorsValidation = {};
+            this.name = "";
+            this.surname = "";
+            this.email = "";
+            this.address = "";
+            this.telephone = "";
+            this.note = "";
+
+
+            axios.post(this.makePaymentUrl, formData)
+                .then((result) => {
+                    if (result.data.status === "success") {
+                        this.removeAllProducts();
+                        this.$router.push({ name: "successPayment" });
+                    }
+                })
+                .catch((error) => {
+                    if (error.response.data.status === "errorValidation") {
+                        this.errorsValidation = error.response.data.errors;
+                    } else if(error.response.data.status === "errorTransaction") {
+                        this.errorMessage = 'Transazione fallita, riprovare'
+                    }else {
+                        this.errorMessage = 'Si è verificato un problema, riprovare più tardi'
+                    }
+
+                });
         },
     },
     mounted() {
-        this.createDropIn();
         this.getToken();
-        console.log(this.makePaymentUrl);
     },
 };
 </script>
@@ -215,7 +241,7 @@ export default {
             </div>
             <div class="col ms-3">
                 <h3>Dati per il pagamento</h3>
-                <form id="payment-form" method="POST" @submit="makePayment()">
+                <form id="payment-form" method="POST">
                     <div class="client-data d-flex flex-column">
                         <input
                             type="text"
@@ -231,6 +257,13 @@ export default {
                             name="name"
                             v-model.trim="name"
                         />
+                        <p
+                            v-for="(error, index) in errorsValidation.name"
+                            :key="'name' + index"
+                            class="error"
+                        >
+                            {{ error }}
+                        </p>
                         <input
                             type="text"
                             class="form-control mb-3"
@@ -245,6 +278,13 @@ export default {
                             name="surname"
                             v-model.trim="surname"
                         />
+                        <p
+                            v-for="(error, index) in errorsValidation.surname"
+                            :key="'surname' + index"
+                            class="error"
+                        >
+                            {{ error }}
+                        </p>
                         <input
                             type="email"
                             class="form-control mb-3"
@@ -258,10 +298,18 @@ export default {
                             name="email"
                             v-model.trim="email"
                         />
+                        <p
+                            v-for="(error, index) in errorsValidation.email"
+                            :key="'email' + index"
+                            class="error"
+                        >
+                            {{ error }}
+                        </p>
                         <input
                             type="text"
                             class="form-control mb-3"
                             required
+                            id="address"
                             title="Campo obbligatorio, inserire un indirizzo valido"
                             minlength="8"
                             maxlength="100"
@@ -273,6 +321,13 @@ export default {
                             name="address"
                             v-model.trim="address"
                         />
+                        <p
+                            v-for="(error, index) in errorsValidation.address"
+                            :key="'address' + index"
+                            class="error"
+                        >
+                            {{ error }}
+                        </p>
                         <input
                             type="phone"
                             class="form-control mb-3"
@@ -287,13 +342,28 @@ export default {
                             name="telephone"
                             v-model.trim="telephone"
                         />
+                        <p
+                            v-for="(error, index) in errorsValidation.telephone"
+                            :key="'telephone' + index"
+                            class="error"
+                        >
+                            {{ error }}
+                        </p>
                         <textarea
                             class="form-control mb-3"
                             name="note"
                             cols="30"
                             rows="4"
                             placeholder="Note per il ristorante"
+                            v-model.trim="note"
                         ></textarea>
+                        <p
+                            v-for="(error, index) in errorsValidation.note"
+                            :key="'note' + index"
+                            class="error"
+                        >
+                            {{ error }}
+                        </p>
                     </div>
                     <div id="dropin-container"></div>
                     <button class="btn btn-light" type="submit">
@@ -305,6 +375,7 @@ export default {
                         name="payment_method_nonce"
                     />
                 </form>
+                <p v-if="errorMessage">{{errorMessage}}</p>
             </div>
         </div>
     </div>

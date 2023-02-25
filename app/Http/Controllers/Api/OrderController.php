@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Braintree\Gateway;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -26,8 +27,44 @@ class OrderController extends Controller
     public function makePayment(OrderRequest $request, Gateway $gateway)
     {
 
-        $cart = json_decode($request->cart);
+        $data = $request->all();
+        $validator = Validator::make(
+            $data,
+            [
+                'name' => 'required|min:2|max:50',
+                'surname' => 'required|min:2|max:70',
+                'email' => 'required|email|max:255',
+                'address' => 'required|min:8|max:100',
+                'telephone' => 'required|min:8|max:20',
+                'note' => 'max:500',
+            ],
+            [
+                'name.required' => 'Il nome è un campo obbligatorio',
+                'name.min' => 'Il nome deve avere al minimo :min caratteri',
+                'name.max' => 'Il nome deve avere al massimo :max caratteri',
+                'email.required' => 'L\'email è un campo obbligatorio',
+                'email.email' => 'L\'email non è formattata correttamente',
+                'email.max' => 'L\'email deve avere al massimo :max caratteri',
+                'address.required' => 'L\'indirizzo è un campo obbligatorio',
+                'address.min' => 'L\'indirizzo deve avere al minimo :min caratteri',
+                'address.max' => 'L\'indirizzo deve avere al massimo :max caratteri',
+                'telephone.required' => 'Il numero di telefono è un campo obbligatorio',
+                'telephone.min' => 'Il numero di telefono richiede almeno :min caratteri',
+                'telephone.max' => 'Il numero di telefono consente al massimo :max caratteri',
+                'note.max' => 'Il campo note consente al massimo :max caratteri'
+            ]
+        );
 
+        if ($validator->fails()) {
+            $data = [
+                'status' => 'errorValidation',
+                'errors' => $validator->errors()
+            ];
+
+            return response()->json($data, 400);
+        }
+
+        $cart = json_decode($request->cart);
         $nonce = $request->payment_method_nonce;
         $amount = 0;
         $cart_items = $cart->items;
@@ -44,17 +81,13 @@ class OrderController extends Controller
             ]
         ]);
 
-
-
         if ($result->success) {
             $data = [
-                'success' => true,
+                'status' => 'success',
                 'cart' => $cart,
                 'amount' => $amount,
                 'message' => "Transazione eseguita con Successo!"
             ];
-
-
 
             $order = Order::create([
                 'restaurant_id' => $cart->restaurant,
@@ -77,13 +110,11 @@ class OrderController extends Controller
 
         } else {
             $data = [
-                'success' => false,
+                'status' => 'errorTransaction',
                 'message' => "Transazione Fallita!"
             ];
             return response()->json($data, 401);
         }
-
-
     }
 }
 

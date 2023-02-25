@@ -27,9 +27,11 @@ export default {
                     });
 
                 store.filterCategory = [];
+                store.categoryClicked = [];
             } else {
                 store.restaurants = [];
                 store.filterCategory = [];
+                store.categoryClicked = [];
                 store.btnClicked = true;
             }
         },

@@ -10,13 +10,14 @@ export default {
             store,
             apiToken: null,
             makePaymentUrl: baseUrl + "orders/make/payment",
-            name: '',
-            surname: '',
-            email: '',
-            address: '',
-            telephone: '',
-            nonce: '',
-            errors: ''
+            name: "",
+            surname: "",
+            email: "",
+            address: "",
+            telephone: "",
+            note: "",
+            nonce: "",
+            errors: "",
         };
     },
     computed: {
@@ -94,15 +95,19 @@ export default {
                 surname: this.surname,
                 address: this.address,
                 telephone: this.telephone,
-                payment_method_nonce: this.nonce
+                email: this.email,
+                note: this.note,
+                payment_method_nonce: this.nonce,
             };
-            axios.post(this.makePaymentUrl, formData).then(result => {
-                if(result.data.success) {
+            axios.post(this.makePaymentUrl, formData).then((result) => {
+                console.log("risultato");
+                console.log(result);
+                if (result.data.success) {
                     this.removeAllProducts();
-                    this.$router.push({name:'successPayment'});
+                    this.$router.push({ name: "successPayment" });
                 }
             });
-        }
+        },
     },
     mounted() {
         this.createDropIn();
@@ -215,49 +220,76 @@ export default {
                         <input
                             type="text"
                             class="form-control mb-3"
+                            required
+                            autofocus
+                            minlength="2"
+                            maxlength="50"
                             placeholder="Nome Cliente"
+                            title="Campo obbligatorio, inserire almeno 2 caratteri"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire almeno 2 caratteri ed un massimo di 50.')"
+                            onchange="this.setCustomValidity('')"
                             name="name"
                             v-model.trim="name"
                         />
                         <input
                             type="text"
                             class="form-control mb-3"
+                            required
+                            autofocus
+                            minlength="2"
+                            maxlength="100"
                             placeholder="Cognome Cliente"
+                            title="Campo obbligatorio, inserire almeno 2 caratteri"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire almeno 2 caratteri ed un massimo di 100.')"
+                            onchange="this.setCustomValidity('')"
                             name="surname"
                             v-model.trim="surname"
                         />
                         <input
                             type="email"
                             class="form-control mb-3"
+                            required
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                             placeholder="Indirizzo e-mail"
+                            title="Campo obbligatorio, inserire una e-mail valida"
+                            minlength="6"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire una e-mail valida')"
+                            onchange="this.setCustomValidity('')"
                             name="email"
                             v-model.trim="email"
                         />
                         <input
                             type="text"
                             class="form-control mb-3"
+                            required
+                            title="Campo obbligatorio, inserire un indirizzo valido"
+                            minlength="8"
+                            maxlength="100"
+                            autocomplete="address"
+                            autofocus
                             placeholder="Indirizzo"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un indirizzo valido.')"
+                            onchange="this.setCustomValidity('')"
                             name="address"
                             v-model.trim="address"
                         />
                         <input
-                            type="text"
+                            type="phone"
                             class="form-control mb-3"
+                            required
                             placeholder="Contatto Telefonico"
+                            autocomplete="telephone"
+                            autofocus
+                            title="Campo obbligatorio, inserire un numero di telefono valido"
+                            pattern="[0-9-+\s()]{5,20}"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un numero di telefono valido.')"
+                            onchange="this.setCustomValidity('')"
                             name="telephone"
                             v-model.trim="telephone"
                         />
-                        <!-- <input
-                            id="cart-input"
-                            class="d-none"
-                            name="cart"
-                            value=""
-                            type="text"
-                        /> -->
                         <textarea
                             class="form-control mb-3"
                             name="note"
-                            id=""
                             cols="30"
                             rows="4"
                             placeholder="Note per il ristorante"

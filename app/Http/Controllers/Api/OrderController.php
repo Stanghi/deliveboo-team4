@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
+use App\Models\Order;
 use App\Models\Product;
 use Braintree\Gateway;
 use Illuminate\Http\Request;
@@ -24,7 +25,9 @@ class OrderController extends Controller
 
     public function makePayment(OrderRequest $request, Gateway $gateway)
     {
+
         $cart = json_decode($request->cart);
+
         $nonce = $request->payment_method_nonce;
         $amount = 0;
         $cart_items = $cart->items;
@@ -41,6 +44,8 @@ class OrderController extends Controller
             ]
         ]);
 
+
+
         if ($result->success) {
             $data = [
                 'success' => true,
@@ -48,6 +53,25 @@ class OrderController extends Controller
                 'amount' => $amount,
                 'message' => "Transazione eseguita con Successo!"
             ];
+
+
+
+            $order = Order::create([
+                'restaurant_id' => $cart->restaurant,
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'email' => $request->email,
+                'address' => $request->address,
+                'telephone' => $request->telephone,
+                'note' => $request->note,
+                'amount' => $amount,
+            ]);
+
+
+            foreach ($cart_items as $item) {
+                $product = Product::find($item->product);
+                $order->products()->attach($product->id, ['quantity' => $item->quantity]);
+            }
 
             return response()->json($data, 200);
 
@@ -58,6 +82,8 @@ class OrderController extends Controller
             ];
             return response()->json($data, 401);
         }
+
+
     }
 }
 

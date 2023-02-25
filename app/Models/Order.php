@@ -9,6 +9,17 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'restaurant_id',
+        'name',
+        'surname',
+        'email',
+        'address',
+        'telephone',
+        'note',
+        'amount'
+    ];
+
     public function products() {
         return $this->belongsToMany(Product::class)
             ->withPivot('quantity')->withTimestamps();

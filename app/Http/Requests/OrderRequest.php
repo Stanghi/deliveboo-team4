@@ -24,8 +24,8 @@ class OrderRequest extends FormRequest
     {
         return [
             'payment_method_nonce' => 'required',
-            // 'name' => 'required|min:3|max:50',
-            // 'surname' => 'required|min:3|max:70',
+            // 'name' => 'required|min:2|max:50',
+            // 'surname' => 'required|min:2|max:70',
             // 'email' => 'required|email',
             // 'address' => 'required|min:8|max:100',
             // 'telephone' => 'required|min:8|max:20',

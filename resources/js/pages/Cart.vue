@@ -72,6 +72,7 @@ export default {
                                 form.submit();
                             })
                             .catch((error) => {
+                                console.log(error);
                                 throw error;
                             });
                     });
@@ -188,58 +189,73 @@ export default {
                     Il carrello è vuoto
                 </span>
             </div>
-        </div>
-        <form id="payment-form" :action="makePaymentUrl" method="post">
-            <div class="client-data d-flex flex-column w-50">
-                <input
-                    type="text"
-                    class="form-control mb-3"
-                    placeholder="Nome Cliente"
-                    name="name"
-                    value=""
-                />
-                <input
-                    type="text"
-                    class="form-control mb-3"
-                    placeholder="Cognome Cliente"
-                    name="surname"
-                    value=""
-                />
-                <input
-                    type="email"
-                    class="form-control mb-3"
-                    placeholder="Indirizzo e-mail"
-                    name="email"
-                    value=""
-                />
-                <input
-                    type="text"
-                    class="form-control mb-3"
-                    placeholder="Indirizzo"
-                    name="address"
-                    value=""
-                />
-                <input
-                    type="text"
-                    class="form-control mb-3"
-                    placeholder="Contatto Telefonico"
-                    name="telephone"
-                    value=""
-                />
-                <input
-                    id="cart-input"
-                    class="d-none"
-                    name="cart"
-                    value=""
-                    type="text"
-                />
+            <div class="col ms-3">
+                <h3>Dati per il pagamento</h3>
+                <form id="payment-form" :action="makePaymentUrl" method="post">
+                    <div class="client-data d-flex flex-column">
+                        <input
+                            type="text"
+                            class="form-control mb-3"
+                            placeholder="Nome Cliente"
+                            name="name"
+                            value=""
+                        />
+                        <input
+                            type="text"
+                            class="form-control mb-3"
+                            placeholder="Cognome Cliente"
+                            name="surname"
+                            value=""
+                        />
+                        <input
+                            type="email"
+                            class="form-control mb-3"
+                            placeholder="Indirizzo e-mail"
+                            name="email"
+                            value=""
+                        />
+                        <input
+                            type="text"
+                            class="form-control mb-3"
+                            placeholder="Indirizzo"
+                            name="address"
+                            value=""
+                        />
+                        <input
+                            type="text"
+                            class="form-control mb-3"
+                            placeholder="Contatto Telefonico"
+                            name="telephone"
+                            value=""
+                        />
+                        <input
+                            id="cart-input"
+                            class="d-none"
+                            name="cart"
+                            value=""
+                            type="text"
+                        />
+                        <textarea
+                            class="form-control mb-3"
+                            name="note"
+                            id=""
+                            cols="30"
+                            rows="4"
+                            placeholder="Note per il ristorante"
+                        ></textarea>
+                    </div>
+                    <div id="dropin-container"></div>
+                    <button class="btn btn-light" type="submit">
+                        Effettua Pagamento
+                    </button>
+                    <input
+                        type="hidden"
+                        id="nonce"
+                        name="payment_method_nonce"
+                    />
+                </form>
             </div>
-            <div id="dropin-container" class="w-50"></div>
-            <button class="btn btn-light" type="submit">
-                Effettua Pagamento
-            </button>
-            <input type="hidden" id="nonce" name="payment_method_nonce" />
-        </form>
+        </div>
     </div>
 </template>
 

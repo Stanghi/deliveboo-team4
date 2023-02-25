@@ -24,20 +24,18 @@ class OrderController extends Controller
 
     public function makePayment(OrderRequest $request, Gateway $gateway)
     {
-
-        $cart = $request->cart;
-        $cart_items = $cart['items'];
-        $token = $request->token;
+        $cart = json_decode($request->cart);
+        $nonce = $request->payment_method_nonce;
         $amount = 0;
-
+        $cart_items = $cart->items;
         foreach ($cart_items as $item) {
-            $product = Product::find($item['product']['id']);
-            $amount += $product->price * $item['quantity'];
+            $product = Product::find($item->product);
+            $amount += $product->price * $item->quantity;
         }
 
         $result = $gateway->transaction()->sale([
             'amount' => $amount,
-            'paymentMethodNonce' => $token,
+            'paymentMethodNonce' => $nonce,
             'options' => [
                 'submitForSettlement' => true
             ]
@@ -50,7 +48,10 @@ class OrderController extends Controller
                 'amount' => $amount,
                 'message' => "Transazione eseguita con Successo!"
             ];
+
+            // return view('guest.home', $data);
             return response()->json($data, 200);
+
         } else {
             $data = [
                 'success' => false,
@@ -60,3 +61,6 @@ class OrderController extends Controller
         }
     }
 }
+
+//CREDIT CARD
+// 378282246310005

@@ -3,7 +3,7 @@ export default {
     name: "Header",
     data() {
         return {
-            hamburgerMenuClosed: true,
+            hamburgerMenuOpened: false,
             view: {
                 topOfPage: true,
             },
@@ -26,10 +26,13 @@ export default {
             }
         },
 
-        hamburgerOpenClose() {
-            this.hamburgerMenuClosed = !this.hamburgerMenuClosed;
-            console.log(this.hamburgerMenuClosed);
+        openHamburger() {
+            this.hamburgerMenuOpened = !this.hamburgerMenuOpened;
+            console.log(this.hamburgerMenuOpened);
         },
+    },
+    mounted() {
+        console.log(this.hamburgerMenuOpened);
     },
 };
 </script>
@@ -37,7 +40,7 @@ export default {
 <template>
     <header
         :class="{
-            onScroll: !view.topOfPage,
+            onScroll: !view.topOfPage || hamburgerMenuOpened,
             headerDark:
                 $route.name == 'cart' ||
                 $route.name == 'team' ||
@@ -67,23 +70,38 @@ export default {
         </div>
 
         <div class="hamburger-menu">
-            <i class="fa-solid fa-bars"></i>
+            <i
+                v-if="!hamburgerMenuOpened"
+                class="fa-solid fa-bars fs-1"
+                @click="openHamburger()"
+            ></i>
+            <i
+                v-else
+                class="fa-solid fa-xmark fs-1"
+                @click="openHamburger()"
+            ></i>
             <div
-                id="overlay"
-                class="d-none"
-                :class="hamburgerMenuClosed && 'menu'"
+                class="overlay"
+                :class="hamburgerMenuOpened && 'overlay-visible'"
             >
-                <a href="#">Link1</a>
-                <a href="#">Link2</a>
-                <a href="#">Link3</a>
-                <a href="#">Link4</a>
+                <router-link :to="{ name: 'home' }" @click="openHamburger()"
+                    >Home</router-link
+                >
+                <router-link :to="{ name: 'team' }" @click="openHamburger()"
+                    >Team</router-link
+                >
+                <router-link :to="{ name: 'cart' }" @click="openHamburger()"
+                    >Carrello
+                    <div class="badge rounded-pill" v-if="cart.totalQuantity">
+                        {{ cart.totalQuantity }}
+                    </div>
+                </router-link>
+                <a href="/admin" @click="openHamburger()"
+                    >Accedi al tuo ristorante
+                </a>
             </div>
             <div class="nav">
-                <div
-                    id="hamburger"
-                    @click="hamburgerOpenClose()"
-                    :class="hamburgerMenuClosed && 'open'"
-                >
+                <div id="hamburger">
                     <div></div>
                 </div>
             </div>
@@ -103,7 +121,7 @@ header {
     height: 60px;
     width: 100%;
     padding: 0 30px;
-    transition: all 0.2s ease-in-out;
+    // transition: all 0.2s ease-in-out;
     color: $white;
 
     .logo {
@@ -117,10 +135,8 @@ header {
     a {
         text-decoration: none;
         color: $white;
-        font-weight: bolder;
         &:hover {
             text-decoration: underline;
-            // color: $orange;
         }
     }
 
@@ -143,15 +159,16 @@ header {
             }
         }
     }
-
-    .hamburger-menu {
-        display: none;
-    }
 }
 
 .onScroll,
 .headerDark {
     background-color: $dark-gray;
+}
+
+.overlay,
+.hamburger-menu {
+    display: none;
 }
 
 @media all and (max-width: 480px) {
@@ -165,5 +182,34 @@ header {
     }
 
     //
+
+    .overlay-visible {
+        background-color: $dark-gray;
+        padding: 20px 0;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 30px;
+        // align-items: center;
+
+        a {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+
+            .badge {
+                margin-left: 10px;
+                background-color: $orange;
+            }
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+    }
 }
 </style>

@@ -27,7 +27,9 @@ export default {
                     />
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bold">{{ restaurant.name }}</h5>
+                    <p class="card-title fw-bold">
+                        {{ restaurant.name }}
+                    </p>
                     <p class="card-text address">{{ restaurant.address }}</p>
                     <div class="category-box">
                         <span
@@ -49,6 +51,7 @@ export default {
     border-radius: 10px;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25);
     position: relative;
+
     .card-image {
         position: absolute;
         width: 90px;
@@ -62,6 +65,13 @@ export default {
             box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25);
             object-fit: cover;
         }
+    }
+
+    .card-title {
+        color: $dark-gray !important;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 1.1rem;
     }
 
     .card-body {

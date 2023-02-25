@@ -83,12 +83,16 @@ export default {
             </div>
             <div class="box-col img">
                 <div class="deliveboo-logo d-flex align-items-center">
-                    <img src="../../img/logo.png" alt="" />
-                    <span class="fs-2 fw-bold"> DeliveBoo </span>
+                    <a href="#">
+                        <img src="../../img/logo.png" alt="" />
+                        <span class="fs-2 fw-bold"> DeliveBoo </span>
+                    </a>
                 </div>
                 <div class="boolean-logo d-flex align-items-center">
-                    <img src="../../img/boolean-logo.png" alt="" />
-                    <span class="fs-2 fw-bold"> Boolean </span>
+                    <a href="https://boolean.careers/">
+                        <img src="../../img/boolean-logo.png" alt="" />
+                        <span class="fs-2 fw-bold"> Boolean </span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -117,7 +121,7 @@ footer {
             a {
                 color: $light-gray;
                 &:hover {
-                    color: $orange;
+                    text-decoration: underline;
                 }
             }
         }

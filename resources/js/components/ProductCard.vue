@@ -33,7 +33,7 @@ export default {
             if (this.cart.addItem(this.product, this.restaurant)) {
                 this.$store.commit("updateCart");
             } else {
-                this.$emit("CartFull",  this.product);
+                this.$emit("CartFull", this.product);
             }
         },
 
@@ -90,6 +90,7 @@ export default {
     border-radius: 10px;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25);
     position: relative;
+
     .card-image {
         position: absolute;
         width: 90px;

@@ -25,13 +25,15 @@ export default {
         };
     },
     methods: {
-        isChosen(id) {
+        isChosen(id, name) {
             store.searched = "";
             if (!this.store.filterCategory.includes(id)) {
                 this.store.filterCategory.push(id);
+                this.store.categoryClicked.push(name);
             } else {
                 const index = this.store.filterCategory.indexOf(id);
                 this.store.filterCategory.splice(index, 1);
+                this.store.categoryClicked.splice(index, 1);
             }
         },
     },
@@ -62,7 +64,7 @@ export default {
         <swiper-slide v-for="(category, index) in categories" :key="index">
             <div
                 @click="
-                    isChosen(category.id);
+                    isChosen(category.id, category.name);
                     $emit('categoryClicked');
                 "
                 class="card"

@@ -10,6 +10,13 @@ export default {
             store,
             apiToken: null,
             makePaymentUrl: baseUrl + "orders/make/payment",
+            name: '',
+            surname: '',
+            email: '',
+            address: '',
+            telephone: '',
+            nonce: '',
+            errors: ''
         };
     },
     computed: {
@@ -63,13 +70,8 @@ export default {
                         dropinInstance
                             .requestPaymentMethod()
                             .then((payload) => {
-                                document.getElementById("nonce").value =
-                                    payload.nonce;
-
-                                document.getElementById("cart-input").value =
-                                    this.cart.toFormData();
-
-                                form.submit();
+                                // document.getElementById("nonce").value =
+                                this.nonce = payload.nonce;
                             })
                             .catch((error) => {
                                 console.log(error);
@@ -85,10 +87,27 @@ export default {
                 this.createDropIn(this.token);
             });
         },
+        makePayment() {
+            const formData = {
+                cart: this.cart.toFormData(),
+                name: this.name,
+                surname: this.surname,
+                address: this.address,
+                telephone: this.telephone,
+                payment_method_nonce: this.nonce
+            };
+            axios.post(this.makePaymentUrl, formData).then(result => {
+                if(result.data.success) {
+                    this.cart.clear();
+                    this.$router.push({name:'successPayment'});
+                }
+            });
+        }
     },
     mounted() {
         this.createDropIn();
         this.getToken();
+        console.log(this.makePaymentUrl);
     },
 };
 </script>
@@ -191,50 +210,50 @@ export default {
             </div>
             <div class="col ms-3">
                 <h3>Dati per il pagamento</h3>
-                <form id="payment-form" :action="makePaymentUrl" method="post">
+                <form id="payment-form" method="POST" @submit="makePayment()">
                     <div class="client-data d-flex flex-column">
                         <input
                             type="text"
                             class="form-control mb-3"
                             placeholder="Nome Cliente"
                             name="name"
-                            value=""
+                            v-model.trim="name"
                         />
                         <input
                             type="text"
                             class="form-control mb-3"
                             placeholder="Cognome Cliente"
                             name="surname"
-                            value=""
+                            v-model.trim="surname"
                         />
                         <input
                             type="email"
                             class="form-control mb-3"
                             placeholder="Indirizzo e-mail"
                             name="email"
-                            value=""
+                            v-model.trim="email"
                         />
                         <input
                             type="text"
                             class="form-control mb-3"
                             placeholder="Indirizzo"
                             name="address"
-                            value=""
+                            v-model.trim="address"
                         />
                         <input
                             type="text"
                             class="form-control mb-3"
                             placeholder="Contatto Telefonico"
                             name="telephone"
-                            value=""
+                            v-model.trim="telephone"
                         />
-                        <input
+                        <!-- <input
                             id="cart-input"
                             class="d-none"
                             name="cart"
                             value=""
                             type="text"
-                        />
+                        /> -->
                         <textarea
                             class="form-control mb-3"
                             name="note"

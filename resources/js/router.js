@@ -5,6 +5,7 @@ import Restaurant from "./pages/Restaurant.vue";
 import Cart from "./pages/Cart.vue";
 import Team from "./pages/Team.vue";
 import Error404 from "./pages/Error404.vue";
+import SuccessPayment from './pages/SuccessPayment.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -32,6 +33,11 @@ const router = createRouter({
             path: "/team",
             name: "team",
             component: Team,
+        },
+        {
+            path: "/pagamento/successo",
+            name: "successPayment",
+            component: SuccessPayment
         },
         {
             path: "/:pathMatch(.*)*",

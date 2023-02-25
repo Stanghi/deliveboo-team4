@@ -27,22 +27,20 @@ class ValidProduct implements Rule
     public function passes($attribute, $value)
     {
 
-        $cart = $value;
-        $cart_items = $cart['items'];
-        $cart_restaurant_id = $cart['restaurant']['id'];
+        $cart = json_decode($value);
+        if (!$cart) {
+            return false;
+        }
+        $cart_items = $cart->items;
+        $cart_restaurant_id = $cart->restaurant;
 
         foreach ($cart_items as $item) {
-            $product = Product::find($item['product']['id']);
-            if ($product) {
-                if ($product->restaurant_id === $cart_restaurant_id) {
-                    if ($cart_restaurant_id === $item['product']['restaurant_id']) {
-                        return true;
-                    }
-                }
-            } else {
+            $product = Product::find($item->product);
+            if (!$product || $product->restaurant_id !== $cart_restaurant_id) {
                 return false;
             }
         }
+        return true;
     }
 
     /**

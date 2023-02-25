@@ -24,6 +24,7 @@
         crossorigin='anonymous' />
 
     <!-- Scripts -->
+    <script src="https://js.braintreegateway.com/web/dropin/1.34.0/js/dropin.min.js"></script>
     @vite(['resources/js/appVue.js', 'resources/scss/appVue.scss'])
 </head>
 

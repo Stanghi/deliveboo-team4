@@ -23,7 +23,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'token' => 'required',
+            'payment_method_nonce' => 'required',
             'cart' => [
                 'required',
                 new ValidProduct()

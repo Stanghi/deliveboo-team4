@@ -1,3 +1,4 @@
+import { forEach } from "lodash";
 import CartItem from "./CartItem.js";
 
 export default class Cart {
@@ -11,7 +12,7 @@ export default class Cart {
     }
 
     get totalQuantity() {
-        return this._items.reduce((sum, item) =>sum + item.quantity, 0);
+        return this._items.reduce((sum, item) => sum + item.quantity, 0);
     }
 
     get items() {
@@ -50,7 +51,6 @@ export default class Cart {
         }
     }
 
-
     decreaseItem(product) {
         const item = this.findItem(product);
         if (item) {
@@ -75,11 +75,17 @@ export default class Cart {
         this._items = [];
     }
 
-
     loadFromStorage(cartStorage) {
         this._restaurant = cartStorage._restaurant;
         cartStorage._items.forEach((item) => {
             this._items.push(new CartItem(item._product, item._quantity));
+        });
+    }
+
+    toFormData() {
+        return JSON.stringify({
+            restaurant: this.restaurant.id,
+            items: Array.from(this._items, (item) => item.toFormData()),
         });
     }
 }

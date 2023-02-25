@@ -98,7 +98,7 @@ export default {
             };
             axios.post(this.makePaymentUrl, formData).then(result => {
                 if(result.data.success) {
-                    this.cart.clear();
+                    this.removeAllProducts();
                     this.$router.push({name:'successPayment'});
                 }
             });

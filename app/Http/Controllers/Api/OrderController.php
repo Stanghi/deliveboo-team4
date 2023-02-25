@@ -49,7 +49,6 @@ class OrderController extends Controller
                 'message' => "Transazione eseguita con Successo!"
             ];
 
-            // return view('guest.home', $data);
             return response()->json($data, 200);
 
         } else {
@@ -63,4 +62,4 @@ class OrderController extends Controller
 }
 
 //CREDIT CARD
-// 378282246310005
+// 5555555555554444

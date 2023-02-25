@@ -31,26 +31,30 @@ export default {
     background-position: center 55%;
     background-repeat: no-repeat;
     background-size: cover;
-}
+    .container {
+        padding: 0;
+        .col-left {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            h2 {
+                font-size: 80px;
+                color: transparent;
+                position: relative;
+                animation: text_reveal 0.5s ease forwards;
+                animation-delay: 1s;
 
-.col-left {
-    width: 50%;
-    h2 {
-        font-size: 80px;
-        color: transparent;
-        position: relative;
-        animation: text_reveal 0.5s ease forwards;
-        animation-delay: 1s;
-
-        span {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 0;
-            height: 100%;
-            animation: overlay 1s ease forwards;
-            animation-delay: 0.5s;
-            background-color: $orange;
+                span {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 0;
+                    height: 100%;
+                    animation: overlay 1s ease forwards;
+                    animation-delay: 0.5s;
+                    background-color: $orange;
+                }
+            }
         }
     }
 }
@@ -91,12 +95,15 @@ export default {
 @media all and (max-width: 480px) {
     .jumbotron {
         height: 250px;
-        .col-left {
-            width: 100%;
-            text-align: center;
-            h2 {
-                font-size: 30px;
-                display: inline-block;
+
+        .container {
+            padding-left: 30px;
+            .col-left {
+                width: 100%;
+                h2 {
+                    font-size: 30px;
+                    display: inline-block;
+                }
             }
         }
     }

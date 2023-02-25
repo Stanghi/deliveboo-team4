@@ -57,7 +57,7 @@ export default {
                     <div class="top">
                         <span class="">
                             <button
-                                class="btn"
+                                class="btn back-to-restaurant"
                                 @click="deleteItem(item.product)"
                             >
                                 <i class="fa-solid fa-utensils"></i>
@@ -216,5 +216,14 @@ export default {
 
 .empty-cart {
     opacity: 0.5;
+}
+
+.back-to-restaurant {
+    background-color: $orange;
+    color: $white;
+    &:hover {
+        background-color: lighten($orange, 10%);
+        color: $white;
+    }
 }
 </style>

@@ -70,9 +70,8 @@ export default {
     background-color: $orange;
     color: $white;
     &:hover {
-        background-color: $white;
-        border: 1px solid $orange;
-        color: $orange;
+        background-color: lighten($orange, 10%);
+        color: $white;
     }
 }
 

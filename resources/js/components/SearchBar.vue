@@ -46,7 +46,7 @@ export default {
                 class="form-control"
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
-                v-model="store.searched"
+                v-model.trim="store.searched"
                 @keyup.enter="startSearch()"
                 @keydown="
                     store.typed = false;

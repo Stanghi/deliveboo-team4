@@ -1,9 +1,18 @@
 <script>
 import axios from "axios";
+import CartProductList from "../components/CartProductList.vue";
 import { baseUrl } from "../data/data";
 import { store } from "../data/store";
 export default {
     name: "Cart",
+    computed: {
+        cart() {
+            return this.$store.getters.getCart;
+        },
+    },
+    components: {
+        CartProductList,
+    },
     data() {
         return {
             baseUrl,
@@ -17,45 +26,22 @@ export default {
             telephone: "",
             note: "",
             nonce: "",
-            errorsValidation: {},
-            errorMessage: ''
+            errorsValidation: {
+                name: "",
+                surname: "",
+                email: "",
+                address: "",
+                telephone: "",
+                note: "",
+            },
+            errorMessage: "",
+            showCreditCardInput: false,
+            btnPayment: false,
         };
     },
-    computed: {
-        cart() {
-            return this.$store.getters.getCart;
-        },
-    },
     methods: {
-        removeAllProducts() {
+        clearCart() {
             this.cart.clear();
-            this.$store.commit("updateCart");
-        },
-
-        formatPrice(price) {
-            return new Intl.NumberFormat("it-IT", {
-                style: "currency",
-                currency: "EUR",
-            }).format(price);
-        },
-        addToCart(product) {
-            this.cart.addItem(product, store.restaurant);
-            this.$store.commit("updateCart");
-        },
-
-        removeFromCart(product) {
-            console.log(product);
-            this.cart.decreaseItem(product);
-            this.$store.commit("updateCart");
-        },
-        productQuantityInCart(product) {
-            const item = this.cart.findItem(product);
-            if (item) {
-                return item.quantity;
-            }
-        },
-        deleteItem(product) {
-            this.cart.deleteItem(product);
             this.$store.commit("updateCart");
         },
         createDropIn(token) {
@@ -67,6 +53,7 @@ export default {
                     container: document.getElementById("dropin-container"),
                 })
                 .then((dropinInstance) => {
+                    this.btnPayment = true;
                     form.addEventListener("submit", (event) => {
                         event.preventDefault();
                         dropinInstance
@@ -82,14 +69,7 @@ export default {
                             });
                     });
                 })
-                .catch((error) => {});
-        },
-        destroyDropIn() {
-            dropinInstance.teardown(function (err) {
-                if (err) {
-                    console.error("An error occurred during teardown:", err);
-                }
-            });
+                .catch((error) => { });
         },
         getToken() {
             axios.get(baseUrl + "orders/generate").then((result) => {
@@ -117,265 +97,212 @@ export default {
             this.telephone = "";
             this.note = "";
 
-
-            axios.post(this.makePaymentUrl, formData)
+            this.btnPayment = false;
+            axios
+                .post(this.makePaymentUrl, formData)
                 .then((result) => {
                     if (result.data.status === "success") {
-                        this.removeAllProducts();
+                        this.clearCart();
                         this.$router.push({ name: "successPayment" });
                     }
                 })
                 .catch((error) => {
                     if (error.response.data.status === "errorValidation") {
                         this.errorsValidation = error.response.data.errors;
-                    } else if(error.response.data.status === "errorTransaction") {
-                        this.errorMessage = 'Transazione fallita, riprovare'
-                    }else {
-                        this.errorMessage = 'Si è verificato un problema, riprovare più tardi'
+                    } else if (
+                        error.response.data.status === "errorTransaction"
+                    ) {
+                        this.errorMessage = "Transazione fallita, riprovare";
+                    } else {
+                        this.errorMessage =
+                            "Si è verificato un problema, riprovare più tardi";
                     }
-
                 });
+        },
+        checkInputValidation() {
+
+
+            let validation = true;
+
+            this.errorsValidation = {
+                name: "",
+                surname: "",
+                email: "",
+                address: "",
+                telephone: "",
+                note: "",
+            }
+
+            if (this.name.length < 2 || this.name.length > 50) {
+                this.showCreditCardInput = false;
+                this.errorsValidation.name = "Il nome deve essere minimo di 2 caratteri e massimo di 50 caratteri";
+                // return false;
+                validation = false;
+            }
+
+            if (this.surname.length < 2 || this.surname.length > 100) {
+                this.showCreditCardInput = false;
+                this.errorsValidation.surname = "Il cognome deve essere minimo di 2 caratteri e massimo di 100 caratteri";
+                // return false;
+                validation = false;
+            }
+
+            if (!this.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+                this.showCreditCardInput = false;
+                this.errorsValidation.email = "L\'email deve essere valida";
+                if (this.email.length < 2 || this.email.length > 50) {
+                    this.showCreditCardInput = false;
+                    this.errorsValidation.email = "L\'email deve essere valida";
+                    // return false;
+                    validation = false;
+                }
+                // return false;
+                validation = false;
+            }
+
+            if (this.address.length < 8 || this.address.length > 100) {
+                this.showCreditCardInput = false;
+                this.errorsValidation.address = "L\'indirizzo deve essere minimo di 8 caratteri e massimo di 100 caratteri";
+                // return false;
+                validation = false;
+            }
+
+            if (!this.telephone.match(/^[()\s-+\d]{10,17}$/)) {
+                this.showCreditCardInput = false;
+                this.errorsValidation.telephone = "Il numero di telefono deve essere valido";
+                if (this.telephone.length < 5 || this.telephone.length > 20) {
+                    this.showCreditCardInput = false;
+                    this.errorsValidation.telephone = "Il numero di telefono deve essere valido";
+                    // return false;
+                    validation = false;
+                }
+                // return false;
+                validation = false;
+            }
+
+            if (this.note.length > 500) {
+                this.showCreditCardInput = false;
+                // return false;
+                validation = false;
+            }
+
+            if (validation) {
+                this.showCreditCardInput = true;
+                this.getToken();
+                // return true;
+            }
         },
     },
     mounted() {
-        this.getToken();
+        // this.getToken();
+        console.log(this.errorsValidation);
     },
 };
 </script>
 <template>
-    <div class="container my-5 p-3 rounded bg-light">
+    <div class="container my-5 p-3 rounded" :class="cart.isEmpty() && 'container-empty-cart'">
         <div class="row no-gutters">
-            <div class="col-md-8" v-if="!cart.isEmpty()">
-                <div class="product-details">
-                    <div class="top">
-                        <span class="">
-                            <button
-                                class="btn back-to-restaurant"
-                                @click="deleteItem(item.product)"
-                            >
-                                <i class="fa-solid fa-utensils"></i>
-                                Torna a
-                                <span class="fw-bolder">{{
-                                    cart.restaurant.name
-                                }}</span>
-                            </button>
-                        </span>
-                        <button
-                            @click="removeAllProducts()"
-                            class="btn ml-2 mx-2 fw-bolder"
-                            title="Rimuovi tutti i prodotti"
-                        >
-                            Svuota carrello
-                        </button>
+            <CartProductList />
+            <div class="col payment ms-3" v-if="!cart.isEmpty()">
+
+                <div class="d-flex justify-content-between align-items-center fs-6 payment-top-nav">
+                    <div
+                        class="btn w-50"
+                        :class="!showCreditCardInput && 'active'"
+                        @click="showCreditCardInput = false"
+                >
+                    <i class="fa-solid fa-user me-3"></i>Dati personali
+                </div>
+                    <div
+                        class="btn w-50"
+                        :class="showCreditCardInput && 'active'"
+                        @click="checkInputValidation()">
+                        <i class="fa-solid fa-credit-card me-3"></i>Pagamento
+                    </div>
+                </div>
+                <form cla id="payment-form" method="POST">
+                    <div v-if="!showCreditCardInput" class="client-data d-flex flex-column">
+                        <div>
+                            <input @keyup.enter="checkInputValidation()" type="text" class="form-control" required autofocus minlength="2" maxlength="50"
+                            placeholder="Nome" title="Campo obbligatorio, inserire almeno 2 caratteri"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire almeno 2 caratteri ed un massimo di 50.')"
+                            onchange="this.setCustomValidity('')" name="name" v-model.trim="name" />
+                            <p v-if="errorsValidation.name" class="error">
+                                {{ errorsValidation.name }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <input @keyup.enter="checkInputValidation()" type="text" class="form-control" required autofocus minlength="2" maxlength="100"
+                            placeholder="Cognome" title="Campo obbligatorio, inserire almeno 2 caratteri"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire almeno 2 caratteri ed un massimo di 100.')"
+                            onchange="this.setCustomValidity('')" name="surname" v-model.trim="surname" />
+                            <p v-if="errorsValidation.surname" class="error">
+                                {{ errorsValidation.surname }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <input @keyup.enter="checkInputValidation()" type="email" class="form-control" required
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Indirizzo e-mail"
+                            title="Campo obbligatorio, inserire una e-mail valida" minlength="6"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire una e-mail valida')"
+                            onchange="this.setCustomValidity('')" name="email" v-model.trim="email" />
+                            <p v-if="errorsValidation.email" class="error">
+                                {{ errorsValidation.email }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <input @keyup.enter="checkInputValidation()" type="text" class="form-control" required id="address"
+                            title="Campo obbligatorio, inserire un indirizzo valido" minlength="8" maxlength="100"
+                            autocomplete="address" autofocus placeholder="Indirizzo"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un indirizzo valido.')"
+                            onchange="this.setCustomValidity('')" name="address" v-model.trim="address" />
+                            <p v-if="errorsValidation.address" class="error">
+                                {{ errorsValidation.address }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <input @keyup.enter="checkInputValidation()" type="phone" class="form-control" required placeholder="Telefono"
+                            autocomplete="telephone" autofocus
+                            title="Campo obbligatorio, inserire un numero di telefono valido" pattern="[0-9-+\s()]{5,20}"
+                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un numero di telefono valido.')"
+                            onchange="this.setCustomValidity('')" name="telephone" v-model.trim="telephone" />
+                            <p v-if="errorsValidation.telephone" class="error">
+                                {{ errorsValidation.telephone }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <textarea class="form-control" name="note" cols="30" rows="4"
+                            placeholder="Note per il ristorante" v-model.trim="note">
+                        </textarea>
                     </div>
 
-                    <div
-                        v-for="(item, index) in cart.items"
-                        :key="index"
-                        class="d-flex align-items-center row-product"
-                    >
-                        <div class="left">
-                            <div class="d-flex img-item">
-                                <img
-                                    :src="`/storage/${item.product.img}`"
-                                    width="100"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <span class="fw-bolder">
-                                    {{ item.product.name }}</span
-                                ><span
-                                    >Prezzo Unitario
-                                    {{ formatPrice(item.product.price) }}</span
-                                >
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="btn-box">
-                                <button
-                                    title="Rimuovi tutti i prodotti"
-                                    class="btn me-2"
-                                    @click="deleteItem(item.product)"
-                                >
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                                <button
-                                    title="Rimuovi un prodotto"
-                                    class="btn"
-                                    @click="removeFromCart(item.product)"
-                                >
-                                    <i class="fa-solid fa-minus"></i>
-                                </button>
-                                <span class="mx-2">{{
-                                    productQuantityInCart(item.product)
-                                }}</span>
-                                <button
-                                    title="Aggiungi un prodotto"
-                                    class="btn me-2"
-                                    @click="addToCart(item.product)"
-                                >
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
-                            <div class="total-amount">
-                                {{ formatPrice(item.totalPrice) }}
-                            </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div v-if="!showCreditCardInput" @click="checkInputValidation()" class="btn go-to-payment"
+                            title="Procedi con l'inserimento della carta">
+                            Vai al pagamento
                         </div>
                     </div>
-                </div>
-                <div class="total-amount d-flex justify-content-between fs-4">
-                    <div>Totale:</div>
-                    <div>{{ formatPrice(cart.amount) }}</div>
-                </div>
-            </div>
-            <div
-                class="d-flex justify-content-center align-items-center prova"
-                v-else
-            >
-                <span
-                    class="d-flex flex-column align-items-center fs-5 empty-cart"
-                >
-                    <i class="fa-solid fa-cart-shopping mb-2"></i>
-                    Il carrello è vuoto
-                </span>
-            </div>
-            <div class="col ms-3">
-                <h3>Dati per il pagamento</h3>
-                <form id="payment-form" method="POST">
-                    <div class="client-data d-flex flex-column">
-                        <input
-                            type="text"
-                            class="form-control mb-3"
-                            required
-                            autofocus
-                            minlength="2"
-                            maxlength="50"
-                            placeholder="Nome Cliente"
-                            title="Campo obbligatorio, inserire almeno 2 caratteri"
-                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire almeno 2 caratteri ed un massimo di 50.')"
-                            onchange="this.setCustomValidity('')"
-                            name="name"
-                            v-model.trim="name"
-                        />
-                        <p
-                            v-for="(error, index) in errorsValidation.name"
-                            :key="'name' + index"
-                            class="error"
-                        >
-                            {{ error }}
-                        </p>
-                        <input
-                            type="text"
-                            class="form-control mb-3"
-                            required
-                            autofocus
-                            minlength="2"
-                            maxlength="100"
-                            placeholder="Cognome Cliente"
-                            title="Campo obbligatorio, inserire almeno 2 caratteri"
-                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire almeno 2 caratteri ed un massimo di 100.')"
-                            onchange="this.setCustomValidity('')"
-                            name="surname"
-                            v-model.trim="surname"
-                        />
-                        <p
-                            v-for="(error, index) in errorsValidation.surname"
-                            :key="'surname' + index"
-                            class="error"
-                        >
-                            {{ error }}
-                        </p>
-                        <input
-                            type="email"
-                            class="form-control mb-3"
-                            required
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                            placeholder="Indirizzo e-mail"
-                            title="Campo obbligatorio, inserire una e-mail valida"
-                            minlength="6"
-                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire una e-mail valida')"
-                            onchange="this.setCustomValidity('')"
-                            name="email"
-                            v-model.trim="email"
-                        />
-                        <p
-                            v-for="(error, index) in errorsValidation.email"
-                            :key="'email' + index"
-                            class="error"
-                        >
-                            {{ error }}
-                        </p>
-                        <input
-                            type="text"
-                            class="form-control mb-3"
-                            required
-                            id="address"
-                            title="Campo obbligatorio, inserire un indirizzo valido"
-                            minlength="8"
-                            maxlength="100"
-                            autocomplete="address"
-                            autofocus
-                            placeholder="Indirizzo"
-                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un indirizzo valido.')"
-                            onchange="this.setCustomValidity('')"
-                            name="address"
-                            v-model.trim="address"
-                        />
-                        <p
-                            v-for="(error, index) in errorsValidation.address"
-                            :key="'address' + index"
-                            class="error"
-                        >
-                            {{ error }}
-                        </p>
-                        <input
-                            type="phone"
-                            class="form-control mb-3"
-                            required
-                            placeholder="Contatto Telefonico"
-                            autocomplete="telephone"
-                            autofocus
-                            title="Campo obbligatorio, inserire un numero di telefono valido"
-                            pattern="[0-9-+\s()]{5,20}"
-                            oninvalid="this.setCustomValidity('Campo obbligatorio, inserire un numero di telefono valido.')"
-                            onchange="this.setCustomValidity('')"
-                            name="telephone"
-                            v-model.trim="telephone"
-                        />
-                        <p
-                            v-for="(error, index) in errorsValidation.telephone"
-                            :key="'telephone' + index"
-                            class="error"
-                        >
-                            {{ error }}
-                        </p>
-                        <textarea
-                            class="form-control mb-3"
-                            name="note"
-                            cols="30"
-                            rows="4"
-                            placeholder="Note per il ristorante"
-                            v-model.trim="note"
-                        ></textarea>
-                        <p
-                            v-for="(error, index) in errorsValidation.note"
-                            :key="'note' + index"
-                            class="error"
-                        >
-                            {{ error }}
-                        </p>
+                    <div class="" v-show="showCreditCardInput">
+                        <div id="dropin-container"></div>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-payment" v-if="btnPayment" type="submit">
+                                Effettua Pagamento
+                            </button>
+                        </div>
+                        <input type="hidden" id="nonce" name="payment_method_nonce" />
                     </div>
-                    <div id="dropin-container"></div>
-                    <button class="btn btn-light" type="submit">
-                        Effettua Pagamento
-                    </button>
-                    <input
-                        type="hidden"
-                        id="nonce"
-                        name="payment_method_nonce"
-                    />
                 </form>
-                <p v-if="errorMessage">{{errorMessage}}</p>
+                <p v-if="errorMessage">{{ errorMessage }}</p>
+            </div>
+            <div class="empty-cart" v-if="cart.isEmpty()" >
+                <i class="fa-solid fa-cart-shopping"></i>
+                Il carrello è vuoto
             </div>
         </div>
     </div>
@@ -386,75 +313,80 @@ export default {
 
 .container {
     min-height: calc(100vh - 60px - 368px - 98px);
+    background-color: $white;
 }
 
-.btn {
-    font-size: 0.9rem;
-    background-color: $light-gray;
-    color: $dark-gray;
-    &:hover {
-        background-color: $orange;
-        color: $light-gray;
-    }
-}
-
-.top {
+.container-empty-cart{
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    // d-flex flex-row align-items-center mb-3
-}
-
-.row-product {
-    padding: 10px;
-    border-top: 3px solid $light-gray;
-    &:last-child {
-        border-bottom: 3px solid $light-gray;
-    }
-}
-
-.left {
-    display: flex;
-    align-items: center;
-    width: 70%;
-    .img-item {
-        height: 80px;
-        width: 80px;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-right: 15px;
-        img {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
-    }
-}
-
-.right {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 30%;
-    height: 80px;
-}
-
-.total-amount {
-    padding: 10px;
-    font-weight: bolder;
 }
 
 .empty-cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     opacity: 0.5;
+    font-size: 2rem;
 }
 
-.back-to-restaurant {
+.right-title-section {
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.active {
+    font-size: 0.9rem;
+    background-color: $light-gray;
+    color: $dark-gray;
+    border: none;
+    // &:hover {
+    //     background-color: $orange;
+    //     color: $light-gray;
+    // }
+}
+
+.btn-back{
+    background-color: $white;
+    border-radius: 10px;
+    font-weight: bolder;
+    &:hover {
+        background-color: $light-gray;
+        color: $dark-gray;
+    }
+}
+
+.payment-top-nav{
+    padding-bottom: 10px;
+}
+
+.go-to-payment,
+.btn-payment {
     background-color: $orange;
     color: $white;
+
     &:hover {
         background-color: lighten($orange, 10%);
         color: $white;
     }
 }
+
+.client-data{
+    div{
+        margin-bottom: 1rem;
+        .error {
+            color: $orange;
+            margin: 0;
+        }
+    }
+}
+
+@media all and (max-width: 480px) {
+    .payment{
+        margin-top: 50px;
+    }
+}
+
+
 </style>

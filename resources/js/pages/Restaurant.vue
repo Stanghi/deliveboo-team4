@@ -17,7 +17,7 @@ export default {
             products: [],
             store,
             visible: false,
-            newProduct: null
+            newProduct: null,
         };
     },
     computed: {

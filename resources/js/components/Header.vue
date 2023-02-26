@@ -44,6 +44,7 @@ export default {
             headerDark:
                 $route.name == 'cart' ||
                 $route.name == 'team' ||
+                $route.name == 'successPayment' ||
                 $route.name == '404',
         }"
     >

@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
+use App\Mail\NewOrderCustomer;
+use App\Mail\NewOrderRestaurant;
+use App\Models\Lead;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Restaurant;
+use App\Models\User;
 use Braintree\Gateway;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -105,6 +111,11 @@ class OrderController extends Controller
                 $product = Product::find($item->product);
                 $order->products()->attach($product->id, ['quantity' => $item->quantity]);
             }
+
+            $restaurant = Restaurant::where('id', $order->restaurant_id )->first();
+            $user = User::where('id', $restaurant->user_id )->first();
+            Mail::to($user->email)->send(new NewOrderRestaurant($order));
+            Mail::to($order->email)->send(new NewOrderCustomer ($order));
 
             return response()->json($data, 200);
 

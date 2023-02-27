@@ -221,22 +221,19 @@ body {
 }
 
 .pag-box{
-    margin-top: 10px;
+    margin-top: 1rem;
     .pagination{
         .page-item{
-            margin: 0 4px;
             .page-link{
-                background-color:#ececec !important;
-                color: #141212 !important;
-                font-weight: bold;
+                background-color:#ececec;
+                color: #141212;
                 border: 1px solid #141212;
-                // border-radius: 10px;
-                font-size: .9rem;
             }
-            .page-link.active, .active > .page-link {
-                background-color: #141212 !important;
-                color: #ececec !important;
+            &.my-active span{
+                background-color: #141212;
+                color: white;
             }
         }
     }
 }
+

@@ -53,7 +53,7 @@ export default {
                 spaceBetween: 15,
             },
             '1024': {
-                slidesPerView: 8,
+                slidesPerView: 7,
                 spaceBetween: 15,
             },
         }"
@@ -105,7 +105,7 @@ export default {
 @use "../../scss/_variables.scss" as *;
 
 .mySwiper {
-    height: 100px;
+    height: 125px;
 }
 .card {
     height: 100%;

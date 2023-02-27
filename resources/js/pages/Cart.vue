@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import CartProductList from "../components/CartProductList.vue";
+import Loader from "../components/Loader.vue"
 import { baseUrl } from "../data/data";
 import { store } from "../data/store";
 export default {
@@ -12,6 +13,7 @@ export default {
     },
     components: {
         CartProductList,
+        Loader
     },
     data() {
         return {
@@ -35,8 +37,10 @@ export default {
                 note: "",
             },
             errorMessage: "",
-            showCreditCardInput: false,
+            // store.showCreditCardInput: false,
             btnPayment: false,
+            showTransactionInEx: false,
+            showErrorMsg: false,
         };
     },
     methods: {
@@ -98,6 +102,7 @@ export default {
             this.note = "";
 
             this.btnPayment = false;
+            this.showTransactionInEx = true,
             axios
                 .post(this.makePaymentUrl, formData)
                 .then((result) => {
@@ -109,19 +114,18 @@ export default {
                 .catch((error) => {
                     if (error.response.data.status === "errorValidation") {
                         this.errorsValidation = error.response.data.errors;
-                    } else if (
-                        error.response.data.status === "errorTransaction"
-                    ) {
-                        this.errorMessage = "Transazione fallita, riprovare";
+                    } else if (error.response.data.status === "errorTransaction") {
+                        this.errorMessage = "Transazione fallita, ";
+                        this.showErrorMsg = true;
+                        this.showTransactionInEx = false;
                     } else {
                         this.errorMessage =
-                            "Si è verificato un problema, riprovare più tardi";
+                        "Si è verificato un problema, ";
+                        this.errorMessage = "Transazione fallita, ";
                     }
                 });
         },
         checkInputValidation() {
-
-
             let validation = true;
 
             this.errorsValidation = {
@@ -134,69 +138,67 @@ export default {
             }
 
             if (this.name.length < 2 || this.name.length > 50) {
-                this.showCreditCardInput = false;
+                store.showCreditCardInput = false;
                 this.errorsValidation.name = "Il nome deve essere minimo di 2 caratteri e massimo di 50 caratteri";
-                // return false;
                 validation = false;
             }
 
             if (this.surname.length < 2 || this.surname.length > 100) {
-                this.showCreditCardInput = false;
+                store.showCreditCardInput = false;
                 this.errorsValidation.surname = "Il cognome deve essere minimo di 2 caratteri e massimo di 100 caratteri";
-                // return false;
                 validation = false;
             }
 
             if (!this.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-                this.showCreditCardInput = false;
+                store.showCreditCardInput = false;
                 this.errorsValidation.email = "L\'email deve essere valida";
                 if (this.email.length < 2 || this.email.length > 50) {
-                    this.showCreditCardInput = false;
+                    store.showCreditCardInput = false;
                     this.errorsValidation.email = "L\'email deve essere valida";
-                    // return false;
                     validation = false;
                 }
-                // return false;
                 validation = false;
             }
 
             if (this.address.length < 8 || this.address.length > 100) {
-                this.showCreditCardInput = false;
+                store.showCreditCardInput = false;
                 this.errorsValidation.address = "L\'indirizzo deve essere minimo di 8 caratteri e massimo di 100 caratteri";
-                // return false;
                 validation = false;
             }
 
             if (!this.telephone.match(/^[()\s-+\d]{10,17}$/)) {
-                this.showCreditCardInput = false;
+                store.showCreditCardInput = false;
                 this.errorsValidation.telephone = "Il numero di telefono deve essere valido";
                 if (this.telephone.length < 5 || this.telephone.length > 20) {
-                    this.showCreditCardInput = false;
+                    store.showCreditCardInput = false;
                     this.errorsValidation.telephone = "Il numero di telefono deve essere valido";
-                    // return false;
                     validation = false;
                 }
-                // return false;
                 validation = false;
             }
 
             if (this.note.length > 500) {
-                this.showCreditCardInput = false;
-                // return false;
+                store.showCreditCardInput = false;
                 validation = false;
             }
 
             if (validation) {
-                this.showCreditCardInput = true;
+                store.showCreditCardInput = true;
                 this.getToken();
-                // return true;
             }
         },
+
+        removeErrorMsg(){
+            this.errorMessage = "";
+            this.btnPayment = true;
+            this.showErrorMsg = false;
+        }
     },
-    mounted() {
-        // this.getToken();
-        console.log(this.errorsValidation);
-    },
+    mounted(){
+        store.showCreditCardInput = false;
+        this.showTransactionInEx = false;
+        this.btnPayment = false;
+    }
 };
 </script>
 <template>
@@ -208,20 +210,20 @@ export default {
                 <div class="d-flex justify-content-between align-items-center fs-6 payment-top-nav">
                     <div
                         class="btn w-50"
-                        :class="!showCreditCardInput && 'active'"
-                        @click="showCreditCardInput = false"
+                        :class="!store.showCreditCardInput && 'active'"
+                        @click="store.showCreditCardInput = false"
                 >
                     <i class="fa-solid fa-user me-3"></i>Dati personali
                 </div>
                     <div
                         class="btn w-50"
-                        :class="showCreditCardInput && 'active'"
+                        :class="store.showCreditCardInput && 'active'"
                         @click="checkInputValidation()">
                         <i class="fa-solid fa-credit-card me-3"></i>Pagamento
                     </div>
                 </div>
                 <form cla id="payment-form" method="POST">
-                    <div v-if="!showCreditCardInput" class="client-data d-flex flex-column">
+                    <div v-if="!store.showCreditCardInput" class="client-data d-flex flex-column">
                         <div>
                             <input @keyup.enter="checkInputValidation()" type="text" class="form-control" required autofocus minlength="2" maxlength="50"
                             placeholder="Nome" title="Campo obbligatorio, inserire almeno 2 caratteri"
@@ -283,22 +285,29 @@ export default {
 
                     </div>
                     <div class="d-flex justify-content-end">
-                        <div v-if="!showCreditCardInput" @click="checkInputValidation()" class="btn go-to-payment"
+                        <div v-if="!store.showCreditCardInput" @click="checkInputValidation()" class="btn go-to-payment"
                             title="Procedi con l'inserimento della carta">
                             Vai al pagamento
                         </div>
                     </div>
-                    <div class="" v-show="showCreditCardInput">
+                    <div class="" v-show="store.showCreditCardInput">
                         <div id="dropin-container"></div>
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-payment" v-if="btnPayment" type="submit">
                                 Effettua Pagamento
                             </button>
                         </div>
+                        <span class="w-100 text-center">
+                            <h4 v-if="showTransactionInEx"><Loader /></h4>
+                        </span>
                         <input type="hidden" id="nonce" name="payment_method_nonce" />
                     </div>
                 </form>
-                <p v-if="errorMessage">{{ errorMessage }}</p>
+                <span class="w-100 text-center" v-if="showErrorMsg">
+                    <h4 v-if="errorMessage">{{ errorMessage }}
+                        <span @click="removeErrorMsg()" class="retry">riprovare</span>
+                    </h4>
+                </span>
             </div>
             <div class="empty-cart" v-if="cart.isEmpty()" >
                 <i class="fa-solid fa-cart-shopping"></i>
@@ -369,6 +378,14 @@ export default {
     &:hover {
         background-color: lighten($orange, 10%);
         color: $white;
+    }
+}
+
+.retry{
+    cursor: pointer;
+    text-decoration: underline;
+    &:hover{
+        color: $orange;
     }
 }
 

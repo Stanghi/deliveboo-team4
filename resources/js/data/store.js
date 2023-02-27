@@ -14,4 +14,5 @@ export const store = reactive({
     typed: false,
     btnClicked: false,
     categoryClicked: [],
+    showCreditCardInput: false,
 });

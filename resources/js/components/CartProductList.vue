@@ -127,6 +127,7 @@ export default {
                     </router-link>
                 </span>
                 <button
+                    v-if="store.showCreditCardInput == false"
                     @click="OpenCloseFun()"
                     class="btn ml-2 mx-2 fw-bolder"
                     title="Rimuovi tutti i prodotti"
@@ -157,6 +158,7 @@ export default {
                 <div class="right">
                     <div class="btn-box">
                         <button
+                            v-if="store.showCreditCardInput == false"
                             title="Rimuovi tutti i prodotti"
                             class="btn btn-trash me-2"
                             @click="deleteItem(item.product)"
@@ -164,6 +166,7 @@ export default {
                             <i class="fa-solid fa-trash"></i>
                         </button>
                         <button
+                            v-if="store.showCreditCardInput == false"
                             title="Rimuovi un prodotto"
                             class="btn"
                             @click="removeFromCart(item.product)"
@@ -174,6 +177,7 @@ export default {
                             productQuantityInCart(item.product)
                         }}</span>
                         <button
+                            v-if="store.showCreditCardInput == false"
                             title="Aggiungi un prodotto"
                             class="btn me-1"
                             @click="addToCart(item.product)"
@@ -198,20 +202,20 @@ export default {
 @use "../../scss/_variables.scss" as *;
 
 .modal-footer .annulla {
-    background-color: $white;
-    &:hover {
-        background-color: $light-gray;
-        color: $dark-gray;
-    }
-}
-
-.modal-footer .new-cart {
     background-color: $orange;
     color: $white;
 
     &:hover {
         background-color: lighten($orange, 10%);
         color: $white;
+    }
+}
+
+.modal-footer .new-cart {
+    background-color: $white;
+    &:hover {
+        background-color: $light-gray;
+        color: $dark-gray;
     }
 }
 

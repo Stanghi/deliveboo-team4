@@ -6,17 +6,36 @@
 
 @section('content')
     <div class="container">
-        <h2 class="my-5">Statistiche Ristorante</h2>
-        <div class="chart-box p-1 w-50">
-            <canvas class="my-5" id="chartOrders"></canvas>
-            <canvas class="my-5" id="chartSales"></canvas>
+        <h2 class="my-5">Statistiche Ristorante
+            @if (request()->segment(2) == 'statistics' && request()->segment(3) == '')
+                <span> - Ultimi 6 mesi</span>
+            @elseif(request()->segment(4) == 'year')
+                <span> - Anno {{ request()->segment(5) }} </span>
+            @endif
+
+        </h2>
+        <div class="years-statistics mb-4 text-center">
+            @foreach ($years as $year)
+                <a class="btn {{ request()->segment(5) == $year ? 'btn-g-active' : 'btn-outline-dark' }}"
+                    href="{{ route('admin.statisticsByYear', $year) }}">{{ $year }}</a>
+            @endforeach
+            <a class="btn {{ request()->segment(2) == 'statistics' && request()->segment(3) == '' ? 'btn-g-active' : 'btn-outline-dark' }} "
+                href="{{ route('admin.statistics') }}">Ultimi 6 mesi</a>
+        </div>
+        <div class="chart-box d-flex w-100">
+            <div class="card p-3 me-5">
+                <canvas id="chartOrders"></canvas>
+            </div>
+            <div class="card p-3">
+                <canvas id="chartSales"></canvas>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('script')
-<script>
-    const ordersByMonth = {{ Js::from($statistics_data['numb_orders_by_month']) }};
-    const salesByMonth = {{ Js::from($statistics_data['$sales_by_month']) }};
-</script>
+    <script>
+        const ordersByMonth = {{ Js::from($statistics_data['numb_orders_by_month']) }};
+        const salesByMonth = {{ Js::from($statistics_data['$sales_by_month']) }};
+    </script>
 @endsection

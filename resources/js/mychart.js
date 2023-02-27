@@ -31,13 +31,13 @@ if (
     };
 
     const configOrders = {
-        type: "line",
+        type: "bar",
         data: dataOrders,
         options: {},
     };
 
     const configSales = {
-        type: "line",
+        type: "bar",
         data: dataSales,
         options: {},
     };

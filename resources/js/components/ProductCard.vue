@@ -49,7 +49,7 @@ export default {
 </script>
 
 <template>
-    <div class="card d-flex flex-row mb-5 mx-2">
+    <div v-if="product.is_visible" class="card d-flex flex-row mb-5 mx-2">
         <div class="card-image">
             <img
                 v-if="product.img"

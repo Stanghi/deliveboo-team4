@@ -83,7 +83,6 @@
                             </a>
                             @include('admin.partials.form-delete', [
                                 'route' => 'products',
-                                'message' => "Confermi l'eliminatione di $product->title ?",
                                 'entity' => $product,
                             ])
                         </div>

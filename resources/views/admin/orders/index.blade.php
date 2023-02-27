@@ -88,7 +88,8 @@
                 <p>Nessun ordine presente</p>
             @endforelse
         </div>
-
-
+        <div class="pag-box d-flex justify-content-center">
+            {{ $orders->links() }}
+        </div>
     </div>
 @endsection

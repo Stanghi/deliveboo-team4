@@ -15,7 +15,7 @@ class OrdersTableSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
-        for($i = 0; $i < 600; $i++) {
+        for($i = 0; $i < 4000; $i++) {
             $new_order = new Order();
             $new_order->name = $faker->firstName();
             $new_order->surname = $faker->lastName();
@@ -24,7 +24,7 @@ class OrdersTableSeeder extends Seeder
             $new_order->restaurant_id = Restaurant::inRandomOrder()->first()->id;
             $new_order->address = $faker->address();
             $new_order->amount = 0;
-            $new_order->created_at = $faker->dateTimeBetween('-1 year');
+            $new_order->created_at = $faker->dateTimeBetween('-3 year');
             $new_order->save();
         }
     }

@@ -156,11 +156,22 @@ body {
 
 .chart-box {
     width: 100%;
+    .card {
+        width: 50%;
+    }
 }
 
 .nav-header-custom,
 .navbar-toggler {
     visibility: hidden;
+}
+
+.years-statistics a {
+    font-weight: bold;
+    &.btn-g-active {
+        background-color: #18a846;
+        color: #ececec;
+    }
 }
 
 @media all and (min-width: 768px) and (max-width: 1280px) {
@@ -218,22 +229,32 @@ body {
             width: 100%;
         }
     }
+
+    .chart-box {
+        flex-direction: column;
+        width: 100%;
+        .card {
+            margin-bottom: 30px;
+            width: 100%;
+        }
+    }
 }
 
-.pag-box{
+.pag-box {
     margin-top: 10px;
-    .pagination{
-        .page-item{
+    .pagination {
+        .page-item {
             margin: 0 4px;
-            .page-link{
-                background-color:#ececec !important;
+            .page-link {
+                background-color: #ececec !important;
                 color: #141212 !important;
                 font-weight: bold;
                 border: 1px solid #141212;
                 // border-radius: 10px;
-                font-size: .9rem;
+                font-size: 0.9rem;
             }
-            .page-link.active, .active > .page-link {
+            .page-link.active,
+            .active > .page-link {
                 background-color: #141212 !important;
                 color: #ececec !important;
             }

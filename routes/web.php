@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('statistics', [StatisticController::class, 'index'])->name('statistics');
+        Route::get('statistics/show/year/{year}', [StatisticController::class, 'showByYear'])->name('statisticsByYear');
         Route::resource('products', ProductController::class);
         Route::resource('restaurants', RestaurantController::class)->except('store', 'create', 'show', 'destroy');
         Route::resource('orders', OrderController::class)->except('create', 'edit', 'update', 'destroy');

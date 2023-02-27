@@ -11,8 +11,7 @@ if (
         datasets: [
             {
                 label: "Ordini ricevuti mensilmente",
-                backgroundColor: "rgb(22, 40, 88)",
-                borderColor: "#5eba7d",
+                backgroundColor: "#18a846",
                 data: ordersByMonth.total,
             },
         ],
@@ -23,9 +22,12 @@ if (
         datasets: [
             {
                 label: "Fatturato Mensile",
-                backgroundColor: "rgb(22, 40, 88)",
-                borderColor: "rgb(240, 5, 32)",
+                backgroundColor: "#1b5622",
+                borderColor: "#18a846",
                 data: salesByMonth.sales,
+                pointStyle: 'circle',
+                pointRadius: 5,
+                pointHoverRadius: 7.5
             },
         ],
     };
@@ -37,7 +39,7 @@ if (
     };
 
     const configSales = {
-        type: "bar",
+        type: "line",
         data: dataSales,
         options: {},
     };

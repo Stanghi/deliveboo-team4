@@ -17,7 +17,7 @@ export default {
 
 <template>
     <div class="container home-container mb-5">
-        <h2 class="mb-5">Cerca per categoria o per ristorante</h2>
+        <h2 class="mb-5">Cerca un ristorante per categoria o per nome</h2>
         <Category class="mb-5" />
         <SearchBar class="mb-5" />
         <RestaurantsCards />

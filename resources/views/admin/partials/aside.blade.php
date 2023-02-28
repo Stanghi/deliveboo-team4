@@ -8,17 +8,17 @@
             </a>
         </li>
 
-        <li class="{{ request()->segment(2) == 'orders' ? 'active' : '' }}">
-            <a href="{{ route('admin.orders.index') }}">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>Ordini</span>
-            </a>
-        </li>
-
         <li class="{{ request()->segment(2) == 'products' ? 'active' : '' }}">
             <a href="{{ route('admin.products.index') }}">
                 <i class="fa-solid fa-pizza-slice"></i>
                 <span>Prodotti</span>
+            </a>
+        </li>
+
+        <li class="{{ request()->segment(2) == 'orders' ? 'active' : '' }}">
+            <a href="{{ route('admin.orders.index') }}">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Ordini</span>
             </a>
         </li>
 

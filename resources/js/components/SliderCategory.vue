@@ -124,6 +124,7 @@ export default {
             text-overflow: ellipsis;
             overflow: hidden;
             color: $dark-gray;
+            line-height: 1.5rem;
         }
         .fa-check {
             display: none;

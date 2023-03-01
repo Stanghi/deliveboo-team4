@@ -5,10 +5,10 @@
 </style>
 
 <h3>Hai ricevuto un nuovo ordine!</h3>
-<p style="text-trasform: capitalize; margin-top: 20px;">Cliente: {{ $order->name }} {{ $order->surname }}.</p>
+<p style="text-trasform: capitalize; margin-top: 20px;">Cliente: <span style="text-transform: capitalize;">{{ $order->name }}</span> <span style="text-transform: capitalize;">{{ $order->surname }}</span>.</p>
 <p>L'ordine deve essere consegnato presso {{ $order->address }}.</p>
 @if ($order->note)
-    <p style="margin-top: 20px;">Note dal cliente: {{ $order->note }}</p>
+    <p style="margin-top: 20px;">Note dal cliente: <span style="text-transform: capitalize;">{{ $order->note }}</span>.</p>
 @endif
 <div style="margin-top: 30px; text-align: center;">
     <a style="text-align: center; text-decoration: none; font-weight:bold; padding: 10px; border-radius: 10px; background-color:#f15a25; color:#ffffff;"
